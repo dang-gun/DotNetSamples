@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.161
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiPascalCase", "WebApiPascalCase\WebApiPascalCase.csproj", "{9EB8DD25-B335-4DCF-A677-40EC71ECBADA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9EB8DD25-B335-4DCF-A677-40EC71ECBADA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EB8DD25-B335-4DCF-A677-40EC71ECBADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EB8DD25-B335-4DCF-A677-40EC71ECBADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EB8DD25-B335-4DCF-A677-40EC71ECBADA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5CBB7027-9855-46CE-8FFA-32A9E65217FF}
+	EndGlobalSection
+EndGlobal
