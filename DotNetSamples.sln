@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiPascalCase", "WebApiP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumBitFlags", "EnumBitFlags\EnumBitFlags.csproj", "{629786A6-72F9-4747-A928-ECAA4F41614B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SammyJs_Test", "SammyJs_Test\SammyJs_Test.csproj", "{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{629786A6-72F9-4747-A928-ECAA4F41614B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{629786A6-72F9-4747-A928-ECAA4F41614B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{629786A6-72F9-4747-A928-ECAA4F41614B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

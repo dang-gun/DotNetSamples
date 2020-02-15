@@ -1,0 +1,18 @@
+﻿
+<a href="#/test1">테스트1</a>
+<br />
+<br />
+<a href="#/test2">테스트2</a>
+<br />
+<br />
+<a href="#/test1">파라메타 넘기기 테스트</a>
+<br />
+<input type="text" id="txtID" /> <button onclick="btnID_onclick()">입력완료</button>
+<br />
+
+<script>
+    function btnID_onclick() {
+        location.href = "#/param/" + $("#txtID").val();
+    }
+
+</script>
