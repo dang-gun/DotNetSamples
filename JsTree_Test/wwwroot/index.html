@@ -1,0 +1,131 @@
+﻿<!doctype html>
+
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link rel="stylesheet" href="/Library/jsTree/3.3.9/themes/default/style.min.css" />
+
+    <!-- jquery 3.4.1 -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <!-- jsTree -->
+    <script src="/Library/jsTree/3.3.9/jstree.min.js"></script>
+
+    <script>
+        
+    </script>
+</head>
+
+<body>
+    <h2>jsTree 테스트</h2>
+    <br />
+    <button onclick="Test01();">기본 테스트</button>
+    <button onclick="Test02();">아작스 테스트</button>
+    <button onclick="Test03();">새로고침</button>
+    <br />
+    <br />
+    <div id="jstree">
+
+    </div>
+
+    <script>
+        $(function ()
+        {
+
+        });
+
+        /** 로컬 json 파일을 읽어 사용해 테스트 */
+        function Test01()
+        {
+            $("#jstree").empty().jstree ("destroy");
+
+            //jsTree
+            $("#jstree").jstree({
+                "core": {
+                    "data": {
+                        "url": function (node)
+                        {
+                            var sUri = "";
+
+                            switch (node.id)
+                            {
+                                case "#":
+                                    sUri = "/TestData/root.json";
+                                    break;
+                                case "1":
+                                    sUri = "/TestData/children.json";
+                                    break;
+                                case "3":
+                                    sUri = "/TestData/children2.json";
+                                    break;
+
+                            }
+
+                            return sUri;
+                        },
+                        "data": function (node)
+                        {
+                            return { "id": node.id };
+                        }
+                    }
+                }
+            });
+
+
+            //노드 클릭 이벤트
+            $("#jstree").on("changed.jstree", function (e, data)
+            {
+                console.log(data.selected);
+            });
+        }
+
+        /** api 콜을 활용한  */
+        function Test02()
+        {
+            $("#jstree").empty().jstree ("destroy");
+
+            //jsTree
+            $("#jstree").jstree({
+                "core": {
+                    "data": {
+                        "url": function (node)
+                        {
+                            var sUri = "/api/JsTree/ListGet";
+
+                            return sUri;
+                        },
+                        "data": function (node)
+                        {
+                            var sId = 0;
+
+                            if (node.id === "#")
+                            {
+                                sId += 0;
+                            }
+                            else
+                            {
+                                sId += node.id;
+                            }
+
+                            return { "nId": sId };
+                        }
+                    }
+                }
+            });
+
+
+            //노드 클릭 이벤트
+            $("#jstree").on("changed.jstree", function (e, data)
+            {
+                console.log(data.selected);
+            });
+        }
+
+        function Test03()
+        {
+            $("#jstree").jstree("refresh");
+        }
+    </script>
+</body>
+</html>
