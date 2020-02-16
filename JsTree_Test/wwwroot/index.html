@@ -23,6 +23,7 @@
     <button onclick="Test01();">기본 테스트</button>
     <button onclick="Test02();">아작스 테스트</button>
     <button onclick="Test03();">새로고침</button>
+    <button onclick="Test04();">1번 노드 새로고침</button>
     <br />
     <br />
     <div id="jstree">
@@ -38,7 +39,7 @@
         /** 로컬 json 파일을 읽어 사용해 테스트 */
         function Test01()
         {
-            $("#jstree").empty().jstree ("destroy");
+            $("#jstree").empty().jstree("destroy");
 
             //jsTree
             $("#jstree").jstree({
@@ -83,7 +84,7 @@
         /** api 콜을 활용한 바인딩 */
         function Test02()
         {
-            $("#jstree").empty().jstree ("destroy");
+            $("#jstree").empty().jstree("destroy");
 
             //jsTree
             $("#jstree").jstree({
@@ -126,6 +127,15 @@
         function Test03()
         {
             $("#jstree").jstree("refresh");
+        }
+
+        /** 노드 새로고침 */
+        function Test04()
+        {
+            //갱신할 노드 선택
+            var node = $("#jstree").jstree(true).get_node(1);
+            //선택된 노드를 갱신한다.
+            $("#jstree").jstree(true).refresh_node(node);
         }
     </script>
 </body>
