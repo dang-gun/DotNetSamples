@@ -43,5 +43,34 @@ namespace JsTree_Test.Controllers
 
             return listChildren.ToArray();
         }
+
+        [HttpGet]
+        [Route("DataGet")]
+        public ActionResult<JsTreeResultModel> DataGet(int nId)
+        {
+            List<JsTreeItemModel> listChildren = new List<JsTreeItemModel>();
+
+            switch (nId)
+            {
+                case 0:
+                    listChildren.Add(new JsTreeItemModel { id = "1", text = "ajax 1", children = true });
+                    listChildren.Add(new JsTreeItemModel { id = "2", text = "ajax 2", children = false });
+                    break;
+
+                case 1:
+                    listChildren.Add(new JsTreeItemModel { id = "3", text = "ajax 3", children = false });
+                    listChildren.Add(new JsTreeItemModel { id = "4", text = "ajax 4", children = true });
+                    listChildren.Add(new JsTreeItemModel { id = "5", text = "ajax 5", children = false });
+                    break;
+
+                case 4:
+                    listChildren.Add(new JsTreeItemModel { id = "6", text = "ajax 6", children = false });
+                    listChildren.Add(new JsTreeItemModel { id = "7", text = "ajax 7", children = false });
+                    break;
+            }
+
+
+            return new JsTreeResultModel { data = listChildren.ToArray(), Success = 1 };
+        }
     }
 }

@@ -24,6 +24,7 @@
     <button onclick="Test02();">아작스 테스트</button>
     <button onclick="Test03();">새로고침</button>
     <button onclick="Test04();">1번 노드 새로고침</button>
+    <button onclick="Test05();">직접 바인딩</button>
     <br />
     <br />
     <div id="jstree">
@@ -136,6 +137,57 @@
             var node = $("#jstree").jstree(true).get_node(1);
             //선택된 노드를 갱신한다.
             $("#jstree").jstree(true).refresh_node(node);
+        }
+
+        /** api 콜을 활용하여 직접 바인딩 */
+        function Test05()
+        {
+            $("#jstree").empty().jstree("destroy");
+
+            //jsTree
+            $("#jstree").jstree({
+                "core": {
+                    "data": {
+                        "url": function (node)
+                        {
+                            var sUri = "/api/JsTree/DataGet";
+
+                            return sUri;
+                        },
+                        "data": function (node)
+                        {
+                            var sId = 0;
+
+                            if (node.id === "#")
+                            {
+                                sId += 0;
+                            }
+                            else
+                            {
+                                sId += node.id;
+                            }
+
+                            return { "nId": sId };
+                        },
+
+                        "dataFilter": function(data, type)
+                        {
+                            //데이터 분리
+                            var jsonData = jQuery.parseJSON(data);
+                            //jsTree 트리로 전달할 데이터 다시 만들기
+                            var sData = JSON.stringify(jsonData.data);
+                            return sData;
+                        }
+                    }
+                }
+            });
+
+
+            //노드 클릭 이벤트
+            $("#jstree").on("changed.jstree", function (e, data)
+            {
+                console.log(data.selected);
+            });
         }
     </script>
 </body>
