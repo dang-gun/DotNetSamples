@@ -5,11 +5,15 @@ VisualStudioVersion = 16.0.29519.161
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiPascalCase", "WebApiPascalCase\WebApiPascalCase.csproj", "{9EB8DD25-B335-4DCF-A677-40EC71ECBADA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumBitFlags", "EnumBitFlags\EnumBitFlags.csproj", "{629786A6-72F9-4747-A928-ECAA4F41614B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumBitFlags", "EnumBitFlags\EnumBitFlags.csproj", "{629786A6-72F9-4747-A928-ECAA4F41614B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SammyJs_Test", "SammyJs_Test\SammyJs_Test.csproj", "{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SammyJs_Test", "SammyJs_Test\SammyJs_Test.csproj", "{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsTree_Test", "JsTree_Test\JsTree_Test.csproj", "{EB00B35D-F90E-4ECB-9F21-35E755385A4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsTree_Test", "JsTree_Test\JsTree_Test.csproj", "{EB00B35D-F90E-4ECB-9F21-35E755385A4A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "i18next_Test", "i18next_Test\i18next_Test.csproj", "{07E33192-8CCF-4D8D-8FC3-1E58AD5B1E11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localize_WinFormsLocalizeAuto", "Localize_WinFormsLocalizeAuto\Localize_WinFormsLocalizeAuto.csproj", "{68D127E8-5898-4012-89D9-10B3F343C5D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{EB00B35D-F90E-4ECB-9F21-35E755385A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB00B35D-F90E-4ECB-9F21-35E755385A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB00B35D-F90E-4ECB-9F21-35E755385A4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07E33192-8CCF-4D8D-8FC3-1E58AD5B1E11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07E33192-8CCF-4D8D-8FC3-1E58AD5B1E11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07E33192-8CCF-4D8D-8FC3-1E58AD5B1E11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07E33192-8CCF-4D8D-8FC3-1E58AD5B1E11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68D127E8-5898-4012-89D9-10B3F343C5D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68D127E8-5898-4012-89D9-10B3F343C5D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68D127E8-5898-4012-89D9-10B3F343C5D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68D127E8-5898-4012-89D9-10B3F343C5D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

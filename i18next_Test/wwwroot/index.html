@@ -1,0 +1,89 @@
+﻿<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <!-- jquery 3.4.1 -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/19.5.1/i18next.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next-xhr-backend/3.2.2/i18nextXHRBackend.js"></script>
+
+
+
+</head>
+
+<body>
+    <select id="lang-select" onchange="i18next.changeLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="ko">Korean</option>
+        <option value="fr">French</option>
+        <option value="jp">Japan</option>
+    </select>
+    <h1 id="title"></h1>
+    <p id="content"></p>
+
+    <script>
+        //https://codingbroker.tistory.com/79
+        i18next
+            .init(
+                {
+                    lng: "en",
+                    fallbackLng: "en",
+                    debug: true,
+                    backend: {
+                        // for all available options read the backend's repository readme file
+                        loadPath: '/locales/lang_{{lng}}.json'
+                    },
+                    resources: {
+                        en: "lang_en.json",
+                        jp: {
+                            translation: "lang_jp.json"
+                        },
+                        ko: {
+                            translation: {
+                                title: "안녕하세요",
+                                content: "좋은 하루 되세요"
+                            }
+                        },
+                        fr: {
+                            translation: {
+                                title: "Bonjour",
+                                content: "Passez une bonne journée!"
+                            }
+                        }
+                    }
+                },
+            function (err, t)
+            {
+                if (err)
+                {
+                    console.error(err);
+                } else
+                {
+                    updateContent();
+                }
+            }
+        );
+
+        function updateContent()
+        {
+            document.getElementById("title").innerHTML = i18next.t("title");
+            document.getElementById("content").innerHTML = i18next.t("content");
+        }
+
+        i18next.on("languageChanged", () =>
+        {
+            updateContent();
+        });
+    </script>
+</body>
+
+</html>
