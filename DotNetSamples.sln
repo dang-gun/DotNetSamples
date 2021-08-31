@@ -13,9 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsTree_Test", "JsTree_Test\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "i18next_Test", "i18next_Test\i18next_Test.csproj", "{07E33192-8CCF-4D8D-8FC3-1E58AD5B1E11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localize_WinFormsLocalizeAuto", "Localize_WinFormsLocalizeAuto\Localize_WinFormsLocalizeAuto.csproj", "{68D127E8-5898-4012-89D9-10B3F343C5D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Localize_WinFormsLocalizeAuto", "Localize_WinFormsLocalizeAuto\Localize_WinFormsLocalizeAuto.csproj", "{68D127E8-5898-4012-89D9-10B3F343C5D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localize_Resource", "Localize_Resource\Localize_Resource.csproj", "{2D36F733-6BE0-442F-847C-B7D6A8450963}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Localize_Resource", "Localize_Resource\Localize_Resource.csproj", "{2D36F733-6BE0-442F-847C-B7D6A8450963}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Localize_WinFormsResourceShift", "Localize_WinFormsResourceShift\Localize_WinFormsResourceShift.csproj", "{AC6E3937-13B8-48BB-AB60-7CDED4148F12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfHost", "SelfHost\SelfHost.csproj", "{9FF210CA-DA69-4543-9E8A-996BEE0BC7D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +55,14 @@ Global
 		{2D36F733-6BE0-442F-847C-B7D6A8450963}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D36F733-6BE0-442F-847C-B7D6A8450963}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D36F733-6BE0-442F-847C-B7D6A8450963}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC6E3937-13B8-48BB-AB60-7CDED4148F12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC6E3937-13B8-48BB-AB60-7CDED4148F12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC6E3937-13B8-48BB-AB60-7CDED4148F12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC6E3937-13B8-48BB-AB60-7CDED4148F12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FF210CA-DA69-4543-9E8A-996BEE0BC7D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FF210CA-DA69-4543-9E8A-996BEE0BC7D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FF210CA-DA69-4543-9E8A-996BEE0BC7D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FF210CA-DA69-4543-9E8A-996BEE0BC7D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
