@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Globalization;
 using Localize_Resource.Resource;
 
 namespace Localize_Resource
@@ -22,7 +21,7 @@ namespace Localize_Resource
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.ChangeCulture("en");
+            this.ChangeCulture("");
         }
 
         private void btnEnglish_Click(object sender, EventArgs e)
@@ -35,6 +34,10 @@ namespace Localize_Resource
             this.ChangeCulture("ko");
         }
 
+        /// <summary>
+        /// 언어 변경
+        /// </summary>
+        /// <param name="sCulture">변경할 언어-국가코드</param>
         public void ChangeCulture(string sCulture)
         {
             Thread.CurrentThread.CurrentCulture

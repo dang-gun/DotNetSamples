@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,6 +16,12 @@ namespace Localize_WinFormsResourceShift
     {
         public Form2(string sCulture)
         {
+            sCulture = "jp";
+            using (IResourceWriter writer = new ResourceWriter("Form2.jp.resx"))
+            {
+                writer.AddResource("label1.Text", "First String");
+            }
+
             Thread.CurrentThread.CurrentCulture
                 = new System.Globalization.CultureInfo(sCulture);
             Thread.CurrentThread.CurrentUICulture

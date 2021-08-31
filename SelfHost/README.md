@@ -1,9 +1,11 @@
-# DotNetSamples<br />
-간단한 닷넷 셈플용<br />
+# SelfHost<br />
 <br />
 <br />
-### WebApiPascalCase<br />
-[ASP.NET Core 2] 'WebAPI'에서 결과를 'PascalCase'로 주기<br />
-https://blog.danggun.net/7723<br />
+<br />
+### SelfHost<br />
+[C#] 응용프로그램(WinForm, WPF ...)에서 웹호스팅 하기(Self Host)<br />
+https://danggun.tistory.com/9327 <br />
 <br />
 <br />
+이 포스팅에서는 응용프로그램(WinForm, WPF ...)에서 ASP.NET를 포함한 웹 서비스를 재공하는 방법을 다룹니다.<br />
+퍼블리싱된 파일을 서비스하는것이 아닙니다.<br />

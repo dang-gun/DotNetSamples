@@ -21,6 +21,7 @@ namespace Localize_WinFormsResourceShift
             //설정 읽기
             this.Config_Load();
 
+
             Thread.CurrentThread.CurrentCulture
                 = new System.Globalization.CultureInfo(this._Config.Language);
             Thread.CurrentThread.CurrentUICulture
