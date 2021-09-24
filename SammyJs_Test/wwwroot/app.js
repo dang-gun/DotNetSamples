@@ -9,6 +9,11 @@ var app = Sammy(function () {
     //    location.href = "#/";
     //});
 
+    this.get("/", function ()
+    {
+        //인덱스 페이지
+        $("#divMain").load("/pages/index.html");
+    });
     this.get("#/", function () {
         //인덱스 페이지
         $("#divMain").load("/pages/index.html");
