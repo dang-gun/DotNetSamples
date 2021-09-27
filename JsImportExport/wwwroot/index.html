@@ -1,0 +1,33 @@
+﻿<!doctype html>
+
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    
+</head>
+
+<body>
+    <h2>javascript Import/Export Test</h2>
+    <br />
+    <button onclick="app.ChangeTarget(1);">Test01 생성</button>
+    <button onclick="app.ChangeTarget(2);">Test02 생성</button>
+    <br />
+    <br />
+    <br />
+    <button onclick="app.CallTarget()">메시지 호출</button>
+    <br />
+    <br />
+
+    <script type="module">
+        import { TestStart } from "/TestStart.js?v=100";
+
+        //전역 스코프에 개체 저장
+        window.app = new TestStart();
+    </script>
+    <script>
+        //var app = window.app;
+    </script>
+</body>
+</html>
