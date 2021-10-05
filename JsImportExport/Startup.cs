@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -35,10 +38,21 @@ namespace JsImportExport
                 app.UseDeveloperExceptionPage();
             }
 
+            var provider = new FileExtensionContentTypeProvider();
+            //provider.Mappings[".json"] = "application/json";
+            //provider.Mappings[".json"] = "application/json;charsetutf-8";
+
+
             //웹사이트 기본파일 읽기 설정
             app.UseDefaultFiles();
             //wwwroot 파일읽기
-            app.UseStaticFiles();
+            app.UseStaticFiles(
+                new StaticFileOptions
+                {
+                    ContentTypeProvider = provider
+                });
+
+
 
             //3.0 api 라우트
             app.UseRouting();

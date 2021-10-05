@@ -1,5 +1,4 @@
-﻿
-export function Test02()
+﻿export function Test02()
 {
 }
 

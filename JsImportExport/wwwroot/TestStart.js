@@ -1,11 +1,17 @@
 ﻿
 import { Test01 } from "/Test01.js";
-import { Test02 } from "/Test02.js";
+import { Test02 as Test02 } from "/Test02.js";
+import { Test03, Test04 } from "/Test0304.js";
 
-
+//import jsondata from "/TestJson.json";
+//import { jsondata } from "/TestJson.json";
+// Blink 엔진 사용 브라우저만 동작함(91 버전 이상)
+// 크롬, 엣지에서 확인(파이어폭스 동작안함)
+import jsondata from "/TestJson.json" assert { type: "json" };
 
 export function TestStart()
 {
+    console.log(jsondata);
 }
 
 /** 생성한 오브젝트를 넣어둘 대상 */
@@ -26,6 +32,12 @@ TestStart.prototype.ChangeTarget = function (nTarget)
             break;
         case 2:
             objThis.objTarget = new Test02();
+            break;
+        case 3:
+            objThis.objTarget = new Test03();
+            break;
+        case 4:
+            objThis.objTarget = new Test04();
             break;
     }
 
