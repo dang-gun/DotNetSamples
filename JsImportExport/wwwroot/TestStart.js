@@ -9,9 +9,12 @@ import { Test03, Test04 } from "/Test0304.js";
 // 크롬, 엣지에서 확인(파이어폭스 동작안함)
 import jsondata from "/TestJson.json" assert { type: "json" };
 
+//import htmlData from "/TestHtml.html" assert { type: "html" };
+
 export function TestStart()
 {
     console.log(jsondata);
+    //console.log(htmlData);
 }
 
 /** 생성한 오브젝트를 넣어둘 대상 */
