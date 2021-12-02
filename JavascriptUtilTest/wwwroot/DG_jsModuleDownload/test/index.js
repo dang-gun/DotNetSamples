@@ -11,16 +11,16 @@ function TestStart()
         = new DG_jsModuleDownload(
             [
                 {
-                    downloadcallback: function (data) { sD01 = data; }
-                    , url: "../test/Download01.html"
+                    url: "../test/Download01.html"
+                    , downloadcallback: function (data) { sD01 = data; }
                 },
                 {
-                    downloadcallback: function (data) { sD02 = data; }
-                    , url: "../test/Download02.json"
+                    url: "../test/Download02.json"
+                    , downloadcallback: function (data) { sD02 = data; }
                 },
                 {
-                    downloadcallback: function (data) { sD03 = data; }
-                    , url: "../test/Download03.js"
+                    url: "../test/Download03.js"
+                    , downloadcallback: function (data) { sD03 = data; }
                 }
             ]
             , function ()

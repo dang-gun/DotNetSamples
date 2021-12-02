@@ -11,7 +11,7 @@
 /**
  * 모듈 다운로드 기능을 생성하고 다운로드를 진행한다.
  * @param {Array} arrItmeJson 다운로드 받을 아이템 배열.
- * 구조 = [{downloadcallback: function(data){}, url:"다운로드할 Url"}]
+ * 구조 = [url:"다운로드할 Url", {downloadcallback: function(data){}}]
  * @param {Function} funCompltCallback 리스트의 모든 아이템의 다운로드가 끝나면 전달될 콜백
  */
 function DG_jsModuleDownload(
@@ -24,6 +24,8 @@ function DG_jsModuleDownload(
 
 /** 처리가 완료되면 전달할 콜백 */
 DG_jsModuleDownload.prototype.CompltCallback = null;
+/** 첫 완료가 되었는지 여부  */
+DG_jsModuleDownload.prototype.bFristComplt = false;
 
 /** 전달받은 데이터를 백업한다. */
 DG_jsModuleDownload.prototype.ItemList = null;
@@ -32,7 +34,7 @@ DG_jsModuleDownload.prototype.ItemList = null;
 /**
  * 모듈 다운로드 기능을 생성하고 다운로드를 진행한다.
  * @param {any} arrItmeJson 다운로드 받을 아이템 리스트(2중 배열).
- * 구조 = [{downloadcallback: function(data){}, url:"다운로드할 Url"}]
+ * 구조 = [url:"다운로드할 Url", {downloadcallback: function(data){}}]
  * @param {Function} funCompltCallback 리스트의 모든 아이템의 다운로드가 끝나면 전달될 콜백
  */
 DG_jsModuleDownload.prototype.ModuleDownload = function (
@@ -91,6 +93,13 @@ DG_jsModuleDownload.prototype.AjaxCompltCheck = function ()
 {
     let objThis = this;
 
+    if (true === objThis.bFristComplt)
+    {//이미 완료체크가 됐다.
+        //더 이상 체크가 필요 없다.
+        return;
+    }
+
+
     let bComplt = true;
 
     for (let i = 0; i < objThis.ItemList.length; ++i)
@@ -103,8 +112,10 @@ DG_jsModuleDownload.prototype.AjaxCompltCheck = function ()
         }
     }
 
-    if (true === bComplt)
+    if ((true === bComplt)
+        && (false === objThis.bFristComplt))
     {//다운로드가 완료됨
+
         //완료 알림
         objThis.CompltCallback();
     }
