@@ -8,7 +8,7 @@ function TestStart()
     let sD03 = "";
 
     dgMD
-        = new DG_jsModuleDownload(
+        = new DG_jsModuleLoad(
             [
                 {
                     url: "../test/Download01.html"

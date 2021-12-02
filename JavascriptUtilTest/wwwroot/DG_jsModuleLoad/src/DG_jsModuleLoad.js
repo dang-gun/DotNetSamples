@@ -14,7 +14,7 @@
  * 구조 = [url:"다운로드할 Url", {downloadcallback: function(data){}}]
  * @param {Function} funCompltCallback 리스트의 모든 아이템의 다운로드가 끝나면 전달될 콜백
  */
-function DG_jsModuleDownload(
+function DG_jsModuleLoad(
     arrItmeJson
     , funCompltCallback)
 {
@@ -23,12 +23,12 @@ function DG_jsModuleDownload(
 }
 
 /** 처리가 완료되면 전달할 콜백 */
-DG_jsModuleDownload.prototype.CompltCallback = null;
+DG_jsModuleLoad.prototype.CompltCallback = null;
 /** 첫 완료가 되었는지 여부  */
-DG_jsModuleDownload.prototype.bFristComplt = false;
+DG_jsModuleLoad.prototype.bFristComplt = false;
 
 /** 전달받은 데이터를 백업한다. */
-DG_jsModuleDownload.prototype.ItemList = null;
+DG_jsModuleLoad.prototype.ItemList = null;
 
 
 /**
@@ -37,7 +37,7 @@ DG_jsModuleDownload.prototype.ItemList = null;
  * 구조 = [url:"다운로드할 Url", {downloadcallback: function(data){}}]
  * @param {Function} funCompltCallback 리스트의 모든 아이템의 다운로드가 끝나면 전달될 콜백
  */
-DG_jsModuleDownload.prototype.ModuleDownload = function (
+DG_jsModuleLoad.prototype.ModuleDownload = function (
     arrItmeJson
     , funCompltCallback)
 {
@@ -89,7 +89,7 @@ DG_jsModuleDownload.prototype.ModuleDownload = function (
 };
 
 /** Ajax 완료 체크 */
-DG_jsModuleDownload.prototype.AjaxCompltCheck = function ()
+DG_jsModuleLoad.prototype.AjaxCompltCheck = function ()
 {
     let objThis = this;
 
@@ -125,7 +125,7 @@ DG_jsModuleDownload.prototype.AjaxCompltCheck = function ()
  * ajax 호출
  * @param {any} jsonData 호출에 사용할 데이터. jquery.ajax와 같은 구조임.
  */
-DG_jsModuleDownload.prototype.Ajax = function (jsonData)
+DG_jsModuleLoad.prototype.Ajax = function (jsonData)
 {
     //옵션 합치기
     let jsonDataTemp
