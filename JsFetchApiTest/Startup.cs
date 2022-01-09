@@ -32,14 +32,18 @@ namespace JsFetchApiTest
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
+
+            //3.0 api 라우트
+            app.UseRouting();
 
             //웹사이트 기본파일 읽기 설정
             app.UseDefaultFiles();
             //wwwroot 파일읽기
             app.UseStaticFiles();
-
-            //3.0 api 라우트
-            app.UseRouting();
 
             //3.0 api 라우트 끝점
             app.UseEndpoints(endpoints =>

@@ -1,10 +1,5 @@
 ﻿<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!-->
 <html class="no-js" lang="en">
-<!--<![endif]-->
 
 <head>
     <meta charset="utf-8">
@@ -13,6 +8,7 @@
     <meta http-equiv="Cache-control" content="no-cache">
     <link rel="shortcut icon" href="/favicon.ico">
 
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
     <script src="index.js"></script>
     <script src="AjaxAssistType.js"></script>
     <script src="AjaxAssist2.js"></script>
@@ -22,18 +18,63 @@
 
 <body>
     <h1>Javascript Fetch API Test</h1>
+    <br />
+    <br />
+    <br />
+    <button onclick="JsonFileLoad()">json 파일 읽기</button>
+    <br />
+    <br />
+    <input type="text" id="txtDelay" value="3000" /><button onclick="ApiDelay()">딜레이 호출</button>
 
     <script>
         //https://developer.mozilla.org/ko/docs/Web/API/Fetch_API
         //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
         //https://developer.mozilla.org/en-US/docs/Web/API/fetch
+        //https://ko.javascript.info/fetch
 
-        AA2.call(AA2.TokenRelayType.None
-            , {
-                url: "/TestData.json",
-                type: AjaxAssist.AjaxType.Get,
-                data: {},
-            });
+        function JsonFileLoad()
+        {
+            AA2.get(AjaxAssist.TokenRelayType.None
+                , {
+                    url: "/TestData.json",
+                    data: {},
+
+                    success: function (data, textStatus, response)
+                    {
+                        console.log("<<<<<< 성공 >>>>>>");
+                        console.log(JSON.parse(data));
+                    },
+                    error: function (response, textStatus, errorThrown)
+                    {
+                        console.log("<<<<<< 에러 >>>>>>");
+                        console.log(response);
+                    },
+                });
+        }
+
+        /** 딜레이 api 호출 */
+        function ApiDelay()
+        {
+            var nDelay = $("#txtDelay").val();
+
+            AA2.get(AjaxAssist.TokenRelayType.None
+                , {
+                    url: "/api/Test/Delay",
+                    data: { nDelay: nDelay},
+
+                    success: function (data, textStatus, response)
+                    {
+                        console.log("<<<<<< 성공 >>>>>>");
+                        console.log(JSON.parse(data));
+                    },
+                    error: function (response, textStatus, errorThrown)
+                    {
+                        console.log("<<<<<< 에러 >>>>>>");
+                        console.log(response);
+                    },
+                });
+        }
+
     </script>
 </body>
 </html>

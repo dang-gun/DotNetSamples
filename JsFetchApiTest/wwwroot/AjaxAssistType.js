@@ -3,12 +3,21 @@ var AjaxAssist = {};
 
 /** 아작스 요청 타입 */
 AjaxAssist.AjaxType = {
+    /** 검색 */
     Get: "GET",
+    /** 생성 */
     Post: "POST",
+    /** 수정(전체) */
     Put: "PUT",
+    /** 수정(일부) */
     Patch: "PATCH",
-    Delete: "DELETE"
+    /** 삭제 */
+    Delete: "DELETE",
+    /** 검색(바디 없음) */
+    Head: "HEAD",
 };
+
+
 
 /** 아작스 요청시 토큰을 어떻게 처리할지 여부 */
 AjaxAssist.TokenRelayType = {
