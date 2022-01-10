@@ -1,8 +1,21 @@
-﻿/**
+﻿/*
  * 이 프로젝트에서 자주쓰는 아작스 호출 형식을 미리 정의 한다.
  * 
  * 응답에 대기하려면 await를 사용한다.(jsonOption.await을 false 로 줘야 한다.)
  */
+
+
+/**
+ * AjaxAssist2에서 에러가 발생할때 
+ * @param {any} responseAjaxResult
+ */
+function ErrorAA2(responseAjaxResult)
+{
+    this.response = responseAjaxResult;
+    this.status = this.response.status;
+    this.statusText = this.response.statusText;;
+    this.stack = (new Error()).stack;
+}
 
 var AA2 = {};
 
@@ -30,11 +43,11 @@ AA2.get = async function (typeToken, jsonOption)
     jsonOption.method = AjaxAssist.AjaxType.Get;
     if (false === jsonOption.await)
     {//응답 대기
-        await AA2.call(typeToken, jsonOption);
+        return await AA2.call(typeToken, jsonOption);
     }
     else
     {
-        AA2.call(typeToken, jsonOption);
+        return AA2.call(typeToken, jsonOption);
     }
 };
 /**
@@ -47,11 +60,11 @@ AA2.post = async function (typeToken, jsonOption)
     jsonOption.method = AjaxAssist.AjaxType.Post;
     if (false === jsonOption.await)
     {//응답 대기
-        await AA2.call(typeToken, jsonOption);
+        return await AA2.call(typeToken, jsonOption);
     }
     else
     {
-        AA2.call(typeToken, jsonOption);
+        return AA2.call(typeToken, jsonOption);
     }
 };
 /**
@@ -64,11 +77,11 @@ AA2.put = async function (typeToken, jsonOption)
     jsonOption.method = AjaxAssist.AjaxType.Put;
     if (false === jsonOption.await)
     {//응답 대기
-        await AA2.call(typeToken, jsonOption);
+        return await AA2.call(typeToken, jsonOption);
     }
     else
     {
-        AA2.call(typeToken, jsonOption);
+        return AA2.call(typeToken, jsonOption);
     }
 };
 /**
@@ -81,11 +94,11 @@ AA2.patch = async function (typeToken, jsonOption)
     jsonOption.method = AjaxAssist.AjaxType.Patch;
     if (false === jsonOption.await)
     {//응답 대기
-        await AA2.call(typeToken, jsonOption);
+        return await AA2.call(typeToken, jsonOption);
     }
     else
     {
-        AA2.call(typeToken, jsonOption);
+        return AA2.call(typeToken, jsonOption);
     }
 };
 /**
@@ -98,11 +111,11 @@ AA2.delete = async function (typeToken, jsonOption)
     jsonOption.method = AjaxAssist.AjaxType.Delete;
     if (false === jsonOption.await)
     {//응답 대기
-        await AA2.call(typeToken, jsonOption);
+        return await AA2.call(typeToken, jsonOption);
     }
     else
     {
-        AA2.call(typeToken, jsonOption);
+        return AA2.call(typeToken, jsonOption);
     }
 };
 
@@ -157,9 +170,11 @@ AA2.call = async function (typeToken, jsonOption)
         }
         else
         {//실패
+            let errorAA2 = new ErrorAA2(responseAjaxResult);
             jsonOpt.error(
-                responseAjaxResult
-                , responseAjaxResult.status
+                errorAA2.response
+                , errorAA2.statusText
+                , errorAA2
             );
         }
         
@@ -176,10 +191,7 @@ AA2.call = async function (typeToken, jsonOption)
                     }
                     else
                     {
-                        jsonOpt.error(
-                            responseAjaxResult
-                            , responseAjaxResult.status
-                        );
+                        throw new ErrorAA2(response);
                     }
                 })
                 .then(function (sData)
@@ -188,6 +200,14 @@ AA2.call = async function (typeToken, jsonOption)
                         sData
                         , responseAjaxResult.status
                         , responseAjaxResult);
+                })
+                .catch(function (errorAA2)
+                {
+                    jsonOpt.error(
+                        errorAA2.response
+                        , errorAA2.statusText
+                        , errorAA2
+                    );
                 });
     }
 
