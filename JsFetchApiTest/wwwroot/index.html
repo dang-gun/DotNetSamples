@@ -32,8 +32,11 @@
     <br />
     <br />
     delay : <input type="text" id="txtDelay" value="3000" /><br />
-    <button onclick="ApiDelay(0)">딜레이 호출</button>
-    <button onclick="ApiDelay(1)">딜레이 호출(대기)</button>
+    <button onclick="ApiDelay(0)">딜레이 호출- get</button>
+    <button onclick="ApiDelay(1)">딜레이 호출- get (대기)</button>
+    <br />
+    <button onclick="ApiDelay(10)">딜레이 호출- post</button>
+    <button onclick="ApiDelay(11)">딜레이 호출- post (대기)</button>
     <br />
     <br />
     <div id="divLog"></div>
@@ -42,8 +45,6 @@
         //https://developer.mozilla.org/ko/docs/Web/API/Fetch_API
         //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
         //https://developer.mozilla.org/en-US/docs/Web/API/fetch
-        //https://ko.javascript.info/fetch
-
 
         let LogCount = 0;
 
@@ -74,7 +75,7 @@
 
 
 
-            Log.LogMsg("<<<<<< " + nCount+" JsonFileLoad >>>>>>", function (sLogMsgCount) { console.log(sLogMsgCount); });
+            Log.LogMsg("<<<<<< " + nCount + " JsonFileLoad >>>>>>", function (sLogMsgCount) { console.log(sLogMsgCount); });
 
             switch (nAwait)
             {
@@ -89,14 +90,14 @@
                     break;
             }
 
-            Log.LogMsg(">>>>>> " + nCount+" end JsonFileLoad <<<<<<", function (sLogMsgCount) { console.log(sLogMsgCount); });
+            Log.LogMsg(">>>>>> " + nCount + " end JsonFileLoad <<<<<<", function (sLogMsgCount) { console.log(sLogMsgCount); });
         }
 
 
 
         /**
          * 딜레이 api 호출
-         * @param nAwait 0=대기없음, 1=대기
+         * @param nAwait 0=get대기없음, 1=get대기, 10=post대기없음, 11=post대기
          */
         async function ApiDelay(nAwait)
         {
@@ -105,7 +106,6 @@
             let nDelay = $("#txtDelay").val();
 
             let jsonCallOpt = {
-                url: "/api/Test/Delay",
                 data: { nDelay: nDelay },
 
                 success: function (data, textStatus, response)
@@ -121,18 +121,26 @@
             };
 
 
-            Log.LogMsg("<<<<<< " + nCount+" ApiDelay >>>>>>", function (sLogMsgCount) { console.log(sLogMsgCount); });
+            Log.LogMsg("<<<<<< " + nCount + " ApiDelay >>>>>>", function (sLogMsgCount) { console.log(sLogMsgCount); });
 
             switch (nAwait)
             {
-                case 1://대기
+                case 0://get대기 없음
+                    jsonCallOpt.url = "/api/Test/Delay";
+                    AA2.get(AjaxAssist.TokenRelayType.None, jsonCallOpt);
+                    break;
+                case 1://get대기
+                    jsonCallOpt.url = "/api/Test/Delay";
                     await AA2.get(AjaxAssist.TokenRelayType.None, jsonCallOpt);
                     break;
 
-                case 0:
-                default:
-                    //대기 없음
-                    AA2.get(AjaxAssist.TokenRelayType.None, jsonCallOpt);
+                case 10://post대기 없음
+                    jsonCallOpt.url = "/api/Test/DelayPost";
+                    AA2.post(AjaxAssist.TokenRelayType.None, jsonCallOpt);
+                    break;
+                case 11://post대기
+                    jsonCallOpt.url = "/api/Test/DelayPost";
+                    await AA2.post(AjaxAssist.TokenRelayType.None, jsonCallOpt);
                     break;
             }
 

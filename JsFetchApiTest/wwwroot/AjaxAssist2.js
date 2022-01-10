@@ -152,6 +152,10 @@ AA2.call = async function (typeToken, jsonOption)
         jsonOpt.UrlObj.search
             = new URLSearchParams(jsonOpt.data);
     }
+    else
+    {//이외의 메소드
+        jsonOpt.body = JSON.stringify(jsonOpt.data);
+    }
 
 
 

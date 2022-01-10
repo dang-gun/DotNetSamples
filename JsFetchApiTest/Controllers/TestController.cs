@@ -82,5 +82,23 @@ namespace JsFetchApiTest
 
             return tmResult;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nDelay">대기할 시간(ms)</param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<TestModel02> DelayPost([FromForm] int nDelay)
+        {
+            Thread.Sleep(nDelay);
+
+            //리턴용 모델
+            TestModel02 tmResult = new TestModel02();
+            tmResult.nTest001 = 3;
+            tmResult.sTest002 = "Delay : " + nDelay;
+
+            return tmResult;
+        }
     }
 }
