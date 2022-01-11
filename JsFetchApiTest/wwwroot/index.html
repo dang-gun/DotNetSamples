@@ -9,7 +9,8 @@
     <link rel="shortcut icon" href="/favicon.ico">
 
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-    <script src="index.js"></script>
+    <!--<script src="index.js"></script>-->
+    <script src="indexAA2.js"></script>
     <script src="AjaxAssistType.js"></script>
     <script src="AjaxAssist2.js"></script>
 
@@ -17,13 +18,18 @@
         #divLog {
             width: 100%;
             height: 500px;
-            overflow-y:scroll;
+            overflow-y: scroll;
         }
     </style>
 </head>
 
 <body>
     <h1>Javascript Fetch API Test</h1>
+    <br />
+    <br />
+    <br />
+    <button onclick="Call(false)">async/await Test</button>
+    <button onclick="Call(true)">async/await Test(대기)</button>
     <br />
     <br />
     <br />
@@ -42,110 +48,46 @@
     <div id="divLog"></div>
 
     <script>
-        //https://developer.mozilla.org/ko/docs/Web/API/Fetch_API
-        //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-        //https://developer.mozilla.org/en-US/docs/Web/API/fetch
-
-        let LogCount = 0;
+                //https://developer.mozilla.org/ko/docs/Web/API/Fetch_API
+                //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+                //https://developer.mozilla.org/en-US/docs/Web/API/fetch
 
 
-        /**
-         *
-         * @param nAwait 0=대기없음, 1=대기
-         */
-        async function JsonFileLoad(nAwait)
-        {
-            let nCount = ++LogCount;
-
-            let jsonCallOpt = {
-                url: "/TestData.json",
-                data: {},
-
-                success: function (data, textStatus, response)
-                {
-                    Log.LogMsg("* 성공 : " + nCount, function (sLogMsgCount) { console.log(sLogMsgCount); });
-                    console.log(JSON.parse(data));
-                },
-                error: function (response, textStatus, errorThrown)
-                {
-                    Log.LogMsg("* 에러 : " + nCount, function (sLogMsgCount) { console.log(sLogMsgCount); });
-                    console.log(response);
-                },
-            };
-
-
-
-            Log.LogMsg("<<<<<< " + nCount + " JsonFileLoad >>>>>>", function (sLogMsgCount) { console.log(sLogMsgCount); });
-
-            switch (nAwait)
-            {
-                case 1://대기
-                    await AA2.get(AjaxAssist.TokenRelayType.None, jsonCallOpt);
-                    break;
-
-                case 0:
-                default:
-                    //대기 없음
-                    AA2.get(AjaxAssist.TokenRelayType.None, jsonCallOpt);
-                    break;
-            }
-
-            Log.LogMsg(">>>>>> " + nCount + " end JsonFileLoad <<<<<<", function (sLogMsgCount) { console.log(sLogMsgCount); });
-        }
-
-
+        var Log = {};
+        /** 로그메시지에 사용할 카운트 */
+        Log.LogMsgCount = 0;
+        Log.LogMsgCount_Pad = "0000000";
 
         /**
-         * 딜레이 api 호출
-         * @param nAwait 0=get대기없음, 1=get대기, 10=post대기없음, 11=post대기
+         * 게임 로그 창에 로그를 표시한다.
+         * @param {string} sLogMsg 표시할 메시지
+         * @param {function} funText string를 파라메타로 받는 함수를 넘긴다.
+         * 예> function (sText) { console.log(sText); }
          */
-        async function ApiDelay(nAwait)
+        Log.LogMsg = function (sLogMsg, funText)
         {
-            let nCount = ++LogCount;
-
-            let nDelay = $("#txtDelay").val();
-
-            let jsonCallOpt = {
-                data: { nDelay: nDelay },
-
-                success: function (data, textStatus, response)
-                {
-                    Log.LogMsg("* 성공 : " + nCount, function (sLogMsgCount) { console.log(sLogMsgCount); });
-                    console.log(JSON.parse(data));
-                },
-                error: function (response, textStatus, errorThrown)
-                {
-                    Log.LogMsg("* 에러 : " + nCount, function (sLogMsgCount) { console.log(sLogMsgCount); });
-                    console.log(response);
-                },
-            };
+            //숫자 입력 문자열로 변환
+            let sLogMsgCount
+                = (Log.LogMsgCount_Pad + Log.LogMsgCount)
+                    .slice(-Log.LogMsgCount_Pad.length);
+            sLogMsgCount = "[" + sLogMsgCount + "]"
+                + "[" + (new Date().toISOString().substr(11, 8)) + "] "
+                + sLogMsg;
 
 
-            Log.LogMsg("<<<<<< " + nCount + " ApiDelay >>>>>>", function (sLogMsgCount) { console.log(sLogMsgCount); });
+            let _log;
+            _log = "<div>" + sLogMsgCount + "</div>";
+            $("#divLog").append(_log);
 
-            switch (nAwait)
-            {
-                case 0://get대기 없음
-                    jsonCallOpt.url = "/api/Test/Delay";
-                    AA2.get(AjaxAssist.TokenRelayType.None, jsonCallOpt);
-                    break;
-                case 1://get대기
-                    jsonCallOpt.url = "/api/Test/Delay";
-                    await AA2.get(AjaxAssist.TokenRelayType.None, jsonCallOpt);
-                    break;
+            //스크롤 최하단으로
+            $("#divLog").scrollTop($("#divLog")[0].scrollHeight);
 
-                case 10://post대기 없음
-                    jsonCallOpt.url = "/api/Test/DelayPost";
-                    AA2.post(AjaxAssist.TokenRelayType.None, jsonCallOpt);
-                    break;
-                case 11://post대기
-                    jsonCallOpt.url = "/api/Test/DelayPost";
-                    await AA2.post(AjaxAssist.TokenRelayType.None, jsonCallOpt);
-                    break;
-            }
+            funText(sLogMsgCount);
 
-            Log.LogMsg(">>>>>> " + nCount + "end ApiDelay <<<<<<", function (sLogMsgCount) { console.log(sLogMsgCount); });
-        }
+
+            //로그 카운트 증가
+            ++Log.LogMsgCount;
+        };
 
     </script>
 </body>

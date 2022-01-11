@@ -17,6 +17,12 @@ AjaxAssist.AjaxType = {
     Head: "HEAD",
 };
 
+/** 
+ *  컨탠츠 타입.
+ *  여기에 정의되지 않은 타입은 처리가 없다.
+ * */
+AjaxAssist.ContentType = {
+};
 
 
 /** 아작스 요청시 토큰을 어떻게 처리할지 여부 */

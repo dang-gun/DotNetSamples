@@ -218,14 +218,21 @@ AA2.call = async function (typeToken, jsonOption)
     return responseAjaxResult;
 };
 
-
+/**
+ * 단순 파일 로드 .
+ * funSuccess(data)로 
+ * @param {string} sFileUrl
+ * @param {Function} funSuccess
+ * @param {json} jsonOption
+ */
 AA2.FileLoad = async function (
     sFileUrl
     , funSuccess
     , jsonOption)
 {
     let typeToken = AjaxAssist.TokenRelayType.None;
-    method.method = AjaxAssist.AjaxType.Delete;
+    jsonOption.method = AjaxAssist.AjaxType.get;
+    jsonOption.url = sFileUrl;
 
     if (false === jsonOption.await)
     {//비동기
