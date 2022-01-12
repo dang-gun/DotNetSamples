@@ -10,10 +10,9 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <!--<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>-->
-    <script src="index.js"></script>
     <script src="indexAA2.js"></script>
-    <script src="AjaxAssistType.js"></script>
-    <script src="AjaxAssist2.js"></script>
+    <script src="/src/AjaxAssistType.js"></script>
+    <script src="/src/AjaxAssist2.js"></script>
 
     <style>
         #divLog {
@@ -25,8 +24,13 @@
 </head>
 
 <body>
-    <h1>Javascript Fetch API Test</h1>
+    <h1>Javascript AjaxAssist Test</h1>
     <br />
+    <div>
+        <input type="text" id="txtEmail" placeholder="로그인 email" value="test" />
+        <input type="password" id="txtEmail" placeholder="로그인 password" value="1111" />
+        <button >로그인</button>
+    </div>
     <br />
     <br />
     <button onclick="Call(false)">async/await Test</button>

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,9 @@ namespace JsFetchApiTest
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            //API모델을 파스칼 케이스 유지하기
+            services.AddControllers().AddNewtonsoftJson(options => { options.SerializerSettings.ContractResolver = new DefaultContractResolver(); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

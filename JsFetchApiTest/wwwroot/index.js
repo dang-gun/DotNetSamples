@@ -1,7 +1,4 @@
 ﻿
-let LogCount = 0;
-
-
 async function Call(bAwait)
 {
     let nCount = ++LogCount;

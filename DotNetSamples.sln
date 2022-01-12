@@ -33,7 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4JavascriptCl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{073D206C-D45F-4E6C-82CC-79144D75875A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsFetchApiTest", "JsFetchApiTest\JsFetchApiTest.csproj", "{8338B364-D13A-4743-94CD-6552ED1AFEDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsFetchApiTest", "JsFetchApiTest\JsFetchApiTest.csproj", "{8338B364-D13A-4743-94CD-6552ED1AFEDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsAjaxAssistTest", "JsAjaxAssistTest\JsAjaxAssistTest.csproj", "{35BDADE2-44A0-4D84-BF1E-88DE420739F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +107,10 @@ Global
 		{8338B364-D13A-4743-94CD-6552ED1AFEDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8338B364-D13A-4743-94CD-6552ED1AFEDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8338B364-D13A-4743-94CD-6552ED1AFEDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35BDADE2-44A0-4D84-BF1E-88DE420739F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35BDADE2-44A0-4D84-BF1E-88DE420739F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35BDADE2-44A0-4D84-BF1E-88DE420739F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35BDADE2-44A0-4D84-BF1E-88DE420739F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
