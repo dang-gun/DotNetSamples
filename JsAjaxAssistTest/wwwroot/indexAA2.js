@@ -24,7 +24,7 @@ async function JsonFileLoad(nAwait)
         success: function (data, textStatus, response)
         {
             Log.LogMsg("* 성공 : " + nCount, function (sLogMsgCount) { console.log(sLogMsgCount); });
-            console.log(JSON.parse(data));
+            console.log(data);
         },
         error: function (response, textStatus, errorThrown)
         {
@@ -83,7 +83,7 @@ async function ApiDelay(nAwait)
         success: function (data, textStatus, response)
         {
             Log.LogMsg("* 성공 : " + nCount, function (sLogMsgCount) { console.log(sLogMsgCount); });
-            console.log(JSON.parse(data));
+            console.log(data);
         },
         error: function (response, textStatus, errorThrown)
         {
@@ -118,7 +118,7 @@ async function ApiDelay(nAwait)
             break;
     }
 
-    Log.LogMsg(">>>>>> " + nCount + "end ApiDelay <<<<<<", function (sLogMsgCount) { console.log(sLogMsgCount); });
+    Log.LogMsg(">>>>>> " + nCount + " end ApiDelay <<<<<<", function (sLogMsgCount) { console.log(sLogMsgCount); });
 }
 
 

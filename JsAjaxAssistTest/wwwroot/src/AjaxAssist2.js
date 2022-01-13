@@ -242,18 +242,30 @@ AA2.call = async function (typeToken, jsonOption)
 
         responseAjaxResult
             = await fetch(jsonOpt.UrlObj, jsonFetchComplete);
-        let responseCheckResult
-            = await AA2.ResponseCheck(responseAjaxResult, jsonOpt);
-        if (true === responseCheckResult.ok)
-        {//성공
-            jsonOpt.success(
-                await responseAjaxResult.text()
-                , responseAjaxResult.status
-                , responseAjaxResult);
+
+        try
+        {
+            let responseCheckResult
+                = await AA2.ResponseCheck(responseAjaxResult, jsonOpt);
+            if (true === responseAjaxResult.ok)
+            {//성공
+                jsonOpt.success(
+                    responseCheckResult
+                    , responseAjaxResult.status
+                    , responseAjaxResult);
+            }
+            else
+            {//실패
+                let errorAA2 = new ErrorAA2(responseAjaxResult);
+                jsonOpt.error(
+                    errorAA2.response
+                    , errorAA2.statusText
+                    , errorAA2
+                );
+            }
         }
-        else
-        {//실패
-            let errorAA2 = new ErrorAA2(responseAjaxResult);
+        catch (errorAA2)
+        {
             jsonOpt.error(
                 errorAA2.response
                 , errorAA2.statusText
