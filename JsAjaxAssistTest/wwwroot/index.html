@@ -13,6 +13,7 @@
     <script src="indexAA2.js"></script>
     <script src="/src/AjaxAssistType.js"></script>
     <script src="/src/AjaxAssist2.js"></script>
+    <script src="/SignInAssist.js"></script>
 
     <style>
         #divLog {
@@ -26,11 +27,20 @@
 <body>
     <h1>Javascript AjaxAssist Test</h1>
     <br />
-    <div>
-        <input type="text" id="txtEmail" placeholder="로그인 email" value="test" />
-        <input type="password" id="txtEmail" placeholder="로그인 password" value="1111" />
-        <button >로그인</button>
+    <div id="divSignInArea">
+        <input type="text" id="txtEmail" placeholder="SignIn email" value="test" />
+        <input type="password" id="txtPassword" placeholder="SignIn password" value="1111" />
+        <button id="btnSignInStart" onclick="SignInAssist.OnClick_SignIn()">로그인</button>
     </div>
+    <div id="divSignOutArea">
+        <button id="btnSignOutStart" onclick="SignInAssist.OnClick_SignOut()">사인 아웃</button>
+    </div>
+
+    <div>
+        Access Token : <input type="text" id="txtAccessToken" readonly /><br />
+        Refresh Token : <input type="text" id="txtRefreshToken" readonly />
+    </div>
+    
     <br />
     <br />
     <button onclick="Call(false)">async/await Test</button>
@@ -59,6 +69,8 @@
         //https://developer.mozilla.org/ko/docs/Web/API/Fetch_API
         //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
         //https://developer.mozilla.org/en-US/docs/Web/API/fetch
+
+        Start();
 
         var LogCount = 0;
 

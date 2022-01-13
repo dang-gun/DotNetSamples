@@ -26,7 +26,7 @@ namespace IdentityServer4_Custom.UserServices
             bool bReturn = false;
 
             User mgrItem
-                = GlobalStatic.TestUserList
+                = GlobalStatic.User
                     .FirstOrDefault(x => x.SignEmail == sEmail
                                     && x.Password == sPassword);
 
@@ -48,7 +48,7 @@ namespace IdentityServer4_Custom.UserServices
             UserAuthModel userReturn = new UserAuthModel();
 
             User mgrItem
-                    = GlobalStatic.TestUserList
+                    = GlobalStatic.User
                         .FirstOrDefault(x => x.idUser == nID);
 
             userReturn.ManagerAuth_Set(mgrItem);
@@ -67,7 +67,7 @@ namespace IdentityServer4_Custom.UserServices
             UserAuthModel userAuth = null;
 
             User mgrItem
-                    = GlobalStatic.TestUserList
+                    = GlobalStatic.User
                         .FirstOrDefault(x => x.SignEmail == sEmail);
 
             if (mgrItem != null)

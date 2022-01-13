@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace JsFetchApiTest
+namespace JsFetchApiTest.Controllers
 {
     /// <summary>
     /// 

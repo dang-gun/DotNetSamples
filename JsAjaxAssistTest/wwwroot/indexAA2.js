@@ -2,6 +2,8 @@
 /** 초기화 */
 function Start()
 {
+    SignInAssist.Reset();
+    SignInAssist.SignInUi();
 }
 
 

@@ -15,7 +15,13 @@ namespace JsAjaxAssistTest.Global
     {
         public static ILog log = LogManager.GetLogger("Program");
 
-        public static List<User> TestUserList = new List<User>();
+        /// <summary>
+        /// 유저 정보 리스트
+        /// </summary>
+        public static List<User> User = new List<User>();
+        public static List<UserSignIn> UserSignIn = new List<UserSignIn>();
+        public static List<UserSignInTokenLog> UserSignInTokenLog = new List<UserSignInTokenLog>();
+
 
         /// <summary>
         /// 토큰 처리관련
@@ -25,7 +31,7 @@ namespace JsAjaxAssistTest.Global
 
         static GlobalStatic()
         {
-            TestUserList.Add(new User { 
+            User.Add(new User { 
                 idUser = 1,
                 SignEmail = "test",
                 Password = "1111"

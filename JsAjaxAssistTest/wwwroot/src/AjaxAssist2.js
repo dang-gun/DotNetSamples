@@ -26,7 +26,26 @@ AA2.OptionDefult = {
     /** 컨탠츠 받기 타입. 
      * AjaxAssist.ContentGetType 사용.
      * 컨탠츠를 리턴받을때 어떤 타입으로 처리해서 받을지를 설정한다.*/
-    contentGetType: AjaxAssist.ContentGetType.Text,
+    contentGetType: AjaxAssist.ContentGetType.Json,
+
+    /**
+     * 요청이 성공했을때 호출될 콜백
+     * @param {any} data 전달된 데이터. AjaxAssist.ContentGetType에 따라 선처리되서 온다.
+     * @param {string} textStatus 결과 스테이터스. 성공시라 항상 '200'이다.
+     * @param {object} response 처리가 완료된 리스폰스
+     */
+    success: function (data, textStatus, response)
+    {
+    },
+    /**
+     * 요청이 에러 났을때 호출될 콜백
+     * @param {object} response 에러났을 때 전달받은 리스폰스
+     * @param {string} textStatus 결과 스테이터스.
+     * @param {ErrorAA2} errorThrown 에러 내용. ErrorAA2 개체가 전달됨.
+     */
+    error: function (response, textStatus, errorThrown)
+    {
+    },
 
     /** fetch를 호출할때 강제로 전달하고 싶은 데이터가 있다면 여기에 입력한다.
      * 이 옵션이 가장 우선 된다.*/
@@ -38,11 +57,13 @@ AA2.OptionDefult = {
         /** include, *same-origin, omit */
         credentials: 'same-origin',
         headers: {
+            /** 받을 데이터 타입 */
             'Accept': 'application/json',
-            /** */
-            'Content-Type': 'application/json;charset=utf-8',
+
+            /** 전달할 데이터 타입 */
+            //'Content-Type': 'application/json;charset=utf-8',
             //'Content-Type': 'text/plain',
-            //'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
         },
         /** manual, *follow, error */
         redirect: 'follow',
@@ -201,7 +222,6 @@ AA2.call = async function (typeToken, jsonOption)
             //예외는 모두 json으로 처리한다.
             jsonOpt.body = JSON.stringify(jsonOpt.data);
         }
-
     }
 
 
@@ -287,7 +307,7 @@ AA2.ResponseCheck = async function (
     if (true === response.ok)
     {//성공
         let objReturn = null;
-        switch (jsonOption.contentType)
+        switch (jsonOption.contentGetType)
         {
             case AjaxAssist.ContentGetType.Response:
                 objReturn = response;
