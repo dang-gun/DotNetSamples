@@ -36,6 +36,11 @@ SignInAssist.Reset = function ()
     {
         return SignInAssist.refresh_token;
     };
+    AA2.RefreshTokenSuccess = function (jsonData)
+    {
+        SignInAssist.access_token = jsonData.access_token;
+        SignInAssist.refresh_token = jsonData.refresh_token;
+    };
 
     SignInAssist.divSignInArea = $("#divSignInArea");
     SignInAssist.txtEmail = $("#txtEmail");

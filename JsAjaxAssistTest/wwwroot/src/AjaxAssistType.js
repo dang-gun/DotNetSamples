@@ -1,8 +1,8 @@
 ﻿/** 아작스 지원 */
 var AjaxAssist = {};
 
-/** 아작스 요청 타입 */
-AjaxAssist.AjaxType = {
+/** 아작스 요청 메소드 타입 */
+AjaxAssist.AjaxMethodType = {
     /** 검색 */
     Get: "GET",
     /** 생성 */

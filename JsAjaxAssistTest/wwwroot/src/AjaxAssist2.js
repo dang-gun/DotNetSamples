@@ -17,6 +17,10 @@ function ErrorAA2(responseAjaxResult)
     this.stack = (new Error()).stack;
 }
 
+/**
+ * 이 프로젝트에서 자주쓰는 아작스 호출 형식을 미리 정의 한다.
+ * 응답에 대기하려면 await를 사용한다.(jsonOption.await을 true 로 줘야 한다.)
+ */
 var AA2 = {};
 
 /** 아작스 기본 옵션 */
@@ -57,24 +61,24 @@ AA2.OptionDefult = {
      * 이 옵션이 가장 우선 된다.*/
     fetchOption: {
         /** no-cors, cors, *same-origin */
-        mode: 'cors',
+        mode: "cors"
         /** // *default, no-cache, reload, force-cache, only-if-cached */
-        cache: 'no-cache',
+        , cache: 'no-cache'
         /** include, *same-origin, omit */
-        credentials: 'same-origin',
-        headers: {
+        , credentials: "omit"
+        , headers: {
             /** 받을 데이터 타입 */
-            'Accept': 'application/json',
+            "Accept": "application/json"
 
             /** 전달할 데이터 타입 */
-            //'Content-Type': 'application/json;charset=utf-8',
-            //'Content-Type': 'text/plain',
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        },
+            //"Content-Type": "application/json;charset=utf-8",
+            //"Content-Type": "text/plain",
+            ,"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+        }
         /** manual, *follow, error */
-        redirect: 'follow',
+        , redirect: "follow"
         /** no-referrer, *client */
-        referrer: 'no-referrer',
+        , referrer: "no-referrer"
     }
 };
 
@@ -88,6 +92,12 @@ AA2.AccessTokenRead = function () { return ""; };
  * @returns {string} 가지고 있는 엑세스 토큰 리턴
  * */
 AA2.RefreshTokenRead = function () { return ""; };
+/**
+ * 리플레시 토큰처리가 성공하면 동작하는 함수.(직접 지정)
+ * @param {any} jsonData 리플레시 토큰 처리가 완료되고 넘어온 데이터
+ */
+AA2.RefreshTokenSuccess = function (jsonData) { return jsonData; };
+
 
 /**
  * get로 아작스 요청을 한다.
@@ -96,7 +106,7 @@ AA2.RefreshTokenRead = function () { return ""; };
  */
 AA2.get = async function (typeToken, jsonOption)
 {
-    jsonOption.method = AjaxAssist.AjaxType.Get;
+    jsonOption.method = AjaxAssist.AjaxMethodType.Get;
     if (true === jsonOption.await)
     {//응답 대기
         return await AA2.call(typeToken, jsonOption);
@@ -113,7 +123,7 @@ AA2.get = async function (typeToken, jsonOption)
  */
 AA2.post = async function (typeToken, jsonOption)
 {
-    jsonOption.method = AjaxAssist.AjaxType.Post;
+    jsonOption.method = AjaxAssist.AjaxMethodType.Post;
     if (true === jsonOption.await)
     {//응답 대기
         return await AA2.call(typeToken, jsonOption);
@@ -130,7 +140,7 @@ AA2.post = async function (typeToken, jsonOption)
  */
 AA2.put = async function (typeToken, jsonOption)
 {
-    jsonOption.method = AjaxAssist.AjaxType.Put;
+    jsonOption.method = AjaxAssist.AjaxMethodType.Put;
     if (true === jsonOption.await)
     {//응답 대기
         return await AA2.call(typeToken, jsonOption);
@@ -147,7 +157,7 @@ AA2.put = async function (typeToken, jsonOption)
  */
 AA2.patch = async function (typeToken, jsonOption)
 {
-    jsonOption.method = AjaxAssist.AjaxType.Patch;
+    jsonOption.method = AjaxAssist.AjaxMethodType.Patch;
     if (true === jsonOption.await)
     {//응답 대기
         return await AA2.call(typeToken, jsonOption);
@@ -164,7 +174,7 @@ AA2.patch = async function (typeToken, jsonOption)
  */
 AA2.delete = async function (typeToken, jsonOption)
 {
-    jsonOption.method = AjaxAssist.AjaxType.Delete;
+    jsonOption.method = AjaxAssist.AjaxMethodType.Delete;
     if (true === jsonOption.await)
     {//응답 대기
         return await AA2.call(typeToken, jsonOption);
@@ -178,6 +188,10 @@ AA2.delete = async function (typeToken, jsonOption)
 
 AA2.call = async function (typeToken, jsonOption)
 {
+    //매개변수 백업(여기서는 이걸 원본취급한다.)
+    var typeTokenTemp = typeToken;
+    var jsonOptionTemp = jsonOption;
+
     //옵션 저장
     let jsonOpt = Object.assign({}, AA2.OptionDefult, jsonOption);
     //개체가 참조되는 것을 방지 - fetchOption.headers
@@ -200,7 +214,7 @@ AA2.call = async function (typeToken, jsonOption)
     jsonOpt.UrlAuthObj = null;
 
     //인증용 url을 개체 만들기
-    if (AjaxAssist.TokenRelayType.CaseByCase === typeToken
+    if (AjaxAssist.TokenRelayType.CaseByCase === typeTokenTemp
         && "" !== jsonOpt.url_Auth)
     {//케이스 바이 케이스인데
         //엑세스 키가 있다.
@@ -211,8 +225,8 @@ AA2.call = async function (typeToken, jsonOption)
 
     
 
-    if (AjaxAssist.AjaxType.Get === jsonOpt.method
-        || AjaxAssist.AjaxType.Head === jsonOpt.method)
+    if (AjaxAssist.AjaxMethodType.Get === jsonOpt.method
+        || AjaxAssist.AjaxMethodType.Head === jsonOpt.method)
     {//메소드가 Get 이거나
         //메소드가 Head 이다.
 
@@ -277,8 +291,8 @@ AA2.call = async function (typeToken, jsonOption)
     //인증 키 전달 처리 *****
     let sAccessToken = "";
     //인증키 읽기
-    if (AjaxAssist.TokenRelayType.HeadAdd === typeToken
-        || AjaxAssist.TokenRelayType.CaseByCase === typeToken)
+    if (AjaxAssist.TokenRelayType.HeadAdd === typeTokenTemp
+        || AjaxAssist.TokenRelayType.CaseByCase === typeTokenTemp)
     {//전달 확인
         sAccessToken = AA2.AccessTokenRead();
     }
@@ -303,7 +317,7 @@ AA2.call = async function (typeToken, jsonOption)
     let responseAjaxResult = null;
     //사용할 주소 개체
     let urlTarget = null;
-    if (AjaxAssist.TokenRelayType.CaseByCase === typeToken
+    if (AjaxAssist.TokenRelayType.CaseByCase === typeTokenTemp
         && null !== jsonOpt.UrlAuthObj)
     {//케이스 바이 케이스 이다.
         //url 개체가 완성되어 있다.
@@ -316,17 +330,22 @@ AA2.call = async function (typeToken, jsonOption)
         urlTarget = jsonOpt.UrlObj;
     }
 
-    //리스폰스 처리
+    //리스폰스 처리jsonOptionTemp
     if (true === jsonOpt.await)
     {//응답 대기
 
+        //요청
         responseAjaxResult
             = await fetch(urlTarget, jsonFetchComplete);
 
+        //에러 개체
+        let errorAAObj = null;
+
         try
         {
+            //요청 데이터 처리
             let responseCheckResult
-                = await AA2.ResponseCheck(responseAjaxResult, jsonOpt);
+                = await AA2.ResponseCheck(responseAjaxResult, jsonOpt.contentGetType);
             if (true === responseAjaxResult.ok)
             {//성공
                 jsonOpt.success(
@@ -336,30 +355,31 @@ AA2.call = async function (typeToken, jsonOption)
             }
             else
             {//실패
-                let errorAA2 = new ErrorAA2(responseAjaxResult);
-                jsonOpt.error(
-                    errorAA2.response
-                    , errorAA2.statusText
-                    , errorAA2
-                );
+                errorAAObj = new ErrorAA2(responseAjaxResult);
             }
         }
         catch (errorAA2)
         {
-            jsonOpt.error(
-                errorAA2.response
-                , errorAA2.statusText
-                , errorAA2
-            );
+            errorAAObj = errorAA2;
+        }
+
+        //에러 처리
+        if (null !== errorAAObj)
+        {
+            await AA2.ErrorToss(
+                errorAAObj
+                , typeTokenTemp
+                , jsonOptionTemp);
         }
     }
     else
     {
+        //요청
         responseAjaxResult
             = fetch(urlTarget, jsonFetchComplete)
                 .then(function (response)
                 {
-                    return AA2.ResponseCheck(response, jsonOpt);
+                    return AA2.ResponseCheck(response, jsonOpt.contentGetType);
                 })
                 .then(function (sData)
                 {//정상 처리
@@ -368,13 +388,12 @@ AA2.call = async function (typeToken, jsonOption)
                         , responseAjaxResult.status
                         , responseAjaxResult);
                 })
-                .catch(function (errorAA2)
+                .catch(async function (errorAA2)
                 {
-                    jsonOpt.error(
-                        errorAA2.response
-                        , errorAA2.statusText
-                        , errorAA2
-                    );
+                    await AA2.ErrorToss(
+                        errorAA2
+                        , typeTokenTemp
+                        , jsonOptionTemp);
                 });
     }
 
@@ -384,17 +403,17 @@ AA2.call = async function (typeToken, jsonOption)
 /**
  * 
  * @param {any} response
- * @param {any} jsonOption
+ * @param {any} contentGetType
  * @returns 
  */
 AA2.ResponseCheck = async function (
     response
-    , jsonOption)
+    , contentGetType)
 {
     if (true === response.ok)
     {//성공
         let objReturn = null;
-        switch (jsonOption.contentGetType)
+        switch (contentGetType)
         {
             case AjaxAssist.ContentGetType.Response:
                 objReturn = response;
@@ -434,8 +453,11 @@ AA2.FileLoad = async function (
     , jsonOption)
 {
     let typeToken = AjaxAssist.TokenRelayType.None;
-    jsonOption.method = AjaxAssist.AjaxType.get;
+    jsonOption.method = AjaxAssist.AjaxMethodType.get;
     jsonOption.url = sFileUrl;
+
+    jsonOption.success = funSuccess;
+
 
     if (true === jsonOption.await)
     {//대기
@@ -446,3 +468,138 @@ AA2.FileLoad = async function (
         AA2.call(typeToken, jsonOption);
     }
 };
+
+
+
+//□□□□□□□□□□□□□□□□□□□□□□□
+//리플레시 토큰 처리 관련 
+//□□□□□□□□□□□□□□□□□□□□□□□
+
+/**
+ * fetch 호출 에러시 공통 처리.(무조건 await로 호출한다.)
+ * @param {ErrorAA2} errorAAObj 에러 개체
+ * @param {AjaxAssist.TokenRelayType} typeToken typeToken 헤더에 토큰을 넣을지 여부
+ * @param {json} jsonOptionOriginal 이 에러가 난 당시의 원본 옵션
+ */
+AA2.ErrorToss = async function (
+    errorAAObj
+    , typeToken
+    , jsonOptionOriginal
+)
+{
+    let errorAAObjTemp = errorAAObj;
+    let typeTokenTemp = typeToken;
+    let jsonOptionOriginalTemp = jsonOptionOriginal;
+
+    //if (401 === errorAAObj.status)
+    if (((AjaxAssist.TokenRelayType.HeadAdd === typeTokenTemp)
+        || (AjaxAssist.TokenRelayType.CaseByCase === typeTokenTemp))
+            && (401 === errorAAObj.status))
+    {//HeadAdd나 CaseByCase이다.
+
+        //엑세스 토큰이 만료 됐다는 의미다.
+        //리프레시 토큰을 다시 요청한다.
+        await AA2.RefreshToAccess(
+            typeTokenTemp
+            , jsonOptionOriginalTemp);
+    }
+    else
+    {
+        jsonOptionOriginalTemp.error(
+            errorAAObjTemp.response
+            , errorAAObjTemp.statusText
+            , errorAAObjTemp
+        );
+    }
+};
+
+/**
+ *  리플래토큰으로 엑세스 토큰 갱신을 요청한다.(무조건 await로 호출한다.)
+ * @param {AjaxAssist.TokenRelayType} typeToken typeToken 헤더에 토큰을 넣을지 여부
+ * @param {json} jsonOptionOriginal 이 에러가 난 당시의 원본 옵션
+ * */
+AA2.RefreshToAccess = async function (
+    typeToken
+    , jsonOptionOriginal)
+{
+    let typeTokenTemp = typeToken;
+    let jsonOptionOriginalTemp = jsonOptionOriginal;
+
+    //대상 url
+    let urlTarget = new URL("/api/Sign/RefreshToAccess", location.origin);
+    //전달용 바디 데이터
+    let bodyData
+        = (new URLSearchParams({
+            "nID": SignInAssist.SignIn_ID
+            , "sRefreshToken": SignInAssist.refresh_token
+        }));
+
+    let jsonFetch = {
+        method: AjaxAssist.AjaxMethodType.Put
+        , mode: "cors"
+        , cache: "no-cache"
+        , credentials: "omit"
+        , headers: {
+            "Accept": "application/json"
+            , "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+        }
+        , body: bodyData
+        , referrer: "no-referrer"
+    };
+
+
+    //요청
+    let responseAjaxResult
+        = await fetch(urlTarget, jsonFetch);
+
+    //에러 개체
+    let errorAA2Obj = null;
+
+    try
+    {
+        //결과 처리
+        let responseCheckResult
+            = await AA2.ResponseCheck(
+                responseAjaxResult
+                , AjaxAssist.ContentGetType.Json);
+        if (true === responseAjaxResult.ok)
+        {//성공
+            AA2.RefreshTokenSuccess(responseCheckResult);
+            //전달받은 옵션으로 다시 호출한다.
+            AA2.call(typeTokenTemp, jsonOptionOriginalTemp);
+        }
+        else
+        {//실패
+            errorAA2Obj = new ErrorAA2(responseAjaxResult);
+        }
+    }
+    catch (errorAA2)
+    {
+        errorAA2Obj = errorAA2;
+    }
+
+    if (null !== errorAA2Obj)
+    {//에러 개체가 생성됐다.
+
+        //엑세스토큰 갱신이 실패했다.
+        if (typeTokenTemp === AjaxAssist.TokenRelayType.CaseByCase)
+        {//케이스 바이 케이스다.
+
+            //전달받은 옵션으로 다시 호출한다.
+            //인증 헤더는 전달하지 않는다.
+            AA2.call(
+                AjaxAssist.TokenRelayType.None
+                , jsonOptionOriginalTemp);
+        }
+        else
+        {
+            //에러 전달
+            jsonOptionOriginalTemp.error(
+                errorAA2Obj.response
+                , errorAA2Obj.statusText
+                , errorAA2Obj
+            );
+        }
+    }//end if (null !== errorAA2Obj)
+};
+
