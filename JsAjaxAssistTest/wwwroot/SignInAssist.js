@@ -5,11 +5,6 @@ var SignInAssist = {};
 SignInAssist.SignIn = false;
 SignInAssist.SignIn_ID = 0;
 SignInAssist.SignIn_Email = "";
-SignInAssist.access_token = "";
-SignInAssist.refresh_token = "";
-
-SignInAssist.txtAccessToken = null;
-SignInAssist.txtRefreshToken = null;
 
 //□□□□□□ 사인인 관련 □□□□□□
 SignInAssist.divSignInArea = null;
@@ -20,20 +15,44 @@ SignInAssist.btnSignInStart = null;
 //□□□□□□ 사인아웃 관련 □□□□□□
 SignInAssist.btnSignOutStart = "";
 
+//□□□□□□ 토큰 관련 □□□□□□
+SignInAssist.access_token = "";
+SignInAssist.refresh_token = "";
+
+SignInAssist.txtAccessToken = null;
+SignInAssist.btnAccessTokenDelete = null;
+SignInAssist.txtRefreshToken = null;
+SignInAssist.btnRefreshTokenDelete = null;
 
 
 /** 초기화 */
 SignInAssist.Reset = function ()
 {
+    AA2.AccessTokenRead = function ()
+    {
+        return SignInAssist.access_token;
+    };
+    AA2.RefreshTokenRead = function ()
+    {
+        return SignInAssist.refresh_token;
+    };
+
     SignInAssist.divSignInArea = $("#divSignInArea");
     SignInAssist.txtEmail = $("#txtEmail");
     SignInAssist.txtPassword = $("#txtPassword");
     SignInAssist.btnSignInStart = $("#btnSignInStart");
+    SignInAssist.btnSignInStart.click(SignInAssist.OnClick_SignIn);
 
     SignInAssist.btnSignOutStart = $("#btnSignOutStart");
+    SignInAssist.btnSignOutStart.click(SignInAssist.OnClick_SignOut);
+
 
     SignInAssist.txtAccessToken = $("#txtAccessToken");
+    SignInAssist.btnAccessTokenDelete = $("#btnAccessTokenDelete");
+    SignInAssist.btnAccessTokenDelete.click(SignInAssist.AccessTokenDelete);
     SignInAssist.txtRefreshToken = $("#txtRefreshToken");
+    SignInAssist.btnRefreshTokenDelete = $("#btnRefreshTokenDelete");
+    SignInAssist.btnRefreshTokenDelete.click(SignInAssist.RefreshTokenDelete);
 
 };
 
@@ -131,4 +150,18 @@ SignInAssist.SignInUi = function (bSignIn)
         SignInAssist.txtAccessToken.val("");
         SignInAssist.txtRefreshToken.val("");
     }
+};
+
+
+/** 엑세스 토큰 제거 */
+SignInAssist.AccessTokenDelete = function ()
+{
+    SignInAssist.access_token = "";
+    SignInAssist.txtAccessToken.val("");
+};
+/** 리플레시 토큰 제거 */
+SignInAssist.RefreshTokenDelete = function ()
+{
+    SignInAssist.refresh_token = "";
+    SignInAssist.txtRefreshToken.val("");
 };

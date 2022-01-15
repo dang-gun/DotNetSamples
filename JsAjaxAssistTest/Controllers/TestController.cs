@@ -186,7 +186,7 @@ namespace JsFetchApiTest.Controllers
             TestModel02 tmResult = new TestModel02();
             tmResult.nTest001 = nDelay;
             tmResult.sTest002
-                = "UserId : " + cm.client_id
+                = "UserId : " + cm.id_int
                 + ", Email : " + cm.email;
 
             return tmResult;
@@ -213,6 +213,38 @@ namespace JsFetchApiTest.Controllers
             tmResult.nTest001 = nDelay;
             tmResult.sTest002
                 = "UserId : " + cm.client_id
+                + ", Email : " + cm.email;
+
+            return tmResult;
+        }
+        #endregion
+
+        #region 인증 케이스 바이 케이스
+        /// <summary>
+        /// (인증 필수)지정된 시간 만큼 대기했다가 결과가 전달 된다.
+        /// </summary>
+        /// <param name="nDelay">대기할 시간(ms)</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize]
+        public ActionResult<TestModel02> CaseByCase_Auth(int nDelay)
+        {
+            return this.CaseByCase(nDelay);
+        }
+
+        [HttpGet]
+        public ActionResult<TestModel02> CaseByCase(int nDelay)
+        {
+            Thread.Sleep(nDelay);
+
+            //유저 정보 추출
+            ClaimModel cm = new ClaimModel(((ClaimsIdentity)User.Identity).Claims);
+
+            //리턴용 모델
+            TestModel02 tmResult = new TestModel02();
+            tmResult.nTest001 = nDelay;
+            tmResult.sTest002
+                = "UserId : " + cm.id_int
                 + ", Email : " + cm.email;
 
             return tmResult;

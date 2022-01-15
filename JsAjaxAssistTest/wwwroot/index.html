@@ -30,17 +30,23 @@
     <div id="divSignInArea">
         <input type="text" id="txtEmail" placeholder="SignIn email" value="test" />
         <input type="password" id="txtPassword" placeholder="SignIn password" value="1111" />
-        <button id="btnSignInStart" onclick="SignInAssist.OnClick_SignIn()">로그인</button>
+        <button id="btnSignInStart">로그인</button>
     </div>
     <div id="divSignOutArea">
-        <button id="btnSignOutStart" onclick="SignInAssist.OnClick_SignOut()">사인 아웃</button>
+        <button id="btnSignOutStart">사인 아웃</button>
     </div>
 
     <div>
-        Access Token : <input type="text" id="txtAccessToken" readonly /><br />
+        Access Token : <input type="text" id="txtAccessToken" readonly />
+        <button id="btnAccessTokenDelete">Access Token Delete</button>
+        <br />
         Refresh Token : <input type="text" id="txtRefreshToken" readonly />
+        <button id="btnRefreshTokenDelete">Refresh Token Delete</button>
     </div>
-    
+    <div>
+
+    </div>
+
     <br />
     <br />
     <button onclick="JsonFileLoad(0)">json 파일 읽기</button>
@@ -48,15 +54,26 @@
     <br />
     <br />
     delay : <input type="text" id="txtDelay" value="3000" /><br />
-    <button onclick="ApiDelay(0)">딜레이 호출- get</button>
-    <button onclick="ApiDelay(1)">딜레이 호출- get (대기)</button>
+    <button onclick="ApiDelay(0)">딜레이 호출 - get</button>
+    <button onclick="ApiDelay(1)">딜레이 호출 - get (대기)</button>
     <br />
-    <button onclick="ApiDelay(10)">딜레이 호출- post</button>
-    <button onclick="ApiDelay(11)">딜레이 호출- post (대기)</button>
+    <button onclick="ApiDelay(10)">딜레이 호출 - post</button>
+    <button onclick="ApiDelay(11)">딜레이 호출 - post (대기)</button>
     <br />
     <br />
-    <button onclick="ApiError(0)">에러 호출- get</button>
-    <button onclick="ApiError(11)">에러 호출- post (대기)</button>
+    <button onclick="ApiError(0)">에러 호출 - get</button>
+    <button onclick="ApiError(11)">에러 호출 - post (대기)</button>
+    <br />
+    <br />
+    <button onclick="ApiAuth(0)">인증 호출 - get</button>
+    <button onclick="ApiAuth(1)">인증 호출 - get(대기)</button>
+    <br />
+    <button onclick="ApiAuth(10)">인증 호출 - post</button>
+    <button onclick="ApiAuth(11)">인증 호출 - post(대기)</button>
+    <br />
+    <br />
+    <button onclick="ApiAuth_CaseByCase(0)">케이스 바이케이스 - get</button>
+    <button onclick="ApiAuth_CaseByCase(1)">케이스 바이케이스 - get(대기)</button>
     <br />
     <div id="divLog"></div>
 

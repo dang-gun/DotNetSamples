@@ -21,6 +21,12 @@ var AA2 = {};
 
 /** 아작스 기본 옵션 */
 AA2.OptionDefult = {
+    /** 요청 url */
+    url: "",
+    /** 요청 url(인증)
+     * 'AjaxAssist.TokenRelayType.CaseByCase' 인경우 엑세스토큰이 있을때 사용할 url.
+     * 다른 경우에는 'url'을 사용한다.*/
+    url_Auth: "",
     /** await 사용여부 */
     await: false,
     /** 컨탠츠 받기 타입. 
@@ -71,6 +77,17 @@ AA2.OptionDefult = {
         referrer: 'no-referrer',
     }
 };
+
+/** 
+ * 엑세스 토큰 읽기 함수.(직접 지정)
+ * @returns {string} 가지고 있는 엑세스 토큰 리턴
+ * */
+AA2.AccessTokenRead = function () { return ""; };
+/**
+ * 리플레시 토큰 읽기 함수.(직접 지정)
+ * @returns {string} 가지고 있는 엑세스 토큰 리턴
+ * */
+AA2.RefreshTokenRead = function () { return ""; };
 
 /**
  * get로 아작스 요청을 한다.
@@ -163,6 +180,9 @@ AA2.call = async function (typeToken, jsonOption)
 {
     //옵션 저장
     let jsonOpt = Object.assign({}, AA2.OptionDefult, jsonOption);
+    //개체가 참조되는 것을 방지 - fetchOption.headers
+    jsonOpt.fetchOption = Object.assign({}, jsonOpt.fetchOption);
+    jsonOpt.fetchOption.headers = Object.assign({}, jsonOpt.fetchOption.headers);
     
     if ((undefined === jsonOpt.method)
         || (null === jsonOpt.method)
@@ -173,8 +193,23 @@ AA2.call = async function (typeToken, jsonOption)
         jsonOpt.method = jsonOpt.type;
     }
 
-    //url을 개체로 변경
+    
+
+    //일반 url 개체 만들기
     jsonOpt.UrlObj = new URL(jsonOpt.url, location.origin);
+    jsonOpt.UrlAuthObj = null;
+
+    //인증용 url을 개체 만들기
+    if (AjaxAssist.TokenRelayType.CaseByCase === typeToken
+        && "" !== jsonOpt.url_Auth)
+    {//케이스 바이 케이스인데
+        //엑세스 키가 있다.
+
+        //인증용 url을 만든다.
+        jsonOpt.UrlAuthObj = new URL(jsonOpt.url_Auth, location.origin);
+    }
+
+    
 
     if (AjaxAssist.AjaxType.Get === jsonOpt.method
         || AjaxAssist.AjaxType.Head === jsonOpt.method)
@@ -190,6 +225,13 @@ AA2.call = async function (typeToken, jsonOption)
         //url쿼리를 만든다.
         jsonOpt.UrlObj.search
             = new URLSearchParams(jsonOpt.data);
+
+        if (null !== jsonOpt.UrlAuthObj)
+        {//인증용 url이 있다.
+            jsonOpt.UrlAuthObj.search
+                = new URLSearchParams(jsonOpt.data);
+        }
+        
     }
     else
     {//이외의 메소드
@@ -231,17 +273,55 @@ AA2.call = async function (typeToken, jsonOption)
         body: jsonOpt.body,
     };
 
+
+    //인증 키 전달 처리 *****
+    let sAccessToken = "";
+    //인증키 읽기
+    if (AjaxAssist.TokenRelayType.HeadAdd === typeToken
+        || AjaxAssist.TokenRelayType.CaseByCase === typeToken)
+    {//전달 확인
+        sAccessToken = AA2.AccessTokenRead();
+    }
+    else
+    {//전달 안한다.
+        sAccessToken = "";
+    }
+    //인증키 전달
+    if ("" !== sAccessToken)
+    {//엑세스 키가 있다.
+        jsonOpt.fetchOption.headers["authorization"]
+            = "Bearer " + sAccessToken;
+    }
+
+
+
+    //Fetch 사용자 지정 옵션 
     jsonFetchComplete = Object.assign({}, jsonFetch, jsonOpt.fetchOption);
 
 
     //완성된 리스폰스
     let responseAjaxResult = null;
+    //사용할 주소 개체
+    let urlTarget = null;
+    if (AjaxAssist.TokenRelayType.CaseByCase === typeToken
+        && null !== jsonOpt.UrlAuthObj)
+    {//케이스 바이 케이스 이다.
+        //url 개체가 완성되어 있다.
+
+        //인증이 필요한 주소를 사용한다.
+        urlTarget = jsonOpt.UrlAuthObj;
+    }
+    else
+    {
+        urlTarget = jsonOpt.UrlObj;
+    }
+
     //리스폰스 처리
     if (true === jsonOpt.await)
     {//응답 대기
 
         responseAjaxResult
-            = await fetch(jsonOpt.UrlObj, jsonFetchComplete);
+            = await fetch(urlTarget, jsonFetchComplete);
 
         try
         {
@@ -276,7 +356,7 @@ AA2.call = async function (typeToken, jsonOption)
     else
     {
         responseAjaxResult
-            = fetch(jsonOpt.UrlObj, jsonOpt)
+            = fetch(urlTarget, jsonFetchComplete)
                 .then(function (response)
                 {
                     return AA2.ResponseCheck(response, jsonOpt);
@@ -297,11 +377,6 @@ AA2.call = async function (typeToken, jsonOption)
                     );
                 });
     }
-    
-
-    
-    responseAjaxResult
-        
 
     return responseAjaxResult;
 };

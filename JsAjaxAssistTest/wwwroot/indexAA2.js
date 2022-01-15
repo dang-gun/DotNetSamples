@@ -176,3 +176,104 @@ async function ApiError(nAwait)
 
     Log.LogMsg(">>>>>> " + nCount + "end ApiError <<<<<<", function (sLogMsgCount) { console.log(sLogMsgCount); });
 }
+
+/**
+ * 인증 api 호출
+ * @param nAwait 0=get대기없음, 1=get대기, 10=post대기없음, 11=post대기
+ */
+async function ApiAuth(nAwait)
+{
+    let nCount = ++LogCount;
+
+    let nDelay = $("#txtDelay").val();
+
+    let jsonCallOpt = {
+        data: { nDelay: nDelay },
+
+        success: function (data, textStatus, response)
+        {
+            Log.LogMsg("* 성공 : " + nCount, function (sLogMsgCount) { console.log(sLogMsgCount); });
+            console.log(data);
+        },
+        error: function (response, textStatus, errorThrown)
+        {
+            Log.LogMsg("* 에러 : " + nCount, function (sLogMsgCount) { console.log(sLogMsgCount); });
+            console.log(response);
+        },
+    };
+
+
+    Log.LogMsg("<<<<<< " + nCount + " ApiAuth >>>>>>", function (sLogMsgCount) { console.log(sLogMsgCount); });
+
+    switch (nAwait)
+    {
+        case 0://get대기 없음
+            jsonCallOpt.url = "/api/Test/AuthGet";
+            AA2.get(AjaxAssist.TokenRelayType.HeadAdd, jsonCallOpt);
+            break;
+        case 1://get대기
+            jsonCallOpt.url = "/api/Test/AuthGet";
+            jsonCallOpt.await = true;
+            await AA2.get(AjaxAssist.TokenRelayType.HeadAdd, jsonCallOpt);
+            break;
+
+        case 10://post대기 없음
+            jsonCallOpt.url = "/api/Test/AuthPost";
+            AA2.post(AjaxAssist.TokenRelayType.HeadAdd, jsonCallOpt);
+            break;
+        case 11://post대기
+            jsonCallOpt.url = "/api/Test/AuthPost";
+            jsonCallOpt.await = true;
+            await AA2.post(AjaxAssist.TokenRelayType.HeadAdd, jsonCallOpt);
+            break;
+    }
+
+    Log.LogMsg(">>>>>> " + nCount + "end ApiAuth <<<<<<", function (sLogMsgCount) { console.log(sLogMsgCount); });
+}
+
+
+/**
+ * 케이스 바이 케이스 api 호출
+ * @param nAwait 0=get대기없음, 1=get대기, 10=post대기없음, 11=post대기
+ */
+async function ApiAuth_CaseByCase(nAwait)
+{
+    let nCount = ++LogCount;
+
+    let nDelay = $("#txtDelay").val();
+
+    let jsonCallOpt = {
+        data: { nDelay: nDelay },
+
+        success: function (data, textStatus, response)
+        {
+            Log.LogMsg("* 성공 : " + nCount, function (sLogMsgCount) { console.log(sLogMsgCount); });
+            console.log(data);
+        },
+        error: function (response, textStatus, errorThrown)
+        {
+            Log.LogMsg("* 에러 : " + nCount, function (sLogMsgCount) { console.log(sLogMsgCount); });
+            console.log(response);
+        },
+    };
+
+
+    Log.LogMsg("<<<<<< " + nCount + " ApiAuth_CaseByCase >>>>>>", function (sLogMsgCount) { console.log(sLogMsgCount); });
+
+    switch (nAwait)
+    {
+        case 0://get대기 없음
+            jsonCallOpt.url = "/api/Test/CaseByCase";
+            jsonCallOpt.url_Auth = "/api/Test/CaseByCase_Auth";
+            AA2.get(AjaxAssist.TokenRelayType.HeadAdd, jsonCallOpt);
+            break;
+        case 1://get대기
+            jsonCallOpt.url = "/api/Test/AuthGet";
+            jsonCallOpt.url_Auth = "/api/Test/CaseByCase_Auth";
+            jsonCallOpt.await = true;
+            await AA2.get(AjaxAssist.TokenRelayType.HeadAdd, jsonCallOpt);
+            break;
+    }
+
+    Log.LogMsg(">>>>>> " + nCount + "end ApiAuth_CaseByCase <<<<<<", function (sLogMsgCount) { console.log(sLogMsgCount); });
+}
