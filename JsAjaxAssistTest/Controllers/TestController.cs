@@ -212,7 +212,7 @@ namespace JsFetchApiTest.Controllers
             TestModel02 tmResult = new TestModel02();
             tmResult.nTest001 = nDelay;
             tmResult.sTest002
-                = "UserId : " + cm.client_id
+                = "UserId : " + cm.id_int
                 + ", Email : " + cm.email;
 
             return tmResult;

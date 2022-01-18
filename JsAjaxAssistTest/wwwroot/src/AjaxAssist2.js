@@ -9,7 +9,7 @@
  * AjaxAssist2에서 에러가 발생할때 
  * @param {any} responseAjaxResult
  */
-function ErrorAA2(responseAjaxResult)
+function ErrorAjaxAssist2(responseAjaxResult)
 {
     this.response = responseAjaxResult;
     this.status = this.response.status;
@@ -17,14 +17,30 @@ function ErrorAA2(responseAjaxResult)
     this.stack = (new Error()).stack;
 }
 
+
+
+
 /**
  * 이 프로젝트에서 자주쓰는 아작스 호출 형식을 미리 정의 한다.
  * 응답에 대기하려면 await를 사용한다.(jsonOption.await을 true 로 줘야 한다.)
+ * @param {any} jsonOptionDefult 아작스 호출때 사용할 기본 옵션
  */
-var AA2 = {};
+function AjaxAssist2(jsonOptionDefult)
+{
+    let objThis = this;
+
+    //옵션 저장
+    objThis.OptionDefult
+        = Object.assign({}, objThis.OptionDefult, jsonOptionDefult);
+    //개체가 참조되는 것을 방지 - fetchOption.headers
+    objThis.OptionDefult.fetchOption
+        = Object.assign({}, objThis.OptionDefult.fetchOption);
+    objThis.OptionDefult.fetchOption.headers
+        = Object.assign({}, objThis.OptionDefult.fetchOption.headers);
+}
 
 /** 아작스 기본 옵션 */
-AA2.OptionDefult = {
+AjaxAssist2.prototype.OptionDefult = {
     /** 요청 url */
     url: "",
     /** 요청 url(인증)
@@ -51,7 +67,7 @@ AA2.OptionDefult = {
      * 요청이 에러 났을때 호출될 콜백
      * @param {object} response 에러났을 때 전달받은 리스폰스
      * @param {string} textStatus 결과 스테이터스.
-     * @param {ErrorAA2} errorThrown 에러 내용. ErrorAA2 개체가 전달됨.
+     * @param {ErrorAjaxAssist2} errorThrown 에러 내용. ErrorAjaxAssist2 개체가 전달됨.
      */
     error: function (response, textStatus, errorThrown)
     {
@@ -86,17 +102,17 @@ AA2.OptionDefult = {
  * 엑세스 토큰 읽기 함수.(직접 지정)
  * @returns {string} 가지고 있는 엑세스 토큰 리턴
  * */
-AA2.AccessTokenRead = function () { return ""; };
+AjaxAssist2.prototype.AccessTokenRead = function () { return ""; };
 /**
  * 리플레시 토큰 읽기 함수.(직접 지정)
  * @returns {string} 가지고 있는 엑세스 토큰 리턴
  * */
-AA2.RefreshTokenRead = function () { return ""; };
+AjaxAssist2.prototype.RefreshTokenRead = function () { return ""; };
 /**
  * 리플레시 토큰처리가 성공하면 동작하는 함수.(직접 지정)
  * @param {any} jsonData 리플레시 토큰 처리가 완료되고 넘어온 데이터
  */
-AA2.RefreshTokenSuccess = function (jsonData) { return jsonData; };
+AjaxAssist2.prototype.RefreshTokenSuccess = function (jsonData) { return jsonData; };
 
 
 /**
@@ -104,16 +120,18 @@ AA2.RefreshTokenSuccess = function (jsonData) { return jsonData; };
  * @param {AjaxAssist.TokenRelayType} typeToken typeToken 헤더에 토큰을 넣을지 여부
  * @param {json} jsonOption jsonOption 아작스 요청에 사용할 옵션 데이터. 지정하지 않은 옵션은기본 옵션을 사용한다.
  */
-AA2.get = async function (typeToken, jsonOption)
+AjaxAssist2.prototype.get = async function (typeToken, jsonOption)
 {
+    let objThis = this;
+
     jsonOption.method = AjaxAssist.AjaxMethodType.Get;
     if (true === jsonOption.await)
     {//응답 대기
-        return await AA2.call(typeToken, jsonOption);
+        return await objThis.call(typeToken, jsonOption);
     }
     else
     {
-        return AA2.call(typeToken, jsonOption);
+        return objThis.call(typeToken, jsonOption);
     }
 };
 /**
@@ -121,16 +139,18 @@ AA2.get = async function (typeToken, jsonOption)
  * @param {AjaxAssist.TokenRelayType} typeToken typeToken 헤더에 토큰을 넣을지 여부
  * @param {json} jsonOption jsonOption 아작스 요청에 사용할 옵션 데이터. 지정하지 않은 옵션은기본 옵션을 사용한다.
  */
-AA2.post = async function (typeToken, jsonOption)
+AjaxAssist2.prototype.post = async function (typeToken, jsonOption)
 {
+    let objThis = this;
+
     jsonOption.method = AjaxAssist.AjaxMethodType.Post;
     if (true === jsonOption.await)
     {//응답 대기
-        return await AA2.call(typeToken, jsonOption);
+        return await objThis.call(typeToken, jsonOption);
     }
     else
     {
-        return AA2.call(typeToken, jsonOption);
+        return objThis.call(typeToken, jsonOption);
     }
 };
 /**
@@ -138,16 +158,18 @@ AA2.post = async function (typeToken, jsonOption)
  * @param {AjaxAssist.TokenRelayType} typeToken typeToken 헤더에 토큰을 넣을지 여부
  * @param {json} jsonOption jsonOption 아작스 요청에 사용할 옵션 데이터. 지정하지 않은 옵션은기본 옵션을 사용한다.
  */
-AA2.put = async function (typeToken, jsonOption)
+AjaxAssist2.prototype.put = async function (typeToken, jsonOption)
 {
+    let objThis = this;
+
     jsonOption.method = AjaxAssist.AjaxMethodType.Put;
     if (true === jsonOption.await)
     {//응답 대기
-        return await AA2.call(typeToken, jsonOption);
+        return await objThis.call(typeToken, jsonOption);
     }
     else
     {
-        return AA2.call(typeToken, jsonOption);
+        return objThis.call(typeToken, jsonOption);
     }
 };
 /**
@@ -155,16 +177,18 @@ AA2.put = async function (typeToken, jsonOption)
  * @param {AjaxAssist.TokenRelayType} typeToken typeToken 헤더에 토큰을 넣을지 여부
  * @param {json} jsonOption jsonOption 아작스 요청에 사용할 옵션 데이터. 지정하지 않은 옵션은기본 옵션을 사용한다.
  */
-AA2.patch = async function (typeToken, jsonOption)
+AjaxAssist2.prototype.patch = async function (typeToken, jsonOption)
 {
+    let objThis = this;
+
     jsonOption.method = AjaxAssist.AjaxMethodType.Patch;
     if (true === jsonOption.await)
     {//응답 대기
-        return await AA2.call(typeToken, jsonOption);
+        return await objThis.call(typeToken, jsonOption);
     }
     else
     {
-        return AA2.call(typeToken, jsonOption);
+        return objThis.call(typeToken, jsonOption);
     }
 };
 /**
@@ -172,28 +196,32 @@ AA2.patch = async function (typeToken, jsonOption)
  * @param {AjaxAssist.TokenRelayType} typeToken typeToken 헤더에 토큰을 넣을지 여부
  * @param {json} jsonOption jsonOption 아작스 요청에 사용할 옵션 데이터. 지정하지 않은 옵션은기본 옵션을 사용한다.
  */
-AA2.delete = async function (typeToken, jsonOption)
+AjaxAssist2.prototype.delete = async function (typeToken, jsonOption)
 {
+    let objThis = this;
+
     jsonOption.method = AjaxAssist.AjaxMethodType.Delete;
     if (true === jsonOption.await)
     {//응답 대기
-        return await AA2.call(typeToken, jsonOption);
+        return await objThis.call(typeToken, jsonOption);
     }
     else
     {
-        return AA2.call(typeToken, jsonOption);
+        return objThis.call(typeToken, jsonOption);
     }
 };
 
 
-AA2.call = async function (typeToken, jsonOption)
+AjaxAssist2.prototype.call = async function (typeToken, jsonOption)
 {
+    let objThis = this;
+
     //매개변수 백업(여기서는 이걸 원본취급한다.)
     var typeTokenTemp = typeToken;
     var jsonOptionTemp = jsonOption;
 
     //옵션 저장
-    let jsonOpt = Object.assign({}, AA2.OptionDefult, jsonOption);
+    let jsonOpt = Object.assign({}, objThis.OptionDefult, jsonOption);
     //개체가 참조되는 것을 방지 - fetchOption.headers
     jsonOpt.fetchOption = Object.assign({}, jsonOpt.fetchOption);
     jsonOpt.fetchOption.headers = Object.assign({}, jsonOpt.fetchOption.headers);
@@ -294,7 +322,7 @@ AA2.call = async function (typeToken, jsonOption)
     if (AjaxAssist.TokenRelayType.HeadAdd === typeTokenTemp
         || AjaxAssist.TokenRelayType.CaseByCase === typeTokenTemp)
     {//전달 확인
-        sAccessToken = AA2.AccessTokenRead();
+        sAccessToken = objThis.AccessTokenRead();
     }
     else
     {//전달 안한다.
@@ -345,7 +373,7 @@ AA2.call = async function (typeToken, jsonOption)
         {
             //요청 데이터 처리
             let responseCheckResult
-                = await AA2.ResponseCheck(responseAjaxResult, jsonOpt.contentGetType);
+                = await objThis.ResponseCheck(responseAjaxResult, jsonOpt.contentGetType);
             if (true === responseAjaxResult.ok)
             {//성공
                 jsonOpt.success(
@@ -355,7 +383,7 @@ AA2.call = async function (typeToken, jsonOption)
             }
             else
             {//실패
-                errorAAObj = new ErrorAA2(responseAjaxResult);
+                errorAAObj = new ErrorAjaxAssist2(responseAjaxResult);
             }
         }
         catch (errorAA2)
@@ -366,7 +394,7 @@ AA2.call = async function (typeToken, jsonOption)
         //에러 처리
         if (null !== errorAAObj)
         {
-            await AA2.ErrorToss(
+            await objThis.ErrorToss(
                 errorAAObj
                 , typeTokenTemp
                 , jsonOptionTemp);
@@ -379,7 +407,7 @@ AA2.call = async function (typeToken, jsonOption)
             = fetch(urlTarget, jsonFetchComplete)
                 .then(function (response)
                 {
-                    return AA2.ResponseCheck(response, jsonOpt.contentGetType);
+                    return objThis.ResponseCheck(response, jsonOpt.contentGetType);
                 })
                 .then(function (sData)
                 {//정상 처리
@@ -390,7 +418,7 @@ AA2.call = async function (typeToken, jsonOption)
                 })
                 .catch(async function (errorAA2)
                 {
-                    await AA2.ErrorToss(
+                    await objThis.ErrorToss(
                         errorAA2
                         , typeTokenTemp
                         , jsonOptionTemp);
@@ -406,7 +434,7 @@ AA2.call = async function (typeToken, jsonOption)
  * @param {any} contentGetType
  * @returns 
  */
-AA2.ResponseCheck = async function (
+AjaxAssist2.prototype.ResponseCheck = async function (
     response
     , contentGetType)
 {
@@ -435,7 +463,7 @@ AA2.ResponseCheck = async function (
     }
     else
     {
-        throw new ErrorAA2(response);
+        throw new ErrorAjaxAssist2(response);
     }
 };
 
@@ -447,11 +475,13 @@ AA2.ResponseCheck = async function (
  * @param {Function} funSuccess
  * @param {json} jsonOption
  */
-AA2.FileLoad = async function (
+AjaxAssist2.prototype.FileLoad = async function (
     sFileUrl
     , funSuccess
     , jsonOption)
 {
+    let objThis = this;
+
     let typeToken = AjaxAssist.TokenRelayType.None;
     jsonOption.method = AjaxAssist.AjaxMethodType.get;
     jsonOption.url = sFileUrl;
@@ -461,11 +491,11 @@ AA2.FileLoad = async function (
 
     if (true === jsonOption.await)
     {//대기
-        await AA2.call(typeToken, jsonOption);
+        await objThis.call(typeToken, jsonOption);
     }
     else
     {
-        AA2.call(typeToken, jsonOption);
+        objThis.call(typeToken, jsonOption);
     }
 };
 
@@ -475,18 +505,31 @@ AA2.FileLoad = async function (
 //리플레시 토큰 처리 관련 
 //□□□□□□□□□□□□□□□□□□□□□□□
 
+/** 
+ *  RefreshToken을 갱신하고 있을때 아작스개체를 임시저장해둔다.
+ *  짧은 시간 리플레시토큰을 여러번 사용하려고하면 싱크에 문제가 생겨
+ *  죽어있는 토큰을 사용하려는 문제가 생긴다.
+ *  그래서 여기에 개체를 넣어두고 다른 요청은 RefreshToAccess_WaitingList에 대기시켜둔다.
+ * */
+AjaxAssist2.prototype.RefreshToAccess_CallBool = false;
+/** 이미 다른 리플레시 토큰이 갱신에 들어갔다면 다른 요청은 여기에 넣는다. */
+AjaxAssist2.prototype.RefreshToAccess_WaitingList = {};
+/** 리스트로 사용할 고유이름을 생성하기 위한 카운트 */
+AjaxAssist2.prototype.RefreshToAccess_WaitingListNameCount = 0;
+
 /**
  * fetch 호출 에러시 공통 처리.(무조건 await로 호출한다.)
- * @param {ErrorAA2} errorAAObj 에러 개체
+ * @param {ErrorAjaxAssist2} errorAAObj 에러 개체
  * @param {AjaxAssist.TokenRelayType} typeToken typeToken 헤더에 토큰을 넣을지 여부
  * @param {json} jsonOptionOriginal 이 에러가 난 당시의 원본 옵션
  */
-AA2.ErrorToss = async function (
+AjaxAssist2.prototype.ErrorToss = async function (
     errorAAObj
     , typeToken
-    , jsonOptionOriginal
-)
+    , jsonOptionOriginal)
 {
+    let objThis = this;
+
     let errorAAObjTemp = errorAAObj;
     let typeTokenTemp = typeToken;
     let jsonOptionOriginalTemp = jsonOptionOriginal;
@@ -499,7 +542,7 @@ AA2.ErrorToss = async function (
 
         //엑세스 토큰이 만료 됐다는 의미다.
         //리프레시 토큰을 다시 요청한다.
-        await AA2.RefreshToAccess(
+        await objThis.RefreshToAccess(
             typeTokenTemp
             , jsonOptionOriginalTemp);
     }
@@ -518,88 +561,128 @@ AA2.ErrorToss = async function (
  * @param {AjaxAssist.TokenRelayType} typeToken typeToken 헤더에 토큰을 넣을지 여부
  * @param {json} jsonOptionOriginal 이 에러가 난 당시의 원본 옵션
  * */
-AA2.RefreshToAccess = async function (
+AjaxAssist2.prototype.RefreshToAccess = async function (
     typeToken
     , jsonOptionOriginal)
 {
+    let objThis = this;
+
     let typeTokenTemp = typeToken;
     let jsonOptionOriginalTemp = jsonOptionOriginal;
 
-    //대상 url
-    let urlTarget = new URL("/api/Sign/RefreshToAccess", location.origin);
-    //전달용 바디 데이터
-    let bodyData
-        = (new URLSearchParams({
-            "nID": SignInAssist.SignIn_ID
-            , "sRefreshToken": SignInAssist.refresh_token
-        }));
+    
+    if (false === objThis.RefreshToAccess_CallBool)
+    {//진행중인 리플레시 토큰 갱신이 없다.
 
-    let jsonFetch = {
-        method: AjaxAssist.AjaxMethodType.Put
-        , mode: "cors"
-        , cache: "no-cache"
-        , credentials: "omit"
-        , headers: {
-            "Accept": "application/json"
-            , "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-        }
-        , body: bodyData
-        , referrer: "no-referrer"
-    };
+        //갱신중 알림
+        objThis.RefreshToAccess_CallBool = true;
+
+        //대상 url
+        let urlTarget = new URL("/api/Sign/RefreshToAccess", location.origin);
+        //전달용 바디 데이터
+        let bodyData
+            = (new URLSearchParams({
+                "nID": SignInAssist.SignIn_ID
+                , "sRefreshToken": SignInAssist.refresh_token
+            }));
+
+        let jsonFetch = {
+            method: AjaxAssist.AjaxMethodType.Put
+            , mode: "cors"
+            , cache: "no-cache"
+            , credentials: "omit"
+            , headers: {
+                "Accept": "application/json"
+                , "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+            }
+            , body: bodyData
+            , referrer: "no-referrer"
+        };
 
 
-    //요청
-    let responseAjaxResult
-        = await fetch(urlTarget, jsonFetch);
+        //요청
+        let responseAjaxResult
+            = await fetch(urlTarget, jsonFetch);
 
-    //에러 개체
-    let errorAA2Obj = null;
+        //에러 개체
+        let errorAA2Obj = null;
 
-    try
-    {
-        //결과 처리
-        let responseCheckResult
-            = await AA2.ResponseCheck(
-                responseAjaxResult
-                , AjaxAssist.ContentGetType.Json);
-        if (true === responseAjaxResult.ok)
-        {//성공
-            AA2.RefreshTokenSuccess(responseCheckResult);
-            //전달받은 옵션으로 다시 호출한다.
-            AA2.call(typeTokenTemp, jsonOptionOriginalTemp);
-        }
-        else
-        {//실패
-            errorAA2Obj = new ErrorAA2(responseAjaxResult);
-        }
-    }
-    catch (errorAA2)
-    {
-        errorAA2Obj = errorAA2;
-    }
-
-    if (null !== errorAA2Obj)
-    {//에러 개체가 생성됐다.
-
-        //엑세스토큰 갱신이 실패했다.
-        if (typeTokenTemp === AjaxAssist.TokenRelayType.CaseByCase)
-        {//케이스 바이 케이스다.
-
-            //전달받은 옵션으로 다시 호출한다.
-            //인증 헤더는 전달하지 않는다.
-            AA2.call(
-                AjaxAssist.TokenRelayType.None
-                , jsonOptionOriginalTemp);
-        }
-        else
+        try
         {
-            //에러 전달
-            jsonOptionOriginalTemp.error(
-                errorAA2Obj.response
-                , errorAA2Obj.statusText
-                , errorAA2Obj
-            );
+            //결과 처리
+            let responseCheckResult
+                = await objThis.ResponseCheck(
+                    responseAjaxResult
+                    , AjaxAssist.ContentGetType.Json);
+            if (true === responseAjaxResult.ok)
+            {//성공
+                objThis.RefreshTokenSuccess(responseCheckResult);
+                //전달받은 옵션으로 다시 호출한다.
+                objThis.call(typeTokenTemp, jsonOptionOriginalTemp);
+            }
+            else
+            {//실패
+                errorAA2Obj = new ErrorAjaxAssist2(responseAjaxResult);
+            }
         }
-    }//end if (null !== errorAA2Obj)
+        catch (errorAA2)
+        {
+            errorAA2Obj = errorAA2;
+        }
+
+        if (null !== errorAA2Obj)
+        {//에러 개체가 생성됐다.
+
+            //엑세스토큰 갱신이 실패했다.
+            if (typeTokenTemp === AjaxAssist.TokenRelayType.CaseByCase)
+            {//케이스 바이 케이스다.
+
+                //전달받은 옵션으로 다시 호출한다.
+                //인증 헤더는 전달하지 않는다.
+                objThis.call(
+                    AjaxAssist.TokenRelayType.None
+                    , jsonOptionOriginalTemp);
+            }
+            else
+            {
+                //에러 전달
+                jsonOptionOriginalTemp.error(
+                    errorAA2Obj.response
+                    , errorAA2Obj.statusText
+                    , errorAA2Obj
+                );
+            }
+        }//end if (null !== errorAA2Obj)
+    }
+    else
+    {//갱신중이다.
+
+    }
+
+    
 };
 
+
+
+/**
+ * 리플레시 토큰의 갱신이 진행중인경우 요청 리스트를 임시저장해준다.
+ * @param {any} typeToken 저장할 토큰 타입
+ * @param {any} jsonOption 저장할 옵션
+ * @param {any} sMessage 디버그 메시지 추가
+ */
+AjaxAssist2.prototype.RefreshToAccess_WaitingList_Add = function (
+    typeToken
+    , jsonOption
+    , sMessage)
+{
+    let objThis = this;
+
+    objThis.RefreshToAccess_WaitingList[""
+        + (++objThis.RefreshToAccess_WaitingListNameCount)]
+        = [typeToken, jsonOption];
+
+    var nCount = Object.keys(AA.RefreshToAccess_WaitingList).length;
+
+    console.log(moment().format("YYYY-MM-DD HH:mm:ss") + sMessage + nCount);
+    console.log(objThis.RefreshToAccess_WaitingList);
+};
