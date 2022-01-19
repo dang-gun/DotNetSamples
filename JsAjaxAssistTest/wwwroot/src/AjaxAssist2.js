@@ -6,7 +6,7 @@
 
 
 /**
- * AjaxAssist2에서 에러가 발생할때 
+ * AjaxAssist2에서 에러가 발생할때 사용되는 개체
  * @param {any} responseAjaxResult
  */
 function ErrorAjaxAssist2(responseAjaxResult)
@@ -38,6 +38,22 @@ function AjaxAssist2(jsonOptionDefult)
     objThis.OptionDefult.fetchOption.headers
         = Object.assign({}, objThis.OptionDefult.fetchOption.headers);
 }
+
+/** 콘솔에 로그를 표시할건지 여부 */
+//AjaxAssist2.prototype.LogOn = false;
+AjaxAssist2.prototype.LogOn = true;
+/**
+ * 로그 출력
+ * @param {any} callback function(sLogTime){};
+ */
+AjaxAssist2.prototype.Log = function (callback)
+{
+    if (true === this.LogOn)
+    {
+        let s = "[" + (new Date().toISOString().substr(11, 8)) + "] ";
+        callback(s);
+    }
+};
 
 /** 아작스 기본 옵션 */
 AjaxAssist2.prototype.OptionDefult = {
@@ -110,10 +126,31 @@ AjaxAssist2.prototype.AccessTokenRead = function () { return ""; };
 AjaxAssist2.prototype.RefreshTokenRead = function () { return ""; };
 /**
  * 리플레시 토큰처리가 성공하면 동작하는 함수.(직접 지정)
+ * 여기서 리플레시 토큰 저장처리를 하지 않으면 무한으로 리플레시 토큰을 갱신요청을 하게 된다.
  * @param {any} jsonData 리플레시 토큰 처리가 완료되고 넘어온 데이터
  */
-AjaxAssist2.prototype.RefreshTokenSuccess = function (jsonData) { return jsonData; };
+AjaxAssist2.prototype.RefreshTokenSuccess = async function (jsonData) { };
+/** 
+ *  리플레시 토큰이 만료가 확인되면 발생하는 이벤트
+ *  어떤 식으로든 갱신 실패(타임아웃, 소실, 잘못된 토큰) 되었을때 호출되는 함수.
+ * @param {string} errorCode -1:알수 없음
+ * , -11/-12 :알수 없음
+ * , -101: 인증 정보 없음
+ * , -102:기간 만료
+ * , -104:만료(기간은 남았는데 만료됨. 예>이미 갱신에 사용된경우)
+ * @param {ErrorAjaxAssist2} errorAA2Obj 에러 개체
+ * @param {AjaxAssist.TokenRelayType} typeToken 에러 당시 헤더에 토큰을 넣을지 여부
+ * @param {ErrorAjaxAssist2} jsonOption 이 에러가 난 당시의 원본 옵션
+ * */
+AjaxAssist2.prototype.OnRefreshTokenExp = function (
+    errorCode
+    , errorAA2Obj
+    , typeToken
+    , jsonOption) { };
 
+
+/** 대기 리스트를 한번에 처리할때 각 요청별 간격(ms) */
+AjaxAssist2.prototype.WaitingListDelay = 10;
 
 /**
  * get로 아작스 요청을 한다.
@@ -558,7 +595,7 @@ AjaxAssist2.prototype.ErrorToss = async function (
 
 /**
  *  리플래토큰으로 엑세스 토큰 갱신을 요청한다.(무조건 await로 호출한다.)
- * @param {AjaxAssist.TokenRelayType} typeToken typeToken 헤더에 토큰을 넣을지 여부
+ * @param {AjaxAssist.TokenRelayType} typeToken 에러 당시에 헤더에 토큰을 넣을지 여부
  * @param {json} jsonOptionOriginal 이 에러가 난 당시의 원본 옵션
  * */
 AjaxAssist2.prototype.RefreshToAccess = async function (
@@ -599,7 +636,8 @@ AjaxAssist2.prototype.RefreshToAccess = async function (
             , referrer: "no-referrer"
         };
 
-
+        objThis.Log(function (sLogTime) { console.log(sLogTime + "RefreshToken 갱신 시작"); });
+        objThis.Log(function (sLogTime) { console.log("/api/Sign/RefreshToAccess"); });
         //요청
         let responseAjaxResult
             = await fetch(urlTarget, jsonFetch);
@@ -616,13 +654,57 @@ AjaxAssist2.prototype.RefreshToAccess = async function (
                     , AjaxAssist.ContentGetType.Json);
             if (true === responseAjaxResult.ok)
             {//성공
-                objThis.RefreshTokenSuccess(responseCheckResult);
-                //전달받은 옵션으로 다시 호출한다.
-                objThis.call(typeTokenTemp, jsonOptionOriginalTemp);
+
+                if ("0" === responseCheckResult.InfoCode)
+                {//성공
+                    //리플레시 토큰 처리가 완료된것을 알림
+                    objThis.RefreshTokenSuccess(responseCheckResult);
+                    //전달받은 옵션으로 다시 호출한다.
+                    objThis.call(typeTokenTemp, jsonOptionOriginalTemp);
+                    //쌓여있는 리스트를 처리한다.
+                    objThis.RefreshToAccess_WaitingList_Call();
+                }
+                else if ("-103" === responseCheckResult.InfoCode)
+                {//너무 빠른 갱신요청
+
+                    //이미 다른 쓰레드에서 토큰 갱신이 이루어 졌다는 소리다.
+                    //만약 토큰이 다른곳에서 갱신된것이라면
+                    //다음 호출에서 리플래시토큰 만료가 와야 한다.
+
+                    //RefreshToAccess_CallBool가 true라면 대기 리스트에 추가하고
+                    //RefreshToAccess_CallBool가 false라면 바로 다시 요청을 콜한다.
+                    if (false === objThis.RefreshToAccess_CallBool)
+                    {//리플래시 갱신을 하고 있지 않다.
+
+                        objThis.Log(function (sLogTime) { console.log(sLogTime + "-103 : 다시 호출"); });
+                        //전달받은 옵션으로 다시 호출한다.
+                        objThis.call(typeTokenTemp, jsonOptionOriginalTemp);
+                    }
+                    else
+                    {//리플래시 갱신을 하고 있다.
+
+                        objThis.Log(function (sLogTime) { console.log(sLogTime + "-103 : 갱신 대기"); });
+                        objThis.Log(function (sLogTime) { console.log(objThis.RefreshToAccess_WaitingList); });
+                        objThis.RefreshToAccess_WaitingList_Add(
+                            typeTokenTemp
+                            , jsonOptionOriginalTemp
+                            , "6001");
+                    }
+                }
+                else
+                {
+                    objThis.Log(function (sLogTime) { console.log(sLogTime + "갱신 실패 : " + responseCheckResult.InfoCode); });
+                    errorAA2Obj = new ErrorAjaxAssist2(responseAjaxResult);
+                    objThis.OnRefreshTokenExp(responseCheckResult.InfoCode, errorAA2Obj);
+                }
+                
             }
             else
             {//실패
+                //알수 없는 에러
+                objThis.Log(function (sLogTime) { console.log(sLogTime + "갱신 실패 : 알 수 없는 에러"); });
                 errorAA2Obj = new ErrorAjaxAssist2(responseAjaxResult);
+                objThis.OnRefreshTokenExp(-1, errorAA2Obj);
             }
         }
         catch (errorAA2)
@@ -656,10 +738,12 @@ AjaxAssist2.prototype.RefreshToAccess = async function (
     }
     else
     {//갱신중이다.
-
+        objThis.RefreshToAccess_WaitingList_Add(
+            typeTokenTemp
+            , jsonOptionOriginalTemp
+            , "6002"
+        );
     }
-
-    
 };
 
 
@@ -681,8 +765,40 @@ AjaxAssist2.prototype.RefreshToAccess_WaitingList_Add = function (
         + (++objThis.RefreshToAccess_WaitingListNameCount)]
         = [typeToken, jsonOption];
 
-    var nCount = Object.keys(AA.RefreshToAccess_WaitingList).length;
+    var nCount = Object.keys(objThis.RefreshToAccess_WaitingList).length;
 
-    console.log(moment().format("YYYY-MM-DD HH:mm:ss") + sMessage + nCount);
-    console.log(objThis.RefreshToAccess_WaitingList);
+    objThis.Log(function (sLogTime) { console.log(sLogTime + sMessage + nCount); });
+    objThis.Log(function (sLogTime) { console.log(objThis.RefreshToAccess_WaitingList);});
+};
+
+/** 가지고 있는 대기 리스트를 진행시킨다. */
+AjaxAssist2.prototype.RefreshToAccess_WaitingList_Call = function ()
+{
+    let objThis = this;
+
+    //임시저장한 아작스개체를 삭제한다.
+    objThis.RefreshToAccess_CallBool = false;
+
+    //가지고 있는 대기 리스트를 진행시킨다. ****************
+    //RefreshToAccess_WaitingList에 있는 요청을 진행한다.
+    let arrKey = Object.keys(objThis.RefreshToAccess_WaitingList);
+    let nCount = arrKey.length;
+
+    objThis.Log(function (sLogTime) { console.log(sLogTime + "대기 요청 진행:" + nCount); });
+
+    for (var i = 0; i < nCount; ++i)
+    {
+        //문자열로 변경
+        let itemTemp = arrKey[i];
+
+        //약간의 딜레이를 주고 요청을 진행한다.
+        setTimeout(function ()
+        {
+            let item = objThis.RefreshToAccess_WaitingList[itemTemp];
+            //요청을 전달하고
+            objThis.call(item[0], item[1]);
+            //사용한 요청을 지운다.
+            delete objThis.RefreshToAccess_WaitingList[itemTemp];
+        }, objThis.WaitingListDelay * i);
+    }
 };

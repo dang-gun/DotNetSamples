@@ -16,6 +16,7 @@ using WebApiAuth.Models.Sign;
 using ApiModel;
 using ModelsDB;
 using JsAjaxAssistTest.Global;
+using System.Threading;
 
 namespace JsFetchApiTest.Controllers
 {
@@ -161,6 +162,9 @@ namespace JsFetchApiTest.Controllers
         public ActionResult<SignInResultModel> RefreshToAccess(
             [FromForm]string sRefreshToken)
         {
+            //테스트용
+            Thread.Sleep(10000);
+
             //결과용
             ApiResultReady rrResult = new ApiResultReady(this);
             //엑세스 토큰 갱신용 모델
@@ -255,8 +259,8 @@ namespace JsFetchApiTest.Controllers
                 if (null == trRefresh
                     || true == trRefresh.IsError)
                 {
-                    rrResult.InfoCode = "11";
-                    rrResult.Message = "토큰 갱신에 실패하였습니다.(11)";
+                    rrResult.InfoCode = "-11";
+                    rrResult.Message = "토큰 갱신에 실패하였습니다.(-11)";
                 }
             }
 
@@ -278,8 +282,8 @@ namespace JsFetchApiTest.Controllers
                 if (null == itemUSI)
                 {//기존 로그인 정보가 없다,
                  //이러면 강제로 토큰이 상실된 것일 수 있다.
-                    rrResult.InfoCode = "12";
-                    rrResult.Message = "토큰 갱신에 실패하였습니다.(12)";
+                    rrResult.InfoCode = "-12";
+                    rrResult.Message = "토큰 갱신에 실패하였습니다.(-12)";
                 }
                 else
                 {
