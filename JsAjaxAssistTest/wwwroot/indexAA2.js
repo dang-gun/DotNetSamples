@@ -39,14 +39,20 @@ async function JsonFileLoad(nAwait)
 
     switch (nAwait)
     {
+        case 0://대기 없음
+            AA2.get(AjaxAssist.TokenRelayType.None, jsonCallOpt);
+            break;
         case 1://대기
             await AA2.get(AjaxAssist.TokenRelayType.None, jsonCallOpt);
             break;
 
-        case 0:
-        default:
-            //대기 없음
-            AA2.get(AjaxAssist.TokenRelayType.None, jsonCallOpt);
+        
+
+        case 10://대기 없음
+            AA2.FileLoad(jsonCallOpt.url, jsonCallOpt.success, jsonCallOpt);
+            break;
+        case 11://대기
+            await AA2.FileLoad(jsonCallOpt.url, jsonCallOpt.success, jsonCallOpt);
             break;
     }
 

@@ -1,4 +1,9 @@
-﻿/*
+﻿import { AjaxAssist } from "/src/AjaxAssistType.js";
+
+export { AjaxAssist2, ErrorAjaxAssist2 };
+
+
+/*
  * 이 프로젝트에서 자주쓰는 아작스 호출 형식을 미리 정의 한다.
  * 
  * 응답에 대기하려면 await를 사용한다.(jsonOption.await을 true 로 줘야 한다.)
