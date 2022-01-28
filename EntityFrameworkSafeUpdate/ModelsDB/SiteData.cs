@@ -18,15 +18,16 @@ namespace ModelsDB
 
         /// <summary>
         /// 총 방문자.
-        /// 18,446,744,073,709,551,615 가 넘으면 VisitTotalCount를 1 더해준다.
+        /// 2^63-1(9,223,372,036,854,775,807) 가 넘으면 VisitTotalCount를 1 더해준다.
         /// </summary>
         [ConcurrencyCheck]
-        public ulong VisitTotal { get; set; }
+        public long VisitTotal { get; set; }
         /// <summary>
         /// 총 방문자 최대 카운터.
-        /// 총 방문자가 18,446,744,073,709,551,615를 몇번 달성했는지 횟수
+        /// 총 방문자가 2^63-1(9,223,372,036,854,775,807)를 몇번 달성했는지 횟수
         /// </summary>
-        public ulong VisitTotalCount { get; set; }
+        [ConcurrencyCheck]
+        public long VisitTotalCount { get; set; }
 
         /// <summary>
         /// 

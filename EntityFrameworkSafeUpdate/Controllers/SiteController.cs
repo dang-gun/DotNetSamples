@@ -78,7 +78,7 @@ namespace SPA_NetCore_Foundation.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut]
-        public ActionResult<ApiResultBaseModel> VisitCountProtect()
+        public ActionResult<ApiResultBaseModel> VisitCountError()
         {
             //리턴 보조
             ApiResultReady rmResult = new ApiResultReady(this);
@@ -113,32 +113,7 @@ namespace SPA_NetCore_Foundation.Controllers
                         }
                         catch (DbUpdateConcurrencyException e)
                         {
-                            foreach (var entry in e.Entries)
-                            {
-                                if (entry.Entity is SiteData)
-                                {
-                                    var proposedValues = entry.CurrentValues;
-                                    var databaseValues = entry.GetDatabaseValues();
-
-                                    foreach (var property in proposedValues.Properties)
-                                    {
-                                        var proposedValue = proposedValues[property];
-                                        var databaseValue = databaseValues[property];
-
-                                        // TODO: decide which value should be written to database
-                                        // proposedValues[property] = <value to be saved>;
-                                    }
-
-                                    // Refresh original values to bypass next concurrency check
-                                    entry.OriginalValues.SetValues(databaseValues);
-                                }
-                                else
-                                {
-                                    throw new NotSupportedException(
-                                        "Don't know how to handle concurrency conflicts for "
-                                        + entry.Metadata.Name);
-                                }
-                            }
+                            throw new NotSupportedException(e.ToString());
                         }
 
                     };
@@ -154,7 +129,7 @@ namespace SPA_NetCore_Foundation.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut]
-        public ActionResult<ApiResultBaseModel> VisitCountProtect2()
+        public ActionResult<ApiResultBaseModel> VisitCountProtect1()
         {
             //리턴 보조
             ApiResultReady rmResult = new ApiResultReady(this);
@@ -227,6 +202,58 @@ namespace SPA_NetCore_Foundation.Controllers
             return rmResult.ToResult();
         }
 
+        /// <summary>
+        /// 방문자 +1(낙관적 동시성 + 업데이트 반복 + 클래스)
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut]
+        public ActionResult<ApiResultBaseModel> VisitCountProtect2()
+        {
+            //리턴 보조
+            ApiResultReady rmResult = new ApiResultReady(this);
+
+            using (ModelsDbContext db1 = new ModelsDbContext())
+            {
+                using (ModelsDbContext db2 = new ModelsDbContext())
+                {
+                    SiteData findSD = null;
+                    SiteData findSD2 = null;
+
+                    //대상 검색
+                    findSD = db1.SiteData.FirstOrDefault();
+
+
+                    //읽어들인 데이터를 +1해주고
+                    ++findSD.VisitTotal;
+
+                    //Thread.Sleep(3000);
+                    bool bSaveFailed = false;
+
+
+                    while (false == bSaveFailed)
+                    {
+                        //수정할 내용 다시 로드
+                        findSD2 = db2.SiteData.FirstOrDefault();
+                        ++findSD2.VisitTotal;
+
+                        try
+                        {
+                            //db에 저장한다.
+                            db1.SaveChanges();
+                            db2.SaveChanges();
+                            bSaveFailed = true;
+                        }
+                        catch (DbUpdateConcurrencyException e)
+                        {
+                            new DbUpdateConcurrencyExceptionCatch<SiteData>().ProcSave(e);
+                        }
+
+                    };
+                }//end using db2
+            }//end using db1
+
+            return rmResult.ToResult();
+        }
 
     }
 }

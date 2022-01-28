@@ -50,7 +50,6 @@ namespace ModelsDB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<SiteData>().Property(p => p.RowVersion).IsConcurrencyToken();
-            modelBuilder.Entity<SiteData>().Property(p => p.RowVersion).IsRowVersion();
             modelBuilder.Entity<SiteData>().HasData(
                 new SiteData
                 {

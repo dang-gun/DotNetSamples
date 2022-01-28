@@ -1,4 +1,4 @@
-﻿using ApiModel;
+﻿using ApiResult;
 using System;
 using System.Collections.Generic;
 using System.Linq;

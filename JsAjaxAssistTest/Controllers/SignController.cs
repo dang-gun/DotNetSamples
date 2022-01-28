@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
 using WebApiAuth.Models.Sign;
-using ApiModel;
+using ApiResult;
 using ModelsDB;
 using JsAjaxAssistTest.Global;
 using System.Threading;

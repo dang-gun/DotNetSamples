@@ -1,0 +1,4 @@
+﻿
+Insert Into SiteData_VisitToday(Date, Count) 
+	values (@dateStandard, 1)
+	On duplicate key Update Count = Count + 1;

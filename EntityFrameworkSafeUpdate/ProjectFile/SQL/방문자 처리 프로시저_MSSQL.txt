@@ -1,0 +1,60 @@
+﻿GO
+/****** Object:  StoredProcedure [dbo].[VisitAdd]    Script Date: 2022-01-25 오전 3:53:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Dang-Gun
+-- Create date: 2020-01-25
+-- Description:	방문 횟수 증가
+-- =============================================
+CREATE PROCEDURE [dbo].[VisitAdd]
+	--기준 날짜
+	@dateStandard date
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	-- 전체 방문자 숫자 처리 *******
+	begin try
+		-- 방문자를 +1 해준다.
+		Update sd Set VisitTotal = VisitTotal + 1
+			From SiteData as sd Where idSiteData = 1;
+
+	end try
+	begin catch
+		--VisitTotal가 최대치를 넘으면 에러가 난다.
+		-- VisitTotal을 0으로 바꾸고, VisitTotalCount를 +1 해준다.
+		Update sd Set VisitTotal = 0
+				, VisitTotalCount = VisitTotalCount + 1
+			From SiteData as sd Where idSiteData = 1;
+	end catch;
+
+
+	-- 오늘의 방문자 숫자 처리 *******
+	--
+	Declare @Table table
+	( idSiteData_VisitToday bigint
+		, Date date
+		, Count bigint);
+
+	if exists(Select Date From SiteData_VisitToday Where Date = @dateStandard)
+	Begin -- 지정날짜 로우가 있다.
+		--방문자 숫자를 늘린다.
+		Update SiteData_VisitToday
+			Set Count = Count + 1
+			From SiteData_VisitToday
+			Where Date = @dateStandard;
+	End
+	Else
+	Begin -- 지정날짜 로우가 없다.
+		--로우를 인서트 한다.
+		Insert into SiteData_VisitToday(Date, Count)
+			Values(@dateStandard, 1);
+	End
+	
+    
+END

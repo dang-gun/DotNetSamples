@@ -25,12 +25,8 @@ namespace ModelsDB
         /// <summary>
         /// 기준 날짜의 방문자 숫자
         /// </summary>
-        public ulong Count { get; set; }
+        [ConcurrencyCheck]
+        public long Count { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
     }
 }

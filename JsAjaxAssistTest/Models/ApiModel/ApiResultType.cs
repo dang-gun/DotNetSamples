@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ApiModel
+namespace ApiResult
 {
     /// <summary>
     /// 자주쓰는 API 결과 타입

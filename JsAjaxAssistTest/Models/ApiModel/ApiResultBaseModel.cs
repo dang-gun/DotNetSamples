@@ -1,5 +1,5 @@
 ﻿
-namespace ApiModel
+namespace ApiResult
 {
     /// <summary>
     /// API 결과 공통 베이스.
