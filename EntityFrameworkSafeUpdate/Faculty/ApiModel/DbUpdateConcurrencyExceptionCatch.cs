@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ApiResult
 {
     /// <summary>
-    /// DB업데이트시 속성이 ConcurrencyCheck오류를 처리하는 클래스
+    /// DB업데이트시 속성이 ConcurrencyCheck오류를 처리하는 클래스.
     /// </summary>
     /// <typeparam name="T">처리할 모델 형식</typeparam>
     public class DbUpdateConcurrencyExceptionCatch<T> where T : class

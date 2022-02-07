@@ -37,7 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsFetchApiTest", "JsFetchAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsAjaxAssistTest", "JsAjaxAssistTest\JsAjaxAssistTest.csproj", "{35BDADE2-44A0-4D84-BF1E-88DE420739F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkSafeUpdate", "EntityFrameworkSafeUpdate\EntityFrameworkSafeUpdate.csproj", "{D761FCBB-2BB4-4F8E-8503-1E2992D1D185}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFrameworkSafeUpdate", "EntityFrameworkSafeUpdate\EntityFrameworkSafeUpdate.csproj", "{D761FCBB-2BB4-4F8E-8503-1E2992D1D185}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassToJson", "ClassToJson\ClassToJson.csproj", "{448665FD-AD15-4DCE-8D02-83C74AF9BE13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +119,10 @@ Global
 		{D761FCBB-2BB4-4F8E-8503-1E2992D1D185}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D761FCBB-2BB4-4F8E-8503-1E2992D1D185}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D761FCBB-2BB4-4F8E-8503-1E2992D1D185}.Release|Any CPU.Build.0 = Release|Any CPU
+		{448665FD-AD15-4DCE-8D02-83C74AF9BE13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{448665FD-AD15-4DCE-8D02-83C74AF9BE13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{448665FD-AD15-4DCE-8D02-83C74AF9BE13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{448665FD-AD15-4DCE-8D02-83C74AF9BE13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
