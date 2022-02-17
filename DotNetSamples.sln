@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29519.161
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiPascalCase", "WebApiPascalCase\WebApiPascalCase.csproj", "{9EB8DD25-B335-4DCF-A677-40EC71ECBADA}"
 EndProject
@@ -40,6 +40,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFrameworkSafeUpdate", "EntityFrameworkSafeUpdate\EntityFrameworkSafeUpdate.csproj", "{D761FCBB-2BB4-4F8E-8503-1E2992D1D185}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassToJson", "ClassToJson\ClassToJson.csproj", "{448665FD-AD15-4DCE-8D02-83C74AF9BE13}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReleaseDllTest", "ReleaseDllTest", "{0C4FA38A-B2AC-4A69-84EF-4500205883F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReleaseTestDll", "ReleaseTestDll\ReleaseTestDll.csproj", "{657A6D63-09FD-4E90-9BCD-EB9A090D7F15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReleaseDllTest_ProjectReference", "ReleaseDllTest_ProjectReference\ReleaseDllTest_ProjectReference.csproj", "{62C7568B-250B-42D0-8177-06EC3DE368F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,9 +129,21 @@ Global
 		{448665FD-AD15-4DCE-8D02-83C74AF9BE13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{448665FD-AD15-4DCE-8D02-83C74AF9BE13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{448665FD-AD15-4DCE-8D02-83C74AF9BE13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{657A6D63-09FD-4E90-9BCD-EB9A090D7F15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{657A6D63-09FD-4E90-9BCD-EB9A090D7F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{657A6D63-09FD-4E90-9BCD-EB9A090D7F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{657A6D63-09FD-4E90-9BCD-EB9A090D7F15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62C7568B-250B-42D0-8177-06EC3DE368F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62C7568B-250B-42D0-8177-06EC3DE368F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62C7568B-250B-42D0-8177-06EC3DE368F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62C7568B-250B-42D0-8177-06EC3DE368F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{657A6D63-09FD-4E90-9BCD-EB9A090D7F15} = {0C4FA38A-B2AC-4A69-84EF-4500205883F8}
+		{62C7568B-250B-42D0-8177-06EC3DE368F2} = {0C4FA38A-B2AC-4A69-84EF-4500205883F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5CBB7027-9855-46CE-8FFA-32A9E65217FF}
