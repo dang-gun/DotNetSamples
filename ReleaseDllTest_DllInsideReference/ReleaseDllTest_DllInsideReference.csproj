@@ -6,7 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ReleaseTestDll\ReleaseTestDll.csproj" />
+    <Reference Include="ReleaseTestDll">
+      <HintPath>lib\release\ReleaseTestDll.dll</HintPath>
+      <CopyLocal>False</CopyLocal>
+    </Reference>
   </ItemGroup>
 
 </Project>
