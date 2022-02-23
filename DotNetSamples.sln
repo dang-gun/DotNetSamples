@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29519.161
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiPascalCase", "WebApiPascalCase\WebApiPascalCase.csproj", "{9EB8DD25-B335-4DCF-A677-40EC71ECBADA}"
 EndProject
@@ -40,6 +40,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFrameworkSafeUpdate", "EntityFrameworkSafeUpdate\EntityFrameworkSafeUpdate.csproj", "{D761FCBB-2BB4-4F8E-8503-1E2992D1D185}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassToJson", "ClassToJson\ClassToJson.csproj", "{448665FD-AD15-4DCE-8D02-83C74AF9BE13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfInvokeTest", "WpfInvokeTest\WpfInvokeTest.csproj", "{EDDE518D-F130-4D33-93BA-EB8683D3A4B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +125,10 @@ Global
 		{448665FD-AD15-4DCE-8D02-83C74AF9BE13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{448665FD-AD15-4DCE-8D02-83C74AF9BE13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{448665FD-AD15-4DCE-8D02-83C74AF9BE13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDDE518D-F130-4D33-93BA-EB8683D3A4B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDDE518D-F130-4D33-93BA-EB8683D3A4B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDDE518D-F130-4D33-93BA-EB8683D3A4B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDDE518D-F130-4D33-93BA-EB8683D3A4B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
