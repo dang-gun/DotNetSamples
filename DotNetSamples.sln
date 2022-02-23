@@ -43,6 +43,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassToJson", "ClassToJson\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfInvokeTest", "WpfInvokeTest\WpfInvokeTest.csproj", "{EDDE518D-F130-4D33-93BA-EB8683D3A4B9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReleaseDllTest", "ReleaseDllTest", "{0C4FA38A-B2AC-4A69-84EF-4500205883F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReleaseTestDll", "ReleaseTestDll\ReleaseTestDll.csproj", "{657A6D63-09FD-4E90-9BCD-EB9A090D7F15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReleaseDllTest_ProjectReference", "ReleaseDllTest_ProjectReference\ReleaseDllTest_ProjectReference.csproj", "{62C7568B-250B-42D0-8177-06EC3DE368F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReleaseDllTest_DllReference", "ReleaseDllTest_DllReference\ReleaseDllTest_DllReference.csproj", "{A459E3EF-BE5D-468C-9E98-B6F08E9042F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReleaseDllTest_DllInsideReference", "ReleaseDllTest_DllInsideReference\ReleaseDllTest_DllInsideReference.csproj", "{0AB09416-0605-4AA0-895D-E1009EC8CCC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,13 +135,15 @@ Global
 		{448665FD-AD15-4DCE-8D02-83C74AF9BE13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{448665FD-AD15-4DCE-8D02-83C74AF9BE13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{448665FD-AD15-4DCE-8D02-83C74AF9BE13}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EDDE518D-F130-4D33-93BA-EB8683D3A4B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EDDE518D-F130-4D33-93BA-EB8683D3A4B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EDDE518D-F130-4D33-93BA-EB8683D3A4B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EDDE518D-F130-4D33-93BA-EB8683D3A4B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{657A6D63-09FD-4E90-9BCD-EB9A090D7F15} = {0C4FA38A-B2AC-4A69-84EF-4500205883F8}
+		{62C7568B-250B-42D0-8177-06EC3DE368F2} = {0C4FA38A-B2AC-4A69-84EF-4500205883F8}
+		{A459E3EF-BE5D-468C-9E98-B6F08E9042F6} = {0C4FA38A-B2AC-4A69-84EF-4500205883F8}
+		{0AB09416-0605-4AA0-895D-E1009EC8CCC2} = {0C4FA38A-B2AC-4A69-84EF-4500205883F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5CBB7027-9855-46CE-8FFA-32A9E65217FF}
