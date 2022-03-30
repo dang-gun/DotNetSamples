@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ModelsDB
 {
@@ -7,6 +9,8 @@ namespace ModelsDB
 		/// <summary>
 		/// 유저 고유키
 		/// </summary>
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int idUser { get; set; }
 
 		/// <summary>
@@ -19,7 +23,6 @@ namespace ModelsDB
 		/// 단방향 암호화가된 비밀번호
 		/// </summary>
 		/// <remarks>이 프로젝트는 최소한으로 구현되기 때문에 암호화를 하지 않는다.</remarks>
-		[JsonIgnore]
 		public string PasswordHash { get; set; } = string.Empty;
 	}
 }

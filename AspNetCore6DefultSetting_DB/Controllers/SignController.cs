@@ -20,24 +20,27 @@ namespace AspNetCore6DefultSetting_DB.Controllers
 			//로그인 처리용 모델
 			SignInModel smResult = new SignInModel();
 
-			User? findUser 
-				= GlobalStatic.Users.Where(w=>
+			using (ModelsDbContext db1 = new ModelsDbContext())
+			{
+				User? findUser
+				= db1.User.Where(w =>
 						w.SignName == sSignName
 						&& w.PasswordHash == sPassword)
 				.FirstOrDefault();
 
-			if (null != findUser)
-			{//유저 찾음
-				smResult.Complete = true;
-				smResult.Token
-					= String.Format("{0}▩{1}"
-						, sSignName
-						, Guid.NewGuid().ToString());
-			}
-
+				if (null != findUser)
+				{//유저 찾음
+					smResult.Complete = true;
+					smResult.Token
+						= String.Format("{0}▩{1}"
+							, sSignName
+							, Guid.NewGuid().ToString());
+				}
+			}//end using db1
 
 			return smResult;
 		}
+
 
 		/// <summary>
 		/// 지정한 유저의 정보를 준다.
@@ -50,19 +53,26 @@ namespace AspNetCore6DefultSetting_DB.Controllers
 			//로그인 처리용 모델
 			SignInfoModel smResult = new SignInfoModel();
 
-			User? findUser
-				= GlobalStatic.Users.Where(w =>
+			using (ModelsDbContext db1 = new ModelsDbContext())
+			{
+				User? findUser
+				= db1.User.Where(w =>
 						w.idUser == idUser)
 				.FirstOrDefault();
 
-			if (null != findUser)
-			{//유저 찾음
-				smResult.Complete = true;
-				smResult.UserInfo = findUser;
-			}
+				if (null != findUser)
+				{//유저 찾음
+					smResult.Complete = true;
+					smResult.UserInfo = findUser;
+				}
+
+			}//end using db1
+			
 
 
 			return smResult;
 		}
+
+
 	}
 }

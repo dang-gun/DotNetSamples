@@ -1,6 +1,6 @@
 ﻿using ModelsDB;
 
-namespace AspNetCore6DefultSetting.Global
+namespace AspNetCore6DefultSetting_DB.Global
 {
 	/// <summary>
 	/// 이 프로젝트에서 사용할 전역 변수
@@ -15,9 +15,9 @@ namespace AspNetCore6DefultSetting.Global
 		static GlobalStatic()
 		{
 			Users = new List<User>();
-			Users.Add(new User() { Id = 1, SignName = "test01", Password = "1111" });
-			Users.Add(new User() { Id = 2, SignName = "test02", Password = "1111" });
-			Users.Add(new User() { Id = 3, SignName = "test03", Password = "1111" });
+			Users.Add(new User() { idUser = 1, SignName = "test01", PasswordHash = "1111" });
+			Users.Add(new User() { idUser = 2, SignName = "test02", PasswordHash = "1111" });
+			Users.Add(new User() { idUser = 3, SignName = "test03", PasswordHash = "1111" });
 		}
 	}
 }
