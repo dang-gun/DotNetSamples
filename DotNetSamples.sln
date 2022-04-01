@@ -27,10 +27,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsImportExport", "JsImportE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JavascriptUtilTest", "JavascriptUtilTest\JavascriptUtilTest.csproj", "{B17A5DD1-EC6E-4704-A4B3-FF08F6AB5947}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4VutJwtTest", "IdentityServer4VutJwtTest\IdentityServer4VutJwtTest.csproj", "{77ECBCAB-F34D-4B18-9779-9D7189CC4AE6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4JavascriptClientTest", "IdentityServer4JavascriptClientTest\IdentityServer4JavascriptClientTest.csproj", "{4FFD1710-FC2A-41B9-BC9C-9D8250CE53C2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{073D206C-D45F-4E6C-82CC-79144D75875A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsFetchApiTest", "JsFetchApiTest\JsFetchApiTest.csproj", "{8338B364-D13A-4743-94CD-6552ED1AFEDD}"
@@ -57,7 +53,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore6DefultSetting", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNetCore6Defult", "AspNetCore6Defult", "{0E9B96E2-2B39-40B5-9557-9018D4C46781}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore6DefultSetting_DB", "AspNetCore6DefultSetting_DB\AspNetCore6DefultSetting_DB.csproj", "{34174B90-3213-419C-880F-377B471CC288}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore6DefultSetting_DB", "AspNetCore6DefultSetting_DB\AspNetCore6DefultSetting_DB.csproj", "{34174B90-3213-419C-880F-377B471CC288}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi_JwtAuth", "WebApi_JwtAuth\WebApi_JwtAuth.csproj", "{CFC70EC7-6468-4442-A506-2AC18418CB34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -113,14 +111,6 @@ Global
 		{B17A5DD1-EC6E-4704-A4B3-FF08F6AB5947}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B17A5DD1-EC6E-4704-A4B3-FF08F6AB5947}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B17A5DD1-EC6E-4704-A4B3-FF08F6AB5947}.Release|Any CPU.Build.0 = Release|Any CPU
-		{77ECBCAB-F34D-4B18-9779-9D7189CC4AE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{77ECBCAB-F34D-4B18-9779-9D7189CC4AE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{77ECBCAB-F34D-4B18-9779-9D7189CC4AE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{77ECBCAB-F34D-4B18-9779-9D7189CC4AE6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4FFD1710-FC2A-41B9-BC9C-9D8250CE53C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4FFD1710-FC2A-41B9-BC9C-9D8250CE53C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4FFD1710-FC2A-41B9-BC9C-9D8250CE53C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4FFD1710-FC2A-41B9-BC9C-9D8250CE53C2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{073D206C-D45F-4E6C-82CC-79144D75875A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{073D206C-D45F-4E6C-82CC-79144D75875A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{073D206C-D45F-4E6C-82CC-79144D75875A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -169,6 +159,10 @@ Global
 		{34174B90-3213-419C-880F-377B471CC288}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34174B90-3213-419C-880F-377B471CC288}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34174B90-3213-419C-880F-377B471CC288}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFC70EC7-6468-4442-A506-2AC18418CB34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFC70EC7-6468-4442-A506-2AC18418CB34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFC70EC7-6468-4442-A506-2AC18418CB34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFC70EC7-6468-4442-A506-2AC18418CB34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
