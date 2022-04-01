@@ -7,7 +7,7 @@ using ModelsDB;
 
 #nullable disable
 
-namespace WebApi_JwtAuth.Migrations
+namespace WebApi_JwtAuthTest.Migrations
 {
     [DbContext(typeof(ModelsDbContext))]
     partial class ModelsDbContextModelSnapshot : ModelSnapshot

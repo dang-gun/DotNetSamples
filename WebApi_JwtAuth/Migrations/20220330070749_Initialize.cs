@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace WebApi_JwtAuth.Migrations
+namespace WebApi_JwtAuthTest.Migrations
 {
     public partial class Initialize : Migration
     {

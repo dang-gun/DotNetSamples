@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace WebApi_JwtAuth.Migrations
+namespace WebApi_JwtAuthTest.Migrations
 {
     public partial class ModelEidt_01 : Migration
     {

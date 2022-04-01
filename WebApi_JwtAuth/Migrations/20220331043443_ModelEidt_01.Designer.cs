@@ -8,7 +8,7 @@ using ModelsDB;
 
 #nullable disable
 
-namespace WebApi_JwtAuth.Migrations
+namespace WebApi_JwtAuthTest.Migrations
 {
     [DbContext(typeof(ModelsDbContext))]
     [Migration("20220331043443_ModelEidt_01")]

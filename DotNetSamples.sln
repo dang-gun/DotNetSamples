@@ -57,6 +57,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore6DefultSetting_DB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi_JwtAuth", "WebApi_JwtAuth\WebApi_JwtAuth.csproj", "{CFC70EC7-6468-4442-A506-2AC18418CB34}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi_JwtAuthTest", "WebApi_JwtAuthTest\WebApi_JwtAuthTest.csproj", "{70A9268B-7D21-471C-B73E-DA91DCDAF738}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -163,6 +165,10 @@ Global
 		{CFC70EC7-6468-4442-A506-2AC18418CB34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFC70EC7-6468-4442-A506-2AC18418CB34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFC70EC7-6468-4442-A506-2AC18418CB34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70A9268B-7D21-471C-B73E-DA91DCDAF738}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70A9268B-7D21-471C-B73E-DA91DCDAF738}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70A9268B-7D21-471C-B73E-DA91DCDAF738}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70A9268B-7D21-471C-B73E-DA91DCDAF738}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
