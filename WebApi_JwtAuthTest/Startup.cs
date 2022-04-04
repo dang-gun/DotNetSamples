@@ -40,15 +40,36 @@ namespace WebApi_JwtAuthTest
 
 
             //Jwt Auth Setting 정보 전달
-            //모델로 전달하는 방법을 못찾음
-            //JwtAuthSettingModel newJAS = new JwtAuthSettingModel();
-            //newJAS.Secret = Configuration["JwtSecret"];
-            //services.Configure<JwtAuthSettingModel>(new Action<JwtAuthSettingModel>(newJAS));
-            services.Configure<JwtAuthSettingModel>(Configuration.GetSection("JwtSecretSetting"));
-            services.AddScoped<IJwtUtils, JwtUtils>();
+            //appsettings.json 의 내용 전달
+            //services.Configure<DgJwtAuthSettingModel>(Configuration.GetSection("JwtSecretSetting"));
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            services.AddEndpointsApiExplorer();
+            DgJwtAuthSettingModel newDgJwtAuthSetting
+                = new DgJwtAuthSettingModel();
+            newDgJwtAuthSetting.Secret = Configuration["JwtSecretSetting:Secret"];
+            //옵션 전달
+            services.Configure<DgJwtAuthSettingModel>(options =>
+            {
+                options.ToCopy(newDgJwtAuthSetting);
+            });
+
+            //자주쓰는 유틸이니 
+            //services.AddScoped<IJwtUtils, DgJwtAuth>();
+            services.AddSingleton<DgJwtAuthUtilsInterface, DgJwtAuthUtils>();
+
+            Client client = new Client();
+            client.aaa = "ddfdf";
+            client.bbb = "123";
+
+			services.Configure<Client>(options =>
+			{
+				options.ToCopy(client);
+			});
+			//services.AddScoped<IClient, Client>();
+
+
+
+			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+			services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
         }
 
@@ -65,7 +86,8 @@ namespace WebApi_JwtAuthTest
             }
 
             //JwtAuth 미들웨어 주입
-            app.UseMiddleware<JwtMiddleware>();
+            app.UseMiddleware<DgJwtAuthMiddleware>();
+            app.UseMiddleware<TestMiddleware>();
 
             //스웨거 사용
             app.UseSwagger();

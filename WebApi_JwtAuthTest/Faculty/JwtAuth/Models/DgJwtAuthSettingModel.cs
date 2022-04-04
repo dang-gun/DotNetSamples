@@ -1,6 +1,6 @@
 ﻿namespace JwtAuth.Models
 {
-	public class JwtAuthSettingModel
+	public class DgJwtAuthSettingModel
 	{
 		/// <summary>
 		/// 인증용 헤더의 이름
@@ -66,5 +66,35 @@
 		/// </remarks>
 		public int RefreshTokenLifetime { get; set; } = 1296000;
 
+		/// <summary>
+		/// 엑세스 토큰 쿠키 저장 여부
+		/// </summary>
+		/// <remarks>엑세스 토큰을 CookieOptions으로 넘겨 자동으로 저장하고 읽을지 여부이다.<br/>
+		/// 이것을 사용하면 직접 전달한 토큰은 무시되고 쿠키에 있는 토큰만 사용하게 된다.
+		/// </remarks>
+		public bool AccessTokenCookie { get; set; } = true;
+		/// <summary>
+		/// 리플레시 토큰 쿠키 저장 여부
+		/// </summary>
+		/// <remarks>리플레시 토큰을 CookieOptions으로 넘겨 자동으로 저장하고 읽을지 여부이다.<br/>
+		/// 이것을 사용하면 직접 전달한 토큰은 무시되고 쿠키에 있는 토큰만 사용하게 된다.
+		public bool RefreshTokenCookie { get; set; } = true;
+
+		/// <summary>
+		/// 모든 데이터를 복사한다.
+		/// </summary>
+		/// <param name="data"></param>
+		public void ToCopy(DgJwtAuthSettingModel data)
+		{
+			this.AuthHeaderName = data.AuthHeaderName;
+			this.AuthTokenStartName = data.AuthTokenStartName;
+			this.Secret = data.Secret;
+			this.AccessTokenLifetime = data.AccessTokenLifetime;
+			this.RefreshTokenLifetime = data.RefreshTokenLifetime;
+
+			this.AccessTokenCookie = data.AccessTokenCookie;
+			this.RefreshTokenCookie = data.RefreshTokenCookie;
+		}
+			
 	}
 }

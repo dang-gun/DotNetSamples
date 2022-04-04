@@ -21,13 +21,13 @@ namespace WebApi_JwtAuthTest.Controllers
 		/// <summary>
 		/// 인증 유틸
 		/// </summary>
-		private readonly IJwtUtils _JwtUtils;
+		private readonly DgJwtAuthUtilsInterface _JwtUtils;
 
 		/// <summary>
 		/// 생성자
 		/// </summary>
 		/// <param name="jwtUtils"></param>
-		public SignController(IJwtUtils jwtUtils)
+		public SignController(DgJwtAuthUtilsInterface jwtUtils)
 		{
 			this._JwtUtils = jwtUtils;
 		}
@@ -229,15 +229,19 @@ namespace WebApi_JwtAuthTest.Controllers
 
 		/// <summary>
 		/// 지정한 유저의 정보를 준다.
+		/// <para>AnonymousAndAuthorize테스트</para>
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet]
-		//[Authorize]
+		[AnonymousAndAuthorize]
 		public ActionResult<SignInfoModel> SignInfo()
 		{
 			//로그인 처리용 모델
 			SignInfoModel arReturn = new SignInfoModel();
+			//전달할 개체를 만들고
+			arReturn.UserInfo = new List<User>();
 
+			//유저 정보를 찾는다.
 			long? idUser = this._JwtUtils.ClaimDataGet(HttpContext.User);
 
 			using (ModelsDbContext db1 = new ModelsDbContext())
@@ -250,11 +254,15 @@ namespace WebApi_JwtAuthTest.Controllers
 				if (null != findUser)
 				{//유저 찾음
 					arReturn.Complete = true;
-					arReturn.UserInfo = findUser;
+					//전체 리스트
+					arReturn.UserInfo 
+						= db1.User.ToList();
 				}
 				else
 				{
-					arReturn.Complete = false;
+					//한개만 전달 리스트
+					arReturn.UserInfo.Add(db1.User.FirstOrDefault()!);
+					arReturn.Complete = true;
 				}
 
 			}//end using db1

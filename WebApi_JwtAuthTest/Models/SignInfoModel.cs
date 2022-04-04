@@ -15,7 +15,7 @@ namespace WebApi_JwtAuthTest.Models
         /// <summary>
         /// 검색된 유저 정보
         /// </summary>
-        public User? UserInfo { get; set; }
+        public List<User>? UserInfo { get; set; }
 
     }
 }

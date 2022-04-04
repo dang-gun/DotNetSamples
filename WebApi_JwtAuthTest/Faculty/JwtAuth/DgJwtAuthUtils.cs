@@ -9,7 +9,10 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-public interface IJwtUtils
+/// <summary>
+/// DgJwtAuth에서 토큰 처리를 위한 유틸 인터페이스
+/// </summary>
+public interface DgJwtAuthUtilsInterface
 {
     /// <summary>
     /// 엑세스 토큰 생성
@@ -20,11 +23,12 @@ public interface IJwtUtils
 
     /// <summary>
     /// 엑세스 토큰 확인.
+    /// <para> </para>
     /// </summary>
     /// <remarks>미들웨어에서도 호출해서 사용한다.</remarks>
     /// <param name="token"></param>
-    /// <returns>찾아낸 idUser</returns>
-    public int? AccessTokenValidate(string token);
+    /// <returns>찾아낸 idUser, 토큰 자체가 없으면 -1, 토큰이 유효하지 않으면 0 </returns>
+    public int AccessTokenValidate(string token);
 
     /// <summary>
     /// 리플레시 토큰 생성.
@@ -42,16 +46,16 @@ public interface IJwtUtils
 }
 
 /// <summary>
-/// https://jasonwatmore.com/post/2022/01/24/net-6-jwt-authentication-with-refresh-tokens-tutorial-with-example-api#running-angular
+/// DgJwtAuth에서 토큰 처리
 /// </summary>
-public class JwtUtils : IJwtUtils
+public class DgJwtAuthUtils : DgJwtAuthUtilsInterface
 {
     /// <summary>
     /// 설정된 세팅 정보
     /// </summary>
-    private readonly JwtAuthSettingModel _JwtAuthSetting;
+    private readonly DgJwtAuthSettingModel _JwtAuthSetting;
 
-    public JwtUtils(IOptions<JwtAuthSettingModel> appSettings)
+    public DgJwtAuthUtils(IOptions<DgJwtAuthSettingModel> appSettings)
     {
         _JwtAuthSetting = appSettings.Value;
 
@@ -64,6 +68,7 @@ public class JwtUtils : IJwtUtils
                 = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
         }
     }
+
 
     
     public string AccessTokenGenerate(User account)
@@ -81,19 +86,23 @@ public class JwtUtils : IJwtUtils
         return tokenHandler.WriteToken(token);
     }
 
-    public int? AccessTokenValidate(string token)
+    public int AccessTokenValidate(string token)
     {
-        if (token == null)
-            return null;
+        if (string.IsNullOrEmpty(token))
+        {//전달된 토큰 값이 없다.
+            return -1;
+        }
 
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_JwtAuthSetting.Secret!);
+        JwtSecurityTokenHandler tokenHandler 
+            = new JwtSecurityTokenHandler();
+        byte[] byteKey 
+            = Encoding.ASCII.GetBytes(_JwtAuthSetting.Secret!);
         try
         {
             tokenHandler.ValidateToken(token, new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
+                IssuerSigningKey = new SymmetricSecurityKey(byteKey),
                 ValidateIssuer = false,
                 ValidateAudience = false,
                 // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
@@ -103,13 +112,15 @@ public class JwtUtils : IJwtUtils
             var jwtToken = (JwtSecurityToken)validatedToken;
             var accountId = int.Parse(jwtToken.Claims.First(x => x.Type == "idUser").Value);
 
-            // return account id from JWT token if validation successful
+            //찾은 아이디
             return accountId;
         }
         catch
-        {
-            // return null if validation fails
-            return null;
+        {//토큰을 해석하지 못했다.
+            
+            //토큰을 어떤사유에서든 해석하지 못하면 0 에러를 내보내어
+            //상황에 따라 리플레시토큰을으로 토큰을 갱신하도록 알려야 한다.
+            return 0;
         }
     }
 
