@@ -80,6 +80,12 @@
 		/// 이것을 사용하면 직접 전달한 토큰은 무시되고 쿠키에 있는 토큰만 사용하게 된다.
 		public bool RefreshTokenCookie { get; set; } = true;
 
+
+		/// <summary>
+		/// 사용할 디비 타입 0=InMemory 
+		/// </summary>
+		public int DbType { get; set; } = 0;
+
 		/// <summary>
 		/// 모든 데이터를 복사한다.
 		/// </summary>

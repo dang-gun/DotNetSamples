@@ -8,6 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using WebApi_JwtAuthTest.Faculty.JwtAuth;
 
 /// <summary>
 /// DgJwtAuth에서 토큰 처리를 위한 유틸 인터페이스
@@ -55,9 +56,30 @@ public class DgJwtAuthUtils : DgJwtAuthUtilsInterface
     /// </summary>
     private readonly DgJwtAuthSettingModel _JwtAuthSetting;
 
-    public DgJwtAuthUtils(IOptions<DgJwtAuthSettingModel> appSettings)
+    //private readonly DgJwtAuthDbContext _DBContext;
+
+    private readonly Func<DisposableScopedContextWrapper> _func;
+
+    public DgJwtAuthUtils(
+        IOptions<DgJwtAuthSettingModel> appSettings
+        //, DgJwtAuthDbContext context
+        , Func<DisposableScopedContextWrapper> func)
     {
         _JwtAuthSetting = appSettings.Value;
+        //_DBContext = context;
+        _func = func;
+
+        using (DgJwtAuthDbContext wrapper = _func().Context)
+        {
+            wrapper.DgJwtAuthAccessToken
+                .Add(new DgJwtAuthAccessToken()
+                {
+                    idUser = 1,
+                    Secret = "asdfasdfasdfasdffdffdf"
+                });
+
+            wrapper.SaveChanges();
+        }
 
         if (_JwtAuthSetting.Secret == null 
             || _JwtAuthSetting.Secret == string.Empty)
@@ -73,6 +95,15 @@ public class DgJwtAuthUtils : DgJwtAuthUtilsInterface
     
     public string AccessTokenGenerate(User account)
     {
+        DgJwtAuthAccessToken[] aaaa;
+
+        using (var wrapper = _func())
+        {
+            aaaa
+            = wrapper.Context.DgJwtAuthAccessToken
+                .ToArray();
+        }
+
         // generate token that is valid for 15 minutes
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_JwtAuthSetting.Secret!);
@@ -88,6 +119,8 @@ public class DgJwtAuthUtils : DgJwtAuthUtilsInterface
 
     public int AccessTokenValidate(string token)
     {
+
+
         if (string.IsNullOrEmpty(token))
         {//전달된 토큰 값이 없다.
             return -1;

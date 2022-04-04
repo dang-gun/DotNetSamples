@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using ModelsDB;
 using JwtAuth;
 using System.Net;
+using JwtAuth.Models;
+using Microsoft.Extensions.Options;
 
 namespace WebApi_JwtAuthTest.Controllers
 {
@@ -17,19 +19,24 @@ namespace WebApi_JwtAuthTest.Controllers
 		public readonly string AccessTokenName = "AccessToken";
 		public readonly string RefreshTokenName = "RefreshToken";
 
+		
 
 		/// <summary>
 		/// 인증 유틸
 		/// </summary>
 		private readonly DgJwtAuthUtilsInterface _JwtUtils;
+		private readonly DgJwtAuthSettingModel _dgjaSettings;
 
 		/// <summary>
 		/// 생성자
 		/// </summary>
 		/// <param name="jwtUtils"></param>
-		public SignController(DgJwtAuthUtilsInterface jwtUtils)
+		public SignController(
+			DgJwtAuthUtilsInterface jwtUtils
+			, IOptions<DgJwtAuthSettingModel> appSettings)
 		{
 			this._JwtUtils = jwtUtils;
+			this._dgjaSettings = appSettings.Value;
 		}
 
 		/// <summary>

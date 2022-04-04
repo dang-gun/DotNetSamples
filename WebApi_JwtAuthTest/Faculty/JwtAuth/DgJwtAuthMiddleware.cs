@@ -22,6 +22,12 @@ public class DgJwtAuthMiddleware
         _appSettings = appSettings.Value;
     }
 
+    /// <summary>
+    /// 인증 전달용 미들 웨어
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="jwtUtils"></param>
+    /// <returns></returns>
     public async Task Invoke(
         HttpContext context
         , DgJwtAuthUtilsInterface jwtUtils)
