@@ -2,7 +2,7 @@
 using WebApi_JwtAuthTest.Global;
 using Microsoft.EntityFrameworkCore;
 
-namespace JwtAuth.Models
+namespace DGAuthServer
 {
     /// <summary>
     /// 

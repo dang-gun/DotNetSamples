@@ -51,6 +51,25 @@
 		public string? Secret { get; set; }
 
 		/// <summary>
+		/// 혼자 사용하는 시크릿을 사용할지 여부(개인 시크릿 키)<br />
+		/// 이걸 사용하면 <see cref="this.Secret">Secret</see> 는 무시된다.
+		/// </summary>
+		/// <remarks>
+		/// 시크릿을 혼자 사용하면 엑세스 토큰을 강제로 만료시키는 기능을 사용할 수 있다.<br />
+		/// 보안상으로도 더 좋다.<br />
+		/// 하지만 매번 저장소를 검색해야 하므로 자원낭비가 심하다.<br />
+		/// 자신의 서비스가 동시접속자가 많다면 권장하지 않는 기능이다.</remarks>
+		public bool SecretAlone { get; set; } = false;
+		/// <summary>
+		/// 혼자 사용하는 시크릿사용시 구분 기호
+		/// </summary>
+		/// <remarks>개인용 시크릿키를 검색하기위해 
+		/// 엑세스토큰 맨앞에 사용자 고유번호가 붙게 된다.<br />
+		/// 이때 이 고유번호를 구분하기위한 구분 기호이다.</remarks>
+		public string SecretAloneDelimeter { get; set; } = "▒";
+		
+
+		/// <summary>
 		/// 엑세스토큰 수명(초, s)
 		/// <para>기본값 3600 = 1시간</para>
 		/// </summary>
@@ -95,11 +114,14 @@
 			this.AuthHeaderName = data.AuthHeaderName;
 			this.AuthTokenStartName = data.AuthTokenStartName;
 			this.Secret = data.Secret;
+			this.SecretAlone = data.SecretAlone;
 			this.AccessTokenLifetime = data.AccessTokenLifetime;
 			this.RefreshTokenLifetime = data.RefreshTokenLifetime;
 
 			this.AccessTokenCookie = data.AccessTokenCookie;
 			this.RefreshTokenCookie = data.RefreshTokenCookie;
+
+			this.DbType = data.DbType;
 		}
 			
 	}

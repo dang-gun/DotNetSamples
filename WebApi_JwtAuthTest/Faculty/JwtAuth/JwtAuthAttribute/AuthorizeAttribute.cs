@@ -1,8 +1,10 @@
-namespace JwtAuth;
+
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Security.Claims;
+
+namespace DGAuthServer;
 
 /// <summary>
 /// 인증 필수 속성

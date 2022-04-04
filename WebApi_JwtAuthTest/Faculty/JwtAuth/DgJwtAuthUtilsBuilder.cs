@@ -1,4 +1,4 @@
-namespace JwtAuth;
+
 
 using JwtAuth.Models;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +9,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using WebApi_JwtAuthTest.Faculty.JwtAuth;
+
+namespace DGAuthServer;
 
 /// <summary>
 /// DgJwtAuth에서 토큰 처리를 위한 유틸 인터페이스

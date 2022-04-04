@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 
-namespace JwtAuth;
+namespace DGAuthServer;
 
 /// <summary>
 /// 익명을 허용하고 인증정보가 있을때는 인증정보 유효성 검사를 한다.

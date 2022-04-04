@@ -1,10 +1,12 @@
-namespace JwtAuth;
+
 
 using JwtAuth;
 using JwtAuth.Models;
 using Microsoft.Extensions.Options;
 using ModelsDB;
 using System.Security.Claims;
+
+namespace DGAuthServer;
 
 /// <summary>
 /// 인증 미들웨어
@@ -30,7 +32,7 @@ public class DgJwtAuthMiddleware
     /// <returns></returns>
     public async Task Invoke(
         HttpContext context
-        , DgJwtAuthUtilsInterface jwtUtils)
+        , DGAuthServerInterface jwtUtils)
     {
         //추출된 토큰
         string sToken = string.Empty;
