@@ -50,11 +50,6 @@ namespace ModelsDB
         /// 유저 사인인 정보
         /// </summary>
         public DbSet<User> User { get; set; }
-
-        /// <summary>
-        /// 유저 리플레시 토큰
-        /// </summary>
-        public DbSet<UserRefreshToken> UserRefreshToken { get; set; }
         #endregion
 
         /// <summary>

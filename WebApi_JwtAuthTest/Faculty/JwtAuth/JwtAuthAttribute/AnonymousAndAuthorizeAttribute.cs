@@ -1,4 +1,3 @@
-using JwtAuth.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
@@ -17,7 +16,13 @@ namespace DGAuthServer;
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public class AnonymousAndAuthorizeAttribute : Attribute, IAuthorizationFilter
 {
-	public void OnAuthorization(AuthorizationFilterContext context)
+	public AnonymousAndAuthorizeAttribute()
+	{
+
+	}
+
+	
+    public void OnAuthorization(AuthorizationFilterContext context)
 	{
 
         bool bAllowAnonymous
@@ -31,19 +36,25 @@ public class AnonymousAndAuthorizeAttribute : Attribute, IAuthorizationFilter
             return;
         }
 
+        
         //인증정보 확인
         long nUser = 0;
-        foreach (Claim item in context.HttpContext.User.Claims.ToArray())
-        {
-            if (item.Type == "idUser")
-            {//인증 정보가 있다.
-                nUser = Convert.ToInt64(item.Value);
-                break;
-            }
+        Claim? findClaim
+            = context.HttpContext
+                    .User
+                    .Claims
+                    .Where(w => w.Type == "idUser")
+                    .FirstOrDefault();
+
+        if (null != findClaim)
+        {//인증정보가 있다.
+            nUser = Int64.Parse(findClaim.Value);
         }
+
 
         //1이상일때는 정상적인 토큰을 받은 것이다.
         //이 속성은 -1(익명처리)일때는 익명처리를 허용한다.
+        //그래서 0(토큰정보가 잘못됨)만 처리를 한다.
         if (0 == nUser)
         {//인증정보가 잘못되었다.
 

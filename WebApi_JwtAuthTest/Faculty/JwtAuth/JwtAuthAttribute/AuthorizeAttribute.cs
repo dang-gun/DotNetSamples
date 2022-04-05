@@ -33,14 +33,18 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
 
         //인증정보 확인
         long nUser = 0;
-        foreach (Claim item in context.HttpContext.User.Claims.ToArray())
-        {
-            if (item.Type == "idUser")
-            {//인증 정보가 있다.
-                nUser = Convert.ToInt64(item.Value);
-                break;
-            }
+        Claim? findClaim 
+            = context.HttpContext
+                    .User
+                    .Claims
+                    .Where(w => w.Type == "idUser")
+                    .FirstOrDefault();
+
+        if (null != findClaim)
+        {//인증정보가 있다.
+            nUser = Int64.Parse(findClaim.Value);
         }
+
 
         if (0 >= nUser)
         {//인증정보가 없다.

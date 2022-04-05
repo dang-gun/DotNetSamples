@@ -1,7 +1,4 @@
 
-
-using JwtAuth;
-using JwtAuth.Models;
 using Microsoft.Extensions.Options;
 using ModelsDB;
 using System.Security.Claims;
@@ -15,31 +12,28 @@ namespace DGAuthServer;
 public class DgJwtAuthMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly DgJwtAuthSettingModel _appSettings;
+    private readonly DgJwtAuthSettingModel _JwtAuthSetting;
 
     public DgJwtAuthMiddleware(RequestDelegate next
         , IOptions<DgJwtAuthSettingModel> appSettings)
     {
         _next = next;
-        _appSettings = appSettings.Value;
+        _JwtAuthSetting = appSettings.Value;
     }
 
     /// <summary>
     /// 인증 전달용 미들 웨어
     /// </summary>
     /// <param name="context"></param>
-    /// <param name="jwtUtils"></param>
     /// <returns></returns>
-    public async Task Invoke(
-        HttpContext context
-        , DGAuthServerInterface jwtUtils)
+    public async Task Invoke(HttpContext context)
     {
         //추출된 토큰
         string sToken = string.Empty;
         //토큰이 있는지 여부
         bool bToken = false;
 
-        if (string.Empty == _appSettings.AuthTokenStartName)
+        if (string.Empty == _JwtAuthSetting.AuthTokenStartName)
         {//인증 토큰 시작 단어를 사용하지 않는다.
 
             //토큰 추출
@@ -63,7 +57,7 @@ public class DgJwtAuthMiddleware
                 = context.Request
                     .Headers["Authorization"]
                     .FirstOrDefault()?
-                    .Split(_appSettings.AuthTokenStartName_Complete);
+                    .Split(_JwtAuthSetting.AuthTokenStartName_Complete);
 
             if (null != arrToken
                 && 1 < arrToken.Length)
@@ -77,12 +71,13 @@ public class DgJwtAuthMiddleware
 
 
         //토큰 정보를 기준으로 속성에 전달하기위한 값 처리를 한다.
-        int idUser = 0;
+        long idUser = 0;
         if (true == bToken)
         {//토큰이 있다.
 
             //토큰에서 idUser 추출
-            idUser = jwtUtils.AccessTokenValidate(sToken);
+            //idUser = jwtUtils.AccessTokenValidate(sToken);
+            idUser = DGAuthServerGlobal.Service.AccessTokenValidate(sToken);
         }
         else
         {//토큰 없음
@@ -94,7 +89,7 @@ public class DgJwtAuthMiddleware
         var claims
             = new List<Claim>
                 {
-                        new Claim("idUser", idUser.ToString()!)
+                        new Claim(this._JwtAuthSetting.UserIdName, idUser.ToString()!)
                 };
 
         //HttpContext에 클래임 정보를 넣어준다.

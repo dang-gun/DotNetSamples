@@ -1,9 +1,7 @@
-﻿using JwtAuth;
-using JwtAuth.Models;
-using WebApi_JwtAuthTest.Global;
+﻿using WebApi_JwtAuthTest.Global;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
-
+using DGAuthServer;
 
 namespace WebApi_JwtAuthTest
 {
@@ -42,19 +40,15 @@ namespace WebApi_JwtAuthTest
             //Jwt Auth Setting 정보 전달
             //appsettings.json 의 내용 전달
             //services.Configure<DgJwtAuthSettingModel>(Configuration.GetSection("JwtSecretSetting"));
+            services.AddDgAuthServerBuilder(
+                new DgJwtAuthSettingModel()
+                {
+                    Secret = Configuration["JwtSecretSetting:Secret"],
+                    SecretAlone = true,
+                    AccessTokenCookie = true,
+                    RefreshTokenCookie = true,
+                });
 
-            DgJwtAuthSettingModel newDgJwtAuthSetting
-                = new DgJwtAuthSettingModel();
-            newDgJwtAuthSetting.Secret = Configuration["JwtSecretSetting:Secret"];
-            //옵션 전달
-            services.Configure<DgJwtAuthSettingModel>(options =>
-            {
-                options.ToCopy(newDgJwtAuthSetting);
-            });
-
-            //자주쓰는 유틸이니 싱글톤으로 주입
-            services.AddSingleton<DgJwtAuthUtilsInterface, DgJwtAuthUtils>();
-            services.AddDgJwtAuthUtilsBuilder(newDgJwtAuthSetting);
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
@@ -73,8 +67,8 @@ namespace WebApi_JwtAuthTest
                 //app.UseSwaggerUI();
             }
 
-            //JwtAuth 미들웨어 주입
-            app.UseMiddleware<DgJwtAuthMiddleware>();
+            //DGAuthServerService 빌더
+            app.UseDgAuthServerAppBuilder();
 
             //스웨거 사용
             app.UseSwagger();

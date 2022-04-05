@@ -1,6 +1,4 @@
 
-
-using JwtAuth.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -13,28 +11,53 @@ using System.Text;
 namespace DGAuthServer;
 
 /// <summary>
-/// DgJwtAuth에서 토큰 처리를 위한 유틸 인터페이스
+/// DG Auth Server Service를 위한 빌더 구현
 /// </summary>
 public static class DgJwtAuthUtilsBuilder
 {
-    public static IServiceCollection AddDgJwtAuthUtilsBuilder(
+    /// <summary>
+    /// 서비스 빌더
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="settingData"></param>
+    /// <returns></returns>
+    public static IServiceCollection AddDgAuthServerBuilder(
         this IServiceCollection services
-        , DgJwtAuthSettingModel aaa)
+        , DgJwtAuthSettingModel settingData)
     {
+
+        //세팅 데이터 저장
+        DGAuthServerGlobal.Setting.ToCopy(settingData);
 
         //builder.addcl
         //services.Configure<DgJwtAuthSettingModel>();
 
-        services.AddDbContext<DgJwtAuthDbContext>(
-            options => options.UseInMemoryDatabase(databaseName: "Test"));
-
-
-        services.AddSingleton<Func<DisposableScopedContextWrapper>>(provider => () =>
+        //옵션 전달
+        services.Configure<DgJwtAuthSettingModel>(options =>
         {
-            var scope = provider.CreateScope();
-            return new DisposableScopedContextWrapper(scope);
+            options.ToCopy(DGAuthServerGlobal.Setting);
         });
+
+        //자체적으로 사용할 데이터 베이스
+        DGAuthServerGlobal.ActDbContextOnConfiguringAct
+            = (options => options.UseInMemoryDatabase(databaseName: "Test"));
+
 
         return services;
     }
+
+    /// <summary>
+    /// 어플리케이션(미들웨어) 빌더
+    /// </summary>
+    /// <param name="app"></param>
+    /// <returns></returns>
+    public static IApplicationBuilder UseDgAuthServerAppBuilder(
+        this IApplicationBuilder app)
+    {
+
+        //JwtAuth 미들웨어 주입
+        app.UseMiddleware<DgJwtAuthMiddleware>();
+        return app;
+    }
 }
+

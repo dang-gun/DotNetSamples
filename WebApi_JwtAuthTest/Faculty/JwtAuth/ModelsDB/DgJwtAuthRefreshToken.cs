@@ -20,13 +20,28 @@ public class DgJwtAuthRefreshToken
 	/// 외부에 연결할 유저의 고유키
 	/// </summary>
 	/// <remarks>이 값을 가지고 외부의 유저와 매칭시킨다.</remarks>
-	public int idUser { get; set; }
+	public long idUser { get; set; }
+
+	/// <summary>
+	/// 이 토큰의 분류
+	/// </summary>
+	/// <remarks>
+	/// 엑세스 토큰이 여러개 있는 경우(예> 다중플랫폼 허용)
+	/// 각 토큰을 구분하기위한 구분용 문자열이다.<br />
+	/// idUser와 합쳐 복합키처럼 사용해야 한다.
+	/// </remarks>
+	public string Class { get; set; } = string.Empty;
 
 	/// <summary>
 	/// 리플레시 토큰
 	/// </summary>
 	public string RefreshToken { get; set; } = string.Empty;
-	
+
+	/// <summary>
+	/// 생성 시간
+	/// </summary>
+	public DateTime GenerateTime { get; set; }
+
 	/// <summary>
 	/// 만료 예정 시간
 	/// </summary>
