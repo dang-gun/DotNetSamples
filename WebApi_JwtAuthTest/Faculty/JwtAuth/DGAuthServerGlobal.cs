@@ -16,5 +16,5 @@ public static class DGAuthServerGlobal
 	/// <summary>
 	/// DB 컨택스트의 OnConfiguring이벤트에 사용될 액션
 	/// </summary>
-	public static Action<DbContextOptionsBuilder>? ActDbContextOnConfiguringAct = null;
+	public static Action<DbContextOptionsBuilder>? ActDbContextOnConfiguring = null;
 }

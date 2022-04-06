@@ -183,11 +183,6 @@ public class DgJwtAuthSettingModel
 	public string UserIdName { get; set; } = "idUser";
 
 	/// <summary>
-	/// 사용할 디비 타입 0=InMemory 
-	/// </summary>
-	public int DbType { get; set; } = 0;
-
-	/// <summary>
 	/// 모든 데이터를 복사한다.
 	/// </summary>
 	/// <param name="data"></param>
@@ -211,7 +206,6 @@ public class DgJwtAuthSettingModel
 
 		this.UserIdName = data.UserIdName;
 
-		this.DbType = data.DbType;
 	}
 		
 }

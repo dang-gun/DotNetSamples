@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
 using DGAuthServer;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApi_JwtAuthTest
 {
@@ -44,13 +45,15 @@ namespace WebApi_JwtAuthTest
                 new DgJwtAuthSettingModel()
                 {
                     Secret = Configuration["JwtSecretSetting:Secret"],
+                    //개인 시크릿 허용
                     SecretAlone = true,
 
                     //테스트를 위해 60초로 설정
                     AccessTokenLifetime = 60,
                     AccessTokenCookie = true,
                     RefreshTokenCookie = true,
-                });
+                }
+                , (options => options.UseSqlite("Data Source=DGAuthServerTest.db")));
 
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

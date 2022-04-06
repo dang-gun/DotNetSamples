@@ -24,9 +24,9 @@ namespace DGAuthServer
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            if (null != DGAuthServerGlobal.ActDbContextOnConfiguringAct)
+            if (null != DGAuthServerGlobal.ActDbContextOnConfiguring)
             {
-                DGAuthServerGlobal.ActDbContextOnConfiguringAct(options);
+                DGAuthServerGlobal.ActDbContextOnConfiguring(options);
             }
         }
 

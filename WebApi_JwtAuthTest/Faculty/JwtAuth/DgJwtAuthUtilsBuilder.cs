@@ -23,7 +23,8 @@ public static class DgJwtAuthUtilsBuilder
     /// <returns></returns>
     public static IServiceCollection AddDgAuthServerBuilder(
         this IServiceCollection services
-        , DgJwtAuthSettingModel settingData)
+        , DgJwtAuthSettingModel settingData
+        , Action<DbContextOptionsBuilder>? actDbContextOnConfiguring)
     {
 
         //세팅 데이터 저장
@@ -38,9 +39,23 @@ public static class DgJwtAuthUtilsBuilder
             options.ToCopy(DGAuthServerGlobal.Setting);
         });
 
-        //자체적으로 사용할 데이터 베이스
-        DGAuthServerGlobal.ActDbContextOnConfiguringAct
-            = (options => options.UseInMemoryDatabase(databaseName: "Test"));
+        if (null != actDbContextOnConfiguring)
+        {
+            DGAuthServerGlobal.ActDbContextOnConfiguring
+                = actDbContextOnConfiguring;
+        }
+        else
+        {
+            //자체적으로 사용할 데이터 베이스
+            DGAuthServerGlobal.ActDbContextOnConfiguring
+                = (options => options.UseInMemoryDatabase(databaseName: "DGAuthServer_DB"));
+        }
+
+        //테이블 생성
+        using (DgJwtAuthDbContext db1 = new DgJwtAuthDbContext())
+        {
+            db1.Database.EnsureCreated();
+        }
 
 
         return services;
