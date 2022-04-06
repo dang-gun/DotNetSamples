@@ -99,8 +99,17 @@ public class DgJwtAuthSettingModel
 	/// </summary>
 	/// <remarks>개인용 시크릿키를 검색하기위해 
 	/// 엑세스토큰 맨앞에 사용자 고유번호가 붙게 된다.<br />
-	/// 이때 이 고유번호를 구분하기위한 구분 기호이다.</remarks>
-	//public string SecretAloneDelimeter { get; set; } = "▒";
+	/// 이때 이 고유번호를 구분하기위한 구분 기호이다.
+	/// <para>
+	/// 이 값은 http 해더에 들어가야 하므로 'ISO/IEC 8859-1'에 있는 값만 사용해야한다.<br />
+	/// 내부적으로는 첫번째 검색된 구분자만 자르므로 엑세스 토큰에 사용되는 문자가 사용되도
+	/// 큰문제는 없지만 가급적 사용되지 않는 문자를 지정하는 것이 좋다.
+	/// </para>
+	/// <para>
+	/// 문장도 가능하지만 가능한 짧게 넣는것이 좋다.
+	/// </para>
+	/// </remarks>
+	/// 
 	public string SecretAloneDelimeter { get; set; } = "%";
 
 	#region 엑세스 토큰

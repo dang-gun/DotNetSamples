@@ -138,17 +138,38 @@ public class DGAuthServerService
     /// </summary>
     /// <remarks>미들웨어에서도 호출해서 사용한다.</remarks>
     /// <param name="token"></param>
+    /// <param name="request"></param>
     /// <returns>찾아낸 idUser, 토큰 자체가 없으면 -1, 토큰이 유효하지 않으면 0 </returns>
     public long AccessTokenValidate(
-        string sToken)
+        string sToken
+        , HttpRequest? request)
     {
-        if (string.IsNullOrEmpty(sToken))
+        string sTokenFinal = String.Empty;
+
+        if (null != request
+            && true == DGAuthServerGlobal.Setting.AccessTokenCookie)
+        {//쿠키 사용
+
+            string? sTokenTemp
+                = request.Cookies[DGAuthServerGlobal.Setting.AccessTokenCookieName];
+            if (null != sTokenTemp)
+            {//검색된 값이 있으면 전달
+                sTokenFinal = sTokenTemp.ToString();
+            }
+        }
+        else
+        {
+            sTokenFinal = sToken;
+        }
+
+
+        if (string.Empty == sTokenFinal)
         {//전달된 토큰 값이 없다.
             return -1;
         }
 
 
-        //토큰
+        //전달 받은 토큰에서 토큰 정보만 추출된 데이터
         string sTokenCut = string.Empty;
         //찾아낸 유저 번호
         long idUser = 0;
@@ -159,15 +180,19 @@ public class DGAuthServerService
         if (true == DGAuthServerGlobal.Setting.SecretAlone)
 		{//혼자사용하는 시크릿
 
-			//이경우 앞에 유저번호를 먼저 분리한다.
-			string[] arrCutToke = sToken.Split(DGAuthServerGlobal.Setting.SecretAloneDelimeter);
+            //첫번째 구분자를 찾는다.
+            int nUser = sTokenFinal.IndexOf(DGAuthServerGlobal.Setting.SecretAloneDelimeter);
 
-			if (2 > arrCutToke.Length)
-			{//엑세스 토큰에 유저 번호가 없다.
-				return 0;
-			}
+            if (0 > nUser)
+            {//엑세스 토큰에 유저 번호가 없다.
+                return 0;
+            }
 
-			if (false == Int64.TryParse(arrCutToke[0], out idUser))
+
+            //찾은 구분자 위치로 유저 아이디를 자른다.
+            string sCutUser = sTokenFinal.Substring(0, nUser);
+
+			if (false == Int64.TryParse(sCutUser, out idUser))
 			{//숫자로 변환할 수 없다.
 				return 0;
 			}
@@ -179,7 +204,9 @@ public class DGAuthServerService
 			}
 
             //잘린 데이터에서 토큰 정보만 저장
-			sTokenCut = arrCutToke[1];
+            //데이터 시작위치 = 찾은 구분자 위치 + 구분자 크기
+            sTokenCut = sTokenFinal.Substring(
+                            nUser + DGAuthServerGlobal.Setting.SecretAloneDelimeter.Length);
 
             //찾은 엑세스토큰 데이터
             DgJwtAuthAccessToken? findAT = null;
@@ -205,7 +232,7 @@ public class DGAuthServerService
         }
 		else
 		{
-			sTokenCut = sToken;
+			sTokenCut = sTokenFinal;
             sSecret = DGAuthServerGlobal.Setting.Secret!;
 
         }
@@ -221,13 +248,12 @@ public class DGAuthServerService
         try
         {
             //토큰 해석을 시작한다.
-            tokenHandler.ValidateToken(sToken, new TokenValidationParameters
+            tokenHandler.ValidateToken(sTokenCut, new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(byteKey),
                 ValidateIssuer = false,
                 ValidateAudience = false,
-                // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
                 ClockSkew = TimeSpan.Zero
             }, out SecurityToken validatedToken);
 
@@ -330,15 +356,15 @@ public class DGAuthServerService
         //지금 시간
         DateTime dtNow = DateTime.Now;
 
-        RefreshTokenUsageType bNewTokenFinal = RefreshTokenUsageType.None;
+        RefreshTokenUsageType typeNewTokenFinal = RefreshTokenUsageType.None;
         if (null != typeUsage)
         {//전달된 옵션이 있다.
-            bNewTokenFinal = (RefreshTokenUsageType)typeUsage;
+            typeNewTokenFinal = (RefreshTokenUsageType)typeUsage;
         }
         else
         {
             //설정된 정보를 읽어 사용한다.
-            bNewTokenFinal 
+            typeNewTokenFinal 
                 = DGAuthServerGlobal.Setting.RefreshTokenReUseType;
         }
 
@@ -348,7 +374,7 @@ public class DGAuthServerService
             bool bNew = false;
 
 
-            switch (bNewTokenFinal)
+            switch (typeNewTokenFinal)
             {
                 case RefreshTokenUsageType.OneTimeOnly:
                     {
@@ -380,7 +406,7 @@ public class DGAuthServerService
                                 //사용하던 토큰 전달
                                 sReturn = findRT.RefreshToken;
 
-                                if (RefreshTokenUsageType.ReUseAddTime == bNewTokenFinal)
+                                if (RefreshTokenUsageType.ReUseAddTime == typeNewTokenFinal)
                                 {
                                     //만료 시간을 는려준다.
                                     findRT.ExpiresTime
@@ -388,7 +414,7 @@ public class DGAuthServerService
                                             .AddSeconds(DGAuthServerGlobal.Setting
                                                             .RefreshTokenLifetime);
                                 }
-                                else if (RefreshTokenUsageType.OneTimeOnlyDelay == bNewTokenFinal)
+                                else if (RefreshTokenUsageType.OneTimeOnlyDelay == typeNewTokenFinal)
                                 {
 
                                     //기존 토큰의 생성날짜를 확인한다.
@@ -431,7 +457,16 @@ public class DGAuthServerService
             if (true == bNew)
             {//토큰을 새로 생성해야 한다.
 
-                sReturn = this.RefreshTokenGenerate();
+                while (true)
+                {
+                    sReturn = Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
+                    if (false == this.RefreshTokenGenerate_OverflowCheck(sReturn))
+                    {//중복되지 않았다.
+                        break;
+                    }
+                }
+
+
                 //테이블에 저장한다.
                 DgJwtAuthRefreshToken newRT = new DgJwtAuthRefreshToken()
                 {
@@ -607,29 +642,50 @@ public class DGAuthServerService
     }
 
     /// <summary>
-    /// DB에 중복되지 않는 리플레시 토큰을 리턴한다.
+    /// 전달된 토큰이 중복되어있는지 확인
     /// </summary>
-    /// <returns></returns>
-    private string RefreshTokenGenerate()
+    /// <param name="sToken"></param>
+    /// <returns>true:중복</returns>
+    private bool RefreshTokenGenerate_OverflowCheck(string sToken)
     {
-        string sReturn = string.Empty;
+        bool bReturn = false;
 
         using (DgJwtAuthDbContext db1 = new DgJwtAuthDbContext())
         {
-            //새로 토큰을 생성하고
-            sReturn = this.RefreshTokenGenerate();
+            //살아있는 토큰중 같은 토큰 있는지 검사
+            DgJwtAuthRefreshToken? findRT
+                = db1.DGAuthServer_RefreshToken
+                    .Where(w => w.RefreshToken == sToken
+                            && w.ActiveIs == true)
+                    .FirstOrDefault();
 
-            while (true)
-            {
-                if (false == db1.DGAuthServer_RefreshToken.Any(a => a.RefreshToken == sReturn))
-                {
-                    //새로운 값이면 완료
-                    break;
+            if (null != findRT)
+            {//검색된 값이 있다.
+
+                //유효성검사를 해주고
+                findRT.ActiveCheck();
+                if (true == findRT.ActiveIs)
+                {//아직도 살아있다.
+
+                    //중복
+                    bReturn = true;
                 }
-            }    
+                else
+                {
+                    bReturn = false;
+                }
+
+                //유효성 검사 저장
+                db1.SaveChanges();
+            }
+            else
+            {
+                bReturn = false;
+            }
+            
         }//end using db1
 
-        return sReturn;
+        return bReturn;
     }//end RefreshTokenGenerate()
 
     /// <summary>

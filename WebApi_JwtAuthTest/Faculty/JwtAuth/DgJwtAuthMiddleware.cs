@@ -12,13 +12,10 @@ namespace DGAuthServer;
 public class DgJwtAuthMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly DgJwtAuthSettingModel _JwtAuthSetting;
 
-    public DgJwtAuthMiddleware(RequestDelegate next
-        , IOptions<DgJwtAuthSettingModel> appSettings)
+    public DgJwtAuthMiddleware(RequestDelegate next)
     {
         _next = next;
-        _JwtAuthSetting = appSettings.Value;
     }
 
     /// <summary>
@@ -33,13 +30,13 @@ public class DgJwtAuthMiddleware
         //토큰이 있는지 여부
         bool bToken = false;
 
-        if (string.Empty == _JwtAuthSetting.AuthTokenStartName)
+        if (string.Empty == DGAuthServerGlobal.Setting.AuthTokenStartName)
         {//인증 토큰 시작 단어를 사용하지 않는다.
 
             //토큰 추출
             string? token2
                 = context.Request
-                    .Headers["Authorization"]
+                    .Headers[DGAuthServerGlobal.Setting.AuthHeaderName]
                     .FirstOrDefault();
 
             if (null != token2
@@ -55,9 +52,9 @@ public class DgJwtAuthMiddleware
             //토큰이 있으면 여기서 2개 이상 나온다.
             string[]? arrToken
                 = context.Request
-                    .Headers["Authorization"]
+                    .Headers[DGAuthServerGlobal.Setting.AuthHeaderName]
                     .FirstOrDefault()?
-                    .Split(_JwtAuthSetting.AuthTokenStartName_Complete);
+                    .Split(DGAuthServerGlobal.Setting.AuthTokenStartName_Complete);
 
             if (null != arrToken
                 && 1 < arrToken.Length)
@@ -76,8 +73,11 @@ public class DgJwtAuthMiddleware
         {//토큰이 있다.
 
             //토큰에서 idUser 추출
-            //idUser = jwtUtils.AccessTokenValidate(sToken);
-            idUser = DGAuthServerGlobal.Service.AccessTokenValidate(sToken);
+            idUser 
+                = DGAuthServerGlobal.Service
+                    .AccessTokenValidate(
+                        sToken
+                        , context.Request);
         }
         else
         {//토큰 없음
@@ -89,7 +89,8 @@ public class DgJwtAuthMiddleware
         var claims
             = new List<Claim>
                 {
-                        new Claim(this._JwtAuthSetting.UserIdName, idUser.ToString()!)
+                        new Claim(DGAuthServerGlobal.Setting.UserIdName
+                                    , idUser.ToString())
                 };
 
         //HttpContext에 클래임 정보를 넣어준다.
