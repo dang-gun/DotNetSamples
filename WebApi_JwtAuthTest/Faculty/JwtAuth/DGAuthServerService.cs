@@ -134,10 +134,10 @@ public class DGAuthServerService
 
     /// <summary>
     /// 엑세스 토큰 확인.
-    /// <para> </para>
+    /// <para>쿠키가 사용중이면 sToken는 무시되고 쿠키를 읽어 사용한다.</para>
     /// </summary>
     /// <remarks>미들웨어에서도 호출해서 사용한다.</remarks>
-    /// <param name="token"></param>
+    /// <param name="sToken"></param>
     /// <param name="request"></param>
     /// <returns>찾아낸 idUser, 토큰 자체가 없으면 -1, 토큰이 유효하지 않으면 0 </returns>
     public long AccessTokenValidate(
@@ -519,15 +519,36 @@ public class DGAuthServerService
 
     /// <summary>
     /// 리플레시 토큰으로 유저 고유번호를 찾는다.
+    /// <para>쿠키가 사용중이면 sToken는 무시되고 쿠키를 읽어 사용한다.</para>
     /// </summary>
     /// <param name="sRefreshToken"></param>
     /// <param name="sClass"></param>
+    /// <param name="request"></param>
     /// <returns>토큰이 유효하지 않으면 0</returns>
     public long RefreshTokenFindUser(
         string sRefreshToken
-        , string sClass)
+        , string sClass
+        , HttpRequest? request)
     {
         long idUser = 0;
+        string sTokenFinal = String.Empty;
+
+        if (null != request
+            && true == DGAuthServerGlobal.Setting.RefreshTokenCookie)
+        {//쿠키 사용
+
+            string? sTokenTemp
+                = request.Cookies[DGAuthServerGlobal.Setting.RefreshTokenCookieName];
+            if (null != sTokenTemp)
+            {//검색된 값이 있으면 전달
+                sTokenFinal = sTokenTemp.ToString();
+            }
+        }
+        else
+        {
+            sTokenFinal = sRefreshToken;
+        }
+
 
         using (DgJwtAuthDbContext db1 = new DgJwtAuthDbContext())
         {
