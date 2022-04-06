@@ -45,6 +45,9 @@ namespace WebApi_JwtAuthTest
                 {
                     Secret = Configuration["JwtSecretSetting:Secret"],
                     SecretAlone = true,
+
+                    //테스트를 위해 60초로 설정
+                    AccessTokenLifetime = 60,
                     AccessTokenCookie = true,
                     RefreshTokenCookie = true,
                 });

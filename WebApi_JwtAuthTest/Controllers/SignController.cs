@@ -15,25 +15,6 @@ namespace WebApi_JwtAuthTest.Controllers
 	[ApiController]
 	public class SignController : ControllerBase
 	{
-		public readonly string AccessTokenName = "AccessToken";
-		public readonly string RefreshTokenName = "RefreshToken";
-
-		/// <summary>
-		/// 인증 유틸 옵션
-		/// </summary>
-		private readonly DgJwtAuthSettingModel _dgjaSettings;
-
-		/// <summary>
-		/// 생성자
-		/// </summary>
-		/// <param name="jwtUtils"></param>
-		public SignController(
-			IOptions<DgJwtAuthSettingModel> appSettings)
-		{
-			//this._JwtUtils = jwtUtils;
-			this._dgjaSettings = appSettings.Value;
-		}
-
 		/// <summary>
 		/// 가입
 		/// </summary>
@@ -136,7 +117,7 @@ namespace WebApi_JwtAuthTest.Controllers
 						= DGAuthServerGlobal.Service
 							.AccessTokenGenerate(
 								findUser.idUser
-								, ""
+								, string.Empty
 								, Response);
 
 					//새로운 토큰 생성
@@ -244,49 +225,36 @@ namespace WebApi_JwtAuthTest.Controllers
 
 			DateTime dtNow = DateTime.Now;
 
-			//쿠키에서 리플레시토큰을 읽는다.
-			string? sST = Request.Cookies[RefreshTokenName];
-
 			string sNewST = string.Empty;
 			string sNewAT = string.Empty;
 
-			if (null != sST && string.Empty != sST)
-			{
-				//소유 유저 찾기
-				long idUser = DGAuthServerGlobal.Service
-								.RefreshTokenFindUser(sST, string.Empty);
+			//소유 유저 찾기
+			long idUser = DGAuthServerGlobal.Service
+							.RefreshTokenFindUser(string.Empty, string.Empty, Request);
 
-				if (0 < idUser)
-				{//대상 찾음
+			if (0 < idUser)
+			{//대상 찾음
 
-					//토큰 새로 받고
-					sNewST
-						= DGAuthServerGlobal.Service
-							.RefreshTokenGenerate(
-								null
-								, idUser
+				//토큰 새로 받고
+				sNewST
+					= DGAuthServerGlobal.Service
+						.RefreshTokenGenerate(
+							null
+							, idUser
+							, string.Empty
+							, Response);
+
+				sNewAT = DGAuthServerGlobal.Service
+							.AccessTokenGenerate(
+								idUser
 								, string.Empty
 								, Response);
 
-					sNewAT = DGAuthServerGlobal.Service
-								.AccessTokenGenerate(
-									idUser
-									, string.Empty
-									, Response);
-
-					arReturn.AccessToken = sNewAT;
-					arReturn.RefreshToken = sNewST;
-				}
-				else
-				{
-					//없으면 권한 없음 에러를 낸다.
-					arReturn.Complete = false;
-					Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-				}
+				arReturn.AccessToken = sNewAT;
+				arReturn.RefreshToken = sNewST;
 			}
 			else
-			{//리플레시 토큰이 없다.
-
+			{
 				//없으면 권한 없음 에러를 낸다.
 				arReturn.Complete = false;
 				Response.StatusCode = (int)HttpStatusCode.Unauthorized;
@@ -308,6 +276,7 @@ namespace WebApi_JwtAuthTest.Controllers
 		/// </summary>
 		/// <returns></returns>
 		[HttpDelete]
+		[Authorize]
 		public ActionResult<ApiResultModel> RefreshTokenRevoke()
 		{
 			ApiResultModel arReturn = new ApiResultModel();
@@ -315,22 +284,17 @@ namespace WebApi_JwtAuthTest.Controllers
 
 			DateTime dtNow = DateTime.Now;
 
+			long idUser = DGAuthServerGlobal.Service
+								.RefreshTokenFindUser(String.Empty, String.Empty, Request);
 
-			//쿠키에서 토큰을 읽는다.
-			string? sST = Request.Cookies[RefreshTokenName];
-
-			if (null != sST && string.Empty != sST)
-			{//비어있지 않다.
-
-				long idUser = DGAuthServerGlobal.Service
-								.RefreshTokenFindUser(sST, String.Empty);
-
+			if (0 < idUser)
+			{
 				DGAuthServerGlobal.Service
-									.RefreshTokenRevoke(
-										false
-										, idUser
-										, String.Empty
-										, Response);
+					.RefreshTokenRevoke(
+						false
+						, idUser
+						, String.Empty
+						, Response);
 
 				DGAuthServerGlobal.Service
 					.AccessTokenRevoke(
@@ -339,6 +303,13 @@ namespace WebApi_JwtAuthTest.Controllers
 						, String.Empty
 						, Response);
 			}
+			else
+			{
+				//없으면 권한 없음 에러를 낸다.
+				arReturn.Complete = false;
+				Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+			}
+
 
 			return arReturn;
 		}

@@ -290,7 +290,7 @@ public class DGAuthServerService
     /// 개인 시크릿을 사용중이라면 false일때는 개인 시크릿이 변하지 않는다.
     /// </param>
     /// <param name="idUser"></param>
-    /// <param name="sClass"></param>
+    /// <param name="sClass">이 토큰을 분류하기 위한 이름</param>
     /// <param name="response"></param>
     /// <returns></returns>
     public void AccessTokenRevoke(
@@ -519,10 +519,10 @@ public class DGAuthServerService
 
     /// <summary>
     /// 리플레시 토큰으로 유저 고유번호를 찾는다.
-    /// <para>쿠키가 사용중이면 sToken는 무시되고 쿠키를 읽어 사용한다.</para>
+    /// <para>쿠키가 사용중이면 sRefreshToken는 무시되고 쿠키를 읽어 사용한다.</para>
     /// </summary>
     /// <param name="sRefreshToken"></param>
-    /// <param name="sClass"></param>
+    /// <param name="sClass">이 토큰을 분류하기 위한 이름</param>
     /// <param name="request"></param>
     /// <returns>토큰이 유효하지 않으면 0</returns>
     public long RefreshTokenFindUser(
@@ -589,7 +589,7 @@ public class DGAuthServerService
     /// </summary>
     /// <param name="bAllRevoke">클래스와 상관없이 전체 리플레시 토큰을 리보크한다.</param>
     /// <param name="idUser"></param>
-    /// <param name="sClass"></param>
+    /// <param name="sClass">이 토큰을 분류하기 위한 이름</param>
     /// <param name="response"></param>
     public void RefreshTokenRevoke(
         bool bAllRevoke
