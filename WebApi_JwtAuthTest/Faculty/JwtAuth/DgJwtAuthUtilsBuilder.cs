@@ -20,6 +20,12 @@ public static class DgJwtAuthUtilsBuilder
     /// </summary>
     /// <param name="services"></param>
     /// <param name="settingData"></param>
+    /// <param name="actDbContextOnConfiguring">
+    /// DB 컨택스트 생성시 사용될 'OnConfiguring'액션<br />
+    /// 기존 DB에 'DGAuthServer_AccessToken'과 'DGAuthServer_RefreshToken' 테이블이 없으면
+    /// 해당 테이블이 생성된다.<br />
+    /// 필요에 따라 자신의 컨택스트(모델)에 해당 테이블을 선언하여 접근할 수 있다.
+    /// </param>
     /// <returns></returns>
     public static IServiceCollection AddDgAuthServerBuilder(
         this IServiceCollection services
