@@ -32,7 +32,7 @@ public class DgJwtAuthSettingModel
 		set
 		{
 			//뒤에 공백을 추가하고 전달
-			AuthTokenStartName_Complete = value + " ";
+			AuthTokenStartName_Complete = value.TrimEnd() + " ";
 		}
 	}
 	/// <summary>
@@ -91,7 +91,8 @@ public class DgJwtAuthSettingModel
 	/// 시크릿을 혼자 사용하면 엑세스 토큰을 강제로 만료시키는 기능을 사용할 수 있다.<br />
 	/// 보안상으로도 더 좋다.<br />
 	/// 하지만 매번 저장소를 검색해야 하므로 자원낭비가 심하다.<br />
-	/// 자신의 서비스가 동시접속자가 많다면 권장하지 않는 기능이다.</remarks>
+	/// 자신의 서비스가 동시접속자가 많다면 권장하지 않는 기능이다.
+	/// </remarks>
 	public bool SecretAlone { get; set; } = false;
 	/// <summary>
 	/// 혼자 사용하는 시크릿사용시 구분 기호
@@ -99,7 +100,8 @@ public class DgJwtAuthSettingModel
 	/// <remarks>개인용 시크릿키를 검색하기위해 
 	/// 엑세스토큰 맨앞에 사용자 고유번호가 붙게 된다.<br />
 	/// 이때 이 고유번호를 구분하기위한 구분 기호이다.</remarks>
-	public string SecretAloneDelimeter { get; set; } = "▒";
+	//public string SecretAloneDelimeter { get; set; } = "▒";
+	public string SecretAloneDelimeter { get; set; } = "%";
 
 	#region 엑세스 토큰
 	/// <summary>
@@ -158,9 +160,9 @@ public class DgJwtAuthSettingModel
 		= RefreshTokenUsageType.OneTimeOnlyDelay;
 	/// <summary>
 	/// RefreshTokenReUseType에서 OneTimeOnlyDelay옵션 사용시 적용되는 지연시간(초, s)<br />
-	/// 기본값 : 10
+	/// 기본값 : 3
 	/// </summary>
-	public int OneTimeOnlyDelayTime { get; set; } = 10;
+	public int OneTimeOnlyDelayTime { get; set; } = 3;
 	#endregion
 
 
