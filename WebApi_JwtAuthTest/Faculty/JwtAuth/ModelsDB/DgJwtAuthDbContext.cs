@@ -35,6 +35,7 @@ namespace DGAuthServer
         /// 엑세스 토큰
         /// </summary>
         public DbSet<DgJwtAuthAccessToken> DGAuthServer_AccessToken { get; set; }
+
         /// <summary>
         /// 리플레시 토큰
         /// </summary>
