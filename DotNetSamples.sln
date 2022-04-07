@@ -57,7 +57,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore6DefultSetting_DB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi_JwtAuth", "WebApi_JwtAuth\WebApi_JwtAuth.csproj", "{CFC70EC7-6468-4442-A506-2AC18418CB34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsVueTest", "JsVueTest\JsVueTest.csproj", "{9D8B0D19-4DB9-4883-A4A0-B18132B3E562}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsVueTest", "JsVueTest\JsVueTest.csproj", "{9D8B0D19-4DB9-4883-A4A0-B18132B3E562}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
