@@ -1,5 +1,5 @@
-﻿using AspNetCore6DefultSetting_DB.Global;
-using AspNetCore6DefultSetting_DB.Models;
+﻿using JsVueTest.Global;
+using JsVueTest.Models;
 using Microsoft.AspNetCore.Mvc;
 using ModelsDB;
 
