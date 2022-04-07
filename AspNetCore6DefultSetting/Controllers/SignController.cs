@@ -1,9 +1,9 @@
-﻿using AspNetCore6DefultSetting_DB.Global;
-using AspNetCore6DefultSetting_DB.Models;
+﻿using AspNetCore6DefultSetting.Global;
+using AspNetCore6DefultSetting.Models;
 using Microsoft.AspNetCore.Mvc;
 using ModelsDB;
 
-namespace AspNetCore6DefultSetting_DB.Controllers
+namespace AspNetCore6DefultSetting.Controllers
 {
 	/// <summary>
 	/// 사인 관련(인,아웃,조인)

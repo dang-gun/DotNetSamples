@@ -1,6 +1,6 @@
 ﻿using ModelsDB;
 
-namespace AspNetCore6DefultSetting_DB.Models
+namespace AspNetCore6DefultSetting.Models
 {
     /// <summary>
     /// 사인인이 성공하였을때 전달되는 정보(자바스크립트 전달용)

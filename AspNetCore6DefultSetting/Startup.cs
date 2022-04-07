@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Serialization;
 
-namespace AspNetCore6DefultSetting_DB
+namespace AspNetCore6DefultSetting
 {
 	public class Startup
 	{

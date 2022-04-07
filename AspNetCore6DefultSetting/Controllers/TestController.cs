@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace AspNetCore6DefultSetting_DB.Controllers
+namespace AspNetCore6DefultSetting.Controllers
 {
 	[Route("api/[controller]/[action]")]
 	[ApiController]

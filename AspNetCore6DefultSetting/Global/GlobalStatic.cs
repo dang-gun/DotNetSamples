@@ -1,6 +1,6 @@
 ﻿using ModelsDB;
 
-namespace AspNetCore6DefultSetting_DB.Global
+namespace AspNetCore6DefultSetting.Global
 {
 	/// <summary>
 	/// 이 프로젝트에서 사용할 전역 변수

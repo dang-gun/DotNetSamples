@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore;
 
-namespace AspNetCore6DefultSetting_DB
+namespace AspNetCore6DefultSetting
 {
 
     public class Program
