@@ -8,7 +8,7 @@ ASP.NET Core .NET6 + NPM 프로젝트<br />
  <br />
  <br />
  <br />
-### 프로젝트내용
+### 프로젝트내용<br />
 ASP.NET Core 프로젝트에 NPM을 설정하고 'gulp'모듈을 설치하여 npm이 잘 동작하는지 확인하는 프로젝트입니다.
 <br />
 <br />
