@@ -40,10 +40,7 @@ namespace WebApi_JwtAuthTest
 
 
             //Jwt Auth Setting 정보 전달
-            //모델로 전달하는 방법을 못찾음
-            //JwtAuthSettingModel newJAS = new JwtAuthSettingModel();
-            //newJAS.Secret = Configuration["JwtSecret"];
-            //services.Configure<JwtAuthSettingModel>(new Action<JwtAuthSettingModel>(newJAS));
+            //Configuration["JwtSecretSetting:Secret"] = "";
             services.Configure<JwtAuthSettingModel>(Configuration.GetSection("JwtSecretSetting"));
             services.AddScoped<IJwtUtils, JwtUtils>();
 

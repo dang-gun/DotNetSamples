@@ -16,7 +16,7 @@ public interface IJwtUtils
     /// </summary>
     /// <param name="account"></param>
     /// <returns></returns>
-    public string AccessTokenGenerate(User account);
+    public string AccessTokenGenerate(int idUser);
 
     /// <summary>
     /// 엑세스 토큰 확인.
@@ -53,6 +53,7 @@ public class JwtUtils : IJwtUtils
 
     public JwtUtils(IOptions<JwtAuthSettingModel> appSettings)
     {
+        //설정 데이터 받기
         _JwtAuthSetting = appSettings.Value;
 
         if (_JwtAuthSetting.Secret == null 
@@ -66,63 +67,69 @@ public class JwtUtils : IJwtUtils
     }
 
     
-    public string AccessTokenGenerate(User account)
+    public string AccessTokenGenerate(int idUser)
     {
-        // generate token that is valid for 15 minutes
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_JwtAuthSetting.Secret!);
-        var tokenDescriptor = new SecurityTokenDescriptor
+        //토큰 핸들러
+        JwtSecurityTokenHandler tokenHandler 
+            = new JwtSecurityTokenHandler();
+        //시크릿 키 변환
+        byte[] key = Encoding.ASCII.GetBytes(_JwtAuthSetting.Secret!);
+        //토큰 설정
+        SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new[] { new Claim("idUser", account.idUser.ToString()) }),
+            Subject = new ClaimsIdentity(new[] { new Claim("idUser", idUser.ToString()) }),
+            //15분 유지
             Expires = DateTime.UtcNow.AddMinutes(15),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
-        var token = tokenHandler.CreateToken(tokenDescriptor);
+
+        //토큰 생성
+        SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }
 
     public int? AccessTokenValidate(string token)
     {
         if (token == null)
+        {
             return null;
+        }
 
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_JwtAuthSetting.Secret!);
+        //토큰 핸들러
+        JwtSecurityTokenHandler tokenHandler 
+            = new JwtSecurityTokenHandler();
+        byte[] key = Encoding.ASCII.GetBytes(_JwtAuthSetting.Secret!);
         try
         {
-            tokenHandler.ValidateToken(token, new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
-                ClockSkew = TimeSpan.Zero
-            }, out SecurityToken validatedToken);
+            //토큰 유효성 검사 시작
+            tokenHandler.ValidateToken(
+                token
+                , new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                }
+                , out SecurityToken validatedToken);
 
-            var jwtToken = (JwtSecurityToken)validatedToken;
-            var accountId = int.Parse(jwtToken.Claims.First(x => x.Type == "idUser").Value);
-
-            // return account id from JWT token if validation successful
+            //결과 해석
+            JwtSecurityToken jwtToken = (JwtSecurityToken)validatedToken;
+            int accountId = int.Parse(jwtToken.Claims.First(x => x.Type == "idUser").Value);
             return accountId;
         }
         catch
         {
-            // return null if validation fails
+            //처리중에 오류가 나면 id를 찾지 못했다는 의미이므로
+            //null을 리턴시킨다.
             return null;
         }
     }
 
     public string RefreshTokenGenerate()
     {
-        //var refreshToken = new UserRefreshToken
-        //{
-        //    //랜덤하게 값 생성
-        //    RefreshToken = Convert.ToHexString(RandomNumberGenerator.GetBytes(64)),
-        //    //설정된 시간(초)만큼 시간을 설정한다.
-        //    ExpiresTime = DateTime.UtcNow.AddSeconds(this._JwtAuthSetting.RefreshTokenLifetime),
-        //};
-            
+        //랜덤하게 64자리 생성
         return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
     }
 
