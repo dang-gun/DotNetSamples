@@ -10,7 +10,7 @@ namespace WebApi_JwtAuthTest
 	public class Startup
 	{
         /// <summary>
-        /// 
+        /// 전달받은 컨피그(appsettings.json)
         /// </summary>
         public IConfiguration Configuration { get; }
 
