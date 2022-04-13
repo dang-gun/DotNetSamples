@@ -3,7 +3,8 @@ using JwtAuth.Models;
 using WebApi_JwtAuthTest.Global;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
-
+using Microsoft.OpenApi.Models;
+using SwaggerAssist;
 
 namespace WebApi_JwtAuthTest
 {
@@ -46,7 +47,45 @@ namespace WebApi_JwtAuthTest
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+
+            //스웨거 문서정보를 생성 한다.
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1",
+                    new OpenApiInfo
+                    {
+                        Title = "SPA NetCore Foundation API",
+                        Description = "[ASP.NET Core] .NET Core로 구현한 SPA(Single Page Applications)(5) - 스웨거(Swagger) 설정 <br /> https://blog.danggun.net/7689",
+                        Version = "v1",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "Dang-Gun Roleeyas",
+                            Email = string.Empty,
+                            Url = new Uri("https://blog.danggun.net/")
+                        },
+                        License = new OpenApiLicense
+                        {
+                            Name = "MIT",
+                            Url = new Uri("https://opensource.org/licenses/MIT")
+                        }
+                    });
+
+                //인증UI **************************************
+                c.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "로그인 후 전달받은 '엑세스 토큰(access token)'을 헤더의'Authorization'에 'Bearer access token' 형태로 담아 전달해야 합니다.",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "bearer"
+                });
+                //인증 필터
+                c.OperationFilter<AuthenticationRequirementsOperationFilter>();
+                //주석 표시기능
+                //c.IncludeXmlComments(string.Format(@"{0}\SPA_NetCore_Foundation06.xml", System.AppDomain.CurrentDomain.BaseDirectory));
+                //c.IncludeXmlComments(@"WebApi_JwtAuth.xml");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

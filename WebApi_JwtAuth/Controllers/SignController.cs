@@ -337,7 +337,7 @@ public class SignController : ControllerBase
 			Response.StatusCode = (int)HttpStatusCode.Unauthorized;
 		}
 
-		//쿠키에서 토큰 제거
+		//쿠키에 새로운 토큰 저장
 		this.Cookie_AccessToken(sNewAT);
 		this.Cookie_RefreshToken(sNewST);
 
@@ -397,8 +397,8 @@ public class SignController : ControllerBase
 	/// 로그인된 계정이 가지고 있는 모든 리플레시 토큰을 만료 시킨다.
 	/// </summary>
 	/// <returns></returns>
-	[Authorize]
 	[HttpDelete]
+	[Authorize]
 	public ActionResult<ApiResultModel> RefreshTokenRevokeAll()
 	{
 		//로그인 처리용 모델
