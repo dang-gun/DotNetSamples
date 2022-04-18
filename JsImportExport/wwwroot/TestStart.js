@@ -2,6 +2,7 @@
 import { Test01 } from "/Test01.js";
 import { Test02 as Test02 } from "/Test02.js";
 import { Test03, Test04 } from "/Test0304.js";
+import Test05  from "/Test05.js";
 
 //import jsondata from "/TestJson.json";
 //import { jsondata } from "/TestJson.json";
@@ -42,6 +43,9 @@ TestStart.prototype.ChangeTarget = function (nTarget)
             break;
         case 4:
             objThis.objTarget = new Test04();
+            break;
+        case 5:
+            objThis.objTarget = new Test05();
             break;
     }
 
