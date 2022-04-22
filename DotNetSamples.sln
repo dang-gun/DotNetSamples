@@ -65,9 +65,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreErrorInvoke", "As
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNetCoreNpmSamples", "AspNetCoreNpmSamples", "{8F9692C8-6FAD-4593-A659-22BDB94255CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreNpmMvc", "AspNetCoreNpmMvc\AspNetCoreNpmMvc.csproj", "{EA66F05A-8BBD-40C2-9934-017A199B0932}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreNpmMvc", "AspNetCoreNpmMvc\AspNetCoreNpmMvc.csproj", "{EA66F05A-8BBD-40C2-9934-017A199B0932}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreNpmApi", "AspNetCoreNpmApi\AspNetCoreNpmApi.csproj", "{BE1144B0-F0B9-40C3-9732-606FF762B665}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreNpmApi", "AspNetCoreNpmApi\AspNetCoreNpmApi.csproj", "{BE1144B0-F0B9-40C3-9732-606FF762B665}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLoopTest", "GameLoopTest\GameLoopTest.csproj", "{6563D92E-30D8-4A4B-8625-A4FE0397884B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -195,6 +197,10 @@ Global
 		{BE1144B0-F0B9-40C3-9732-606FF762B665}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE1144B0-F0B9-40C3-9732-606FF762B665}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE1144B0-F0B9-40C3-9732-606FF762B665}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6563D92E-30D8-4A4B-8625-A4FE0397884B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6563D92E-30D8-4A4B-8625-A4FE0397884B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6563D92E-30D8-4A4B-8625-A4FE0397884B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6563D92E-30D8-4A4B-8625-A4FE0397884B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
