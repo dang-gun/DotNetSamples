@@ -3,9 +3,16 @@
 	"name": "asp.net",
 	"private": true,
 	"resolutions": {
-		"glob-parent": "^5.1.2"
+	},
+	"dependencies": {
+		"glob-parent": ">=5.1.2",
+		"chokidar": "^3.5.3",
+		"glob-stream": "^7.0.0"
 	},
 	"devDependencies": {
 		"gulp": "^4.0.2"
+
 	}
+
+
 }
