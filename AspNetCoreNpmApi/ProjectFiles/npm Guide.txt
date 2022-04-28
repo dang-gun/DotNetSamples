@@ -8,6 +8,15 @@
 4) UI로 작업할 수 있다.
 
 
+0-1. 패키지 업데이트
+이전 버전에 의한 경고가 뜬다면 다음 명령어로 픽스를 시도해 볼수 있다.
+--To address issues that do not require attention, run:
+npm audit fix
+--To address all issues (including breaking changes), run:
+npm audit fix --force
+
+https://overreacted.io/npm-audit-broken-by-design/
+
 
 2. VSCode에서는
 직접 터미널을 이용한다.
@@ -25,3 +34,6 @@ npm run production
 
 --변경 감지
 npm run watch
+
+
+

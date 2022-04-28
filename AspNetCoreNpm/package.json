@@ -2,17 +2,13 @@
 	"version": "1.0.0",
 	"name": "asp.net",
 	"private": true,
-	"resolutions": {
-	},
+	"resolutions": {},
 	"dependencies": {
-		"glob-parent": ">=5.1.2",
 		"chokidar": "^3.5.3",
+		"glob-parent": ">=5.1.2",
 		"glob-stream": "^7.0.0"
 	},
 	"devDependencies": {
 		"gulp": "^4.0.2"
-
 	}
-
-
 }
