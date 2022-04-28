@@ -74,7 +74,7 @@ namespace SPA_NetCore_Foundation.Controllers
 
         /// <summary>
         /// 방문자 +1(낙관적 동시성)
-        /// https://docs.microsoft.com/ko-kr/ef/core/saving/concurrency
+        /// 
         /// </summary>
         /// <returns></returns>
         [HttpPut]
@@ -126,6 +126,8 @@ namespace SPA_NetCore_Foundation.Controllers
 
         /// <summary>
         /// 방문자 +1(낙관적 동시성 + 업데이트 반복)
+        /// 
+        /// https://docs.microsoft.com/ko-kr/ef/core/saving/concurrency
         /// </summary>
         /// <returns></returns>
         [HttpPut]

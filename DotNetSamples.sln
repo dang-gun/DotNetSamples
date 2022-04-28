@@ -69,7 +69,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreNpmMvc", "AspNetC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreNpmApi", "AspNetCoreNpmApi\AspNetCoreNpmApi.csproj", "{BE1144B0-F0B9-40C3-9732-606FF762B665}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLoopTest", "GameLoopTest\GameLoopTest.csproj", "{6563D92E-30D8-4A4B-8625-A4FE0397884B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameLoopTest", "GameLoopTest\GameLoopTest.csproj", "{6563D92E-30D8-4A4B-8625-A4FE0397884B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

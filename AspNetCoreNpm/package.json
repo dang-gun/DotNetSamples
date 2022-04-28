@@ -1,8 +1,11 @@
 {
-  "version": "1.0.0",
-  "name": "asp.net",
-  "private": true,
+	"version": "1.0.0",
+	"name": "asp.net",
+	"private": true,
+	"resolutions": {
+		"glob-parent": "^5.1.2"
+	},
 	"devDependencies": {
-		"gulp": "4.0.2"
+		"gulp": "^4.0.2"
 	}
 }
