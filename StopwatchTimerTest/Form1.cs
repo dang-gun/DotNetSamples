@@ -28,7 +28,6 @@ namespace StopwatchTimerTest
 			InitializeComponent();
 
 			this._timer10Sec = new System.Timers.Timer();
-			this._timer10Sec.Interval = 10 * 1000;
 			this._timer10Sec.Elapsed += _timer10Sec_Elapsed;
 
 			this._timer01Sec = new System.Timers.Timer();
@@ -48,7 +47,11 @@ namespace StopwatchTimerTest
 			this._timer01Sec.Stop();
 			this.stopwatchTimer.Stop();
 
-			this.btn10Sec.Enabled = true;
+			this.Invoke(new Action(delegate ()
+			{
+				this.btn10Sec.Enabled = true;
+				this.btn30Sec.Enabled = true;
+			}));
 		}
 
 		/// <summary>
@@ -80,10 +83,19 @@ namespace StopwatchTimerTest
 
 		}
 
+		private void btnIntervalApply_Click(object sender, EventArgs e)
+		{
+			int nInterval = Convert.ToInt32(txtInterval.Text);
+
+			this._timer01Sec.Interval = nInterval;
+			this.stopwatchTimer.Interval = nInterval;
+		}
 
 		private async void btn10Sec_Click(object sender, EventArgs e)
 		{
 			this.btn10Sec.Enabled = false;
+			this.btn30Sec.Enabled = false;
+			this._timer10Sec.Interval = 10 * 1000;
 
 			this._nTimer01Sec_Count = 0;
 			this._nStopwatchTimer_Count = 0;
@@ -93,5 +105,22 @@ namespace StopwatchTimerTest
 			this._timer01Sec.Start();
 			await this.stopwatchTimer.Start();
 		}
+
+		private async void btn30Sec_Click(object sender, EventArgs e)
+		{
+			this.btn10Sec.Enabled = false;
+			this.btn30Sec.Enabled = false;
+			this._timer10Sec.Interval = 30 * 1000;
+
+			this._nTimer01Sec_Count = 0;
+			this._nStopwatchTimer_Count = 0;
+
+			//타이머 모두 시작
+			this._timer10Sec.Start();
+			this._timer01Sec.Start();
+			await this.stopwatchTimer.Start();
+		}
+
+		
 	}
 }

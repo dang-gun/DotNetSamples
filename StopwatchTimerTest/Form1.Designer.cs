@@ -33,6 +33,9 @@
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.labStopwatch = new System.Windows.Forms.Label();
 			this.btn10Sec = new System.Windows.Forms.Button();
+			this.btn30Sec = new System.Windows.Forms.Button();
+			this.txtInterval = new System.Windows.Forms.TextBox();
+			this.btnIntervalApply = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
@@ -42,7 +45,7 @@
 			this.groupBox1.Controls.Add(this.labTimer);
 			this.groupBox1.Location = new System.Drawing.Point(12, 12);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(200, 100);
+			this.groupBox1.Size = new System.Drawing.Size(150, 50);
 			this.groupBox1.TabIndex = 1;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Timer";
@@ -59,9 +62,9 @@
 			// groupBox2
 			// 
 			this.groupBox2.Controls.Add(this.labStopwatch);
-			this.groupBox2.Location = new System.Drawing.Point(244, 12);
+			this.groupBox2.Location = new System.Drawing.Point(168, 12);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(200, 100);
+			this.groupBox2.Size = new System.Drawing.Size(150, 50);
 			this.groupBox2.TabIndex = 2;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Stopwatch";
@@ -77,19 +80,50 @@
 			// 
 			// btn10Sec
 			// 
-			this.btn10Sec.Location = new System.Drawing.Point(12, 145);
+			this.btn10Sec.Location = new System.Drawing.Point(168, 66);
 			this.btn10Sec.Name = "btn10Sec";
-			this.btn10Sec.Size = new System.Drawing.Size(157, 23);
+			this.btn10Sec.Size = new System.Drawing.Size(150, 23);
 			this.btn10Sec.TabIndex = 3;
 			this.btn10Sec.Text = "10초 진행";
 			this.btn10Sec.UseVisualStyleBackColor = true;
 			this.btn10Sec.Click += new System.EventHandler(this.btn10Sec_Click);
 			// 
+			// btn30Sec
+			// 
+			this.btn30Sec.Location = new System.Drawing.Point(168, 95);
+			this.btn30Sec.Name = "btn30Sec";
+			this.btn30Sec.Size = new System.Drawing.Size(150, 23);
+			this.btn30Sec.TabIndex = 3;
+			this.btn30Sec.Text = "30초 진행";
+			this.btn30Sec.UseVisualStyleBackColor = true;
+			this.btn30Sec.Click += new System.EventHandler(this.btn30Sec_Click);
+			// 
+			// txtInterval
+			// 
+			this.txtInterval.Location = new System.Drawing.Point(12, 68);
+			this.txtInterval.Name = "txtInterval";
+			this.txtInterval.Size = new System.Drawing.Size(68, 23);
+			this.txtInterval.TabIndex = 4;
+			this.txtInterval.Text = "10";
+			// 
+			// btnIntervalApply
+			// 
+			this.btnIntervalApply.Location = new System.Drawing.Point(87, 68);
+			this.btnIntervalApply.Name = "btnIntervalApply";
+			this.btnIntervalApply.Size = new System.Drawing.Size(75, 23);
+			this.btnIntervalApply.TabIndex = 5;
+			this.btnIntervalApply.Text = "간격 적용";
+			this.btnIntervalApply.UseVisualStyleBackColor = true;
+			this.btnIntervalApply.Click += new System.EventHandler(this.btnIntervalApply_Click);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(479, 261);
+			this.ClientSize = new System.Drawing.Size(330, 221);
+			this.Controls.Add(this.btnIntervalApply);
+			this.Controls.Add(this.txtInterval);
+			this.Controls.Add(this.btn30Sec);
 			this.Controls.Add(this.btn10Sec);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
@@ -100,6 +134,7 @@
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -109,5 +144,8 @@
 		private Button btn10Sec;
 		private Label labTimer;
 		private Label labStopwatch;
+		private Button btn30Sec;
+		private TextBox txtInterval;
+		private Button btnIntervalApply;
 	}
 }

@@ -45,12 +45,21 @@ namespace StopwatchTimer
 			{
 				this._Interval_Ori = value;
 				//스톱워치는 정밀도가 높아 한 틱의 단위가 *10000 이다.
-				this.FrameTick = (this._Interval_Ori * 10000) ;
+				this.TickOneInterval = (this._Interval_Ori * 10000) ;
 			}
 		}
-		public int _Interval_Ori = 0;
+		/// <summary>
+		/// 이벤트 간격(원본)
+		/// </summary>
+		public int _Interval_Ori = 16;
 
-		public int FrameTick { get; private set; } = 166666;
+		/// <summary>
+		/// 한 틱의 간격
+		/// </summary>
+		/// <remarks>
+		/// 기본값이 166666은 FPS로 60이다.
+		/// </remarks>
+		public int TickOneInterval { get; private set; } = 166666;
 
 		/// <summary>
 		/// 동작중인지 여부
@@ -62,6 +71,10 @@ namespace StopwatchTimer
 
 		}
 
+		/// <summary>
+		/// 타이머를 진행 시킨다.
+		/// </summary>
+		/// <returns></returns>
 		public async Task Start()
 		{
 			this._bLoop = true;
@@ -79,7 +92,7 @@ namespace StopwatchTimer
 					long nTicksNow = sw.ElapsedTicks;
 
 					//마지막 틱 + 프레임 만큼 시간이 지났는지 확인
-					if (nTicksNow > nLastTime + this.FrameTick)
+					if (nTicksNow > nLastTime + this.TickOneInterval)
 					{
 						nLastTime = nTicksNow;
 						//업데이트 알림
