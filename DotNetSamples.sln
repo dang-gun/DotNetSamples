@@ -77,7 +77,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StopwatchTimer", "Stopwatch
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StopwatchTimer", "StopwatchTimer\StopwatchTimer.csproj", "{494004E5-8715-413D-825C-B723283F4E45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StopwatchTimerTest", "StopwatchTimerTest\StopwatchTimerTest.csproj", "{297C014A-0BDE-47E5-9859-3168C71079F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StopwatchTimerTest", "StopwatchTimerTest\StopwatchTimerTest.csproj", "{297C014A-0BDE-47E5-9859-3168C71079F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleWindowSettingTest", "ConsoleWindowSettingTest\ConsoleWindowSettingTest.csproj", "{758557CC-F594-4DCC-AC6E-2FECEABFBD9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -221,6 +223,10 @@ Global
 		{297C014A-0BDE-47E5-9859-3168C71079F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{297C014A-0BDE-47E5-9859-3168C71079F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{297C014A-0BDE-47E5-9859-3168C71079F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{758557CC-F594-4DCC-AC6E-2FECEABFBD9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{758557CC-F594-4DCC-AC6E-2FECEABFBD9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{758557CC-F594-4DCC-AC6E-2FECEABFBD9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{758557CC-F594-4DCC-AC6E-2FECEABFBD9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
