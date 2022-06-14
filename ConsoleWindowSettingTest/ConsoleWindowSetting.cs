@@ -13,13 +13,30 @@ namespace ConsoleWindowSetting;
 /// </summary>
 public static class NativeFunctions
 {
+    /// <summary>
+    /// https://docs.microsoft.com/ko-kr/windows/console/getstdhandle
+    /// </summary>
     public enum StdHandle : int
     {
+        /// <summary>
+        /// 콘솔 입력 버퍼
+        /// </summary>
         STD_INPUT_HANDLE = -10,
+        /// <summary>
+        /// 콘솔 화면 버퍼
+        /// </summary>
         STD_OUTPUT_HANDLE = -11,
+        /// <summary>
+        /// 오류 디바이스
+        /// </summary>
         STD_ERROR_HANDLE = -12,
     }
 
+    /// <summary>
+    /// https://docs.microsoft.com/ko-kr/windows/console/getstdhandle
+    /// </summary>
+    /// <param name="nStdHandle"></param>
+    /// <returns></returns>
     [DllImport("kernel32.dll", SetLastError = true)]
     public static extern IntPtr GetStdHandle(int nStdHandle); //returns Handle
 
