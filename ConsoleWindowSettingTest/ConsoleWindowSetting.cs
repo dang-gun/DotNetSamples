@@ -33,6 +33,7 @@ public static class NativeFunctions
     }
 
     /// <summary>
+    /// 디바이스의 핸들을 가지고 온다.
     /// https://docs.microsoft.com/ko-kr/windows/console/getstdhandle
     /// </summary>
     /// <param name="nStdHandle"></param>
@@ -46,6 +47,9 @@ public static class NativeFunctions
     public enum ConsoleMode : uint
     {
         ENABLE_ECHO_INPUT = 0x0004,
+        /// <summary>
+        /// 확장 플래그 사용여부
+        /// </summary>
         ENABLE_EXTENDED_FLAGS = 0x0080,
         ENABLE_INSERT_MODE = 0x0020,
         ENABLE_LINE_INPUT = 0x0002,
@@ -69,7 +73,9 @@ public static class NativeFunctions
         ENABLE_WINDOW_INPUT = 0x0008,
         ENABLE_VIRTUAL_TERMINAL_INPUT = 0x0200,
 
-        //screen buffer handle
+        /// <summary>
+        /// screen buffer handle
+        /// </summary>
         ENABLE_PROCESSED_OUTPUT = 0x0001,
         ENABLE_WRAP_AT_EOL_OUTPUT = 0x0002,
         ENABLE_VIRTUAL_TERMINAL_PROCESSING = 0x0004,
@@ -78,6 +84,7 @@ public static class NativeFunctions
     }
 
     /// <summary>
+    /// 콘솔 모드를 가지고 온다.
     /// https://docs.microsoft.com/ko-kr/windows/console/getconsolemode
     /// </summary>
     /// <param name="hConsoleHandle"></param>
@@ -86,6 +93,7 @@ public static class NativeFunctions
     [DllImport("kernel32.dll", SetLastError = true)]
     public static extern bool GetConsoleMode(IntPtr hConsoleHandle, out uint lpMode);
     /// <summary>
+    /// 콘솔모드를 설정한다.
     /// https://docs.microsoft.com/ko-kr/windows/console/setconsolemode
     /// </summary>
     /// <param name="hConsoleHandle"></param>
@@ -106,13 +114,14 @@ public static class ConsoleWindow
     /// <param name="typeConsoleMode"></param>
     public static void ConsoleModeEnable(NativeFunctions.ConsoleMode typeConsoleMode)
     {
+        //핸들을 받는다.
         IntPtr consoleHandle = NativeFunctions.GetStdHandle((int)NativeFunctions.StdHandle.STD_INPUT_HANDLE);
+        //핸들에 설정된 콘솔 모드를 가지고 온다.
         UInt32 consoleMode;
         NativeFunctions.GetConsoleMode(consoleHandle, out consoleMode);
         consoleMode |= ((uint)typeConsoleMode);
 
-        consoleMode |= ((uint)NativeFunctions.ConsoleMode.ENABLE_EXTENDED_FLAGS);
-
+        //수정한 콘솔 모드를 설정한다.
         NativeFunctions.SetConsoleMode(consoleHandle, consoleMode);
     }
 
@@ -127,9 +136,8 @@ public static class ConsoleWindow
         NativeFunctions.GetConsoleMode(consoleHandle, out consoleMode);
         consoleMode &= ~((uint)typeConsoleMode);
 
-        consoleMode |= ((uint)NativeFunctions.ConsoleMode.ENABLE_EXTENDED_FLAGS);
-
         NativeFunctions.SetConsoleMode(consoleHandle, consoleMode);
+
     }
 
     /// <summary>
@@ -139,9 +147,10 @@ public static class ConsoleWindow
     /// <param name="bEnable"></param>
     public static void QuickEditMode(bool bEnable)
     {
-        if (bEnable)
+        if (true == bEnable)
         {
             ConsoleModeEnable(NativeFunctions.ConsoleMode.ENABLE_QUICK_EDIT_MODE);
+            ConsoleModeEnable(NativeFunctions.ConsoleMode.ENABLE_EXTENDED_FLAGS);
         }
         else
         {
