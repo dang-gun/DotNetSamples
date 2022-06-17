@@ -1,7 +1,7 @@
 ﻿
-using ConsoleWindowSetting;
+using ConsoleModeSetting;
 
-namespace ConsoleWindowSettingTest;
+namespace ConsoleModeSettingTest;
 
 internal class Program
 {
