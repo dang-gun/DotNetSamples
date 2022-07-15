@@ -79,7 +79,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StopwatchTimer", "Stopwatch
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StopwatchTimerTest", "StopwatchTimerTest\StopwatchTimerTest.csproj", "{297C014A-0BDE-47E5-9859-3168C71079F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleModeSettingTest", "ConsoleModeSettingTest\ConsoleModeSettingTest.csproj", "{F544CF2B-FF05-42F6-ADFE-9BF0F73C3C08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleModeSettingTest", "ConsoleModeSettingTest\ConsoleModeSettingTest.csproj", "{F544CF2B-FF05-42F6-ADFE-9BF0F73C3C08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactTest", "ReactTest\ReactTest.csproj", "{046C58B4-D3BE-4882-B56C-9BBBDBA4052B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -227,6 +229,10 @@ Global
 		{F544CF2B-FF05-42F6-ADFE-9BF0F73C3C08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F544CF2B-FF05-42F6-ADFE-9BF0F73C3C08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F544CF2B-FF05-42F6-ADFE-9BF0F73C3C08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{046C58B4-D3BE-4882-B56C-9BBBDBA4052B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{046C58B4-D3BE-4882-B56C-9BBBDBA4052B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{046C58B4-D3BE-4882-B56C-9BBBDBA4052B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{046C58B4-D3BE-4882-B56C-9BBBDBA4052B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
