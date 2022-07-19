@@ -5,7 +5,7 @@
 	"resolutions": {},
 	"dependencies": {
 		"chokidar": "^3.5.3",
-		"glob-parent": "^5.1.2",
+		"glob-parent": "^6.0.1",
 		"glob-stream": "^7.0.0"
 	},
 	"devDependencies": {
