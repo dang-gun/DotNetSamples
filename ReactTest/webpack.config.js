@@ -37,7 +37,7 @@ module.exports = (env, argv) =>
     }
 
     return {
-        //서비스 모드
+        /** 서비스 모드 */
         mode: EnvPrductionIs ? "production" : "development",
         devtool: "eval",
         //devtool: "inline-source-map",
@@ -48,9 +48,9 @@ module.exports = (env, argv) =>
             app: [path.resolve(SrcPath, "index.js")],
         },
         output: {// 최종적으로 만들어질 js
-            //빌드 위치
+            /** 빌드 위치 */
             path: OutputPath,
-            //웹팩 빌드 후 최종적으로 만들어질 파일
+            /** 웹팩 빌드 후 최종적으로 만들어질 파일 */
             filename: "app.js"
         },
         module: {
@@ -81,7 +81,7 @@ module.exports = (env, argv) =>
                 {//이미지 파일
                     rules: [
                         {
-                            test: /\.(png|jpg|gif|svg)$/,
+                            test: /\.(png|jpg|gif|svg|webp)$/,
                             loader: "file-loader",
                             options: {
                                 outputPath: OutputFolder_Images,
@@ -100,27 +100,29 @@ module.exports = (env, argv) =>
         plugins: [
             // 빌드한 결과물(예>번들파일)을 HTML에 삽입해주는 플러그인
             new HtmlWebpackPlugin({ template: React_IndexHtmlPath }),
-            // 성공적으로 다시 빌드 한 후 webpack의 output.path에있는 모든 빌드폴더의 내용물 제거
-            new CleanWebpackPlugin(),
-            // 별도로 css 파일을 만들어서 빌드하는 Plugin
+            // 출력폴더를 비워주는 플러그인
+            new CleanWebpackPlugin({
+                cleanOnceBeforeBuildPatterns: [
+                    '**/*',
+                    "!robots.txt",
+                    "!Upload"
+                ]
+            }),
+            // 별도로 css 파일을 만들어서 빌드하는 플러그인
             new MiniCssExtractPlugin({
                 filename: "app.css"
             })
         ],
         devServer: {
-            //서비스 포트
+            /** 서비스 포트 */
             port: "9500",
-            /** "static" 
-             * This property tells Webpack what static file it should serve
-            */
+            /** 출력파일의 위치 */
             static: [path.resolve("./", WwwRoot)],
-            //브라우저 열지 여부
+            /** 브라우저 열지 여부 */
             open: true,
-            //핫리로드 사용여부
+            /** 핫리로드 사용여부 */
             hot: true,
-            /** "liveReload"
-             * disable live reload on the browser. "hot" must be set to false for this to work
-            */
+            /** 라이브 리로드 사용여부 */
             liveReload: true
         },
     };
