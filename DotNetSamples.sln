@@ -83,7 +83,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleModeSettingTest", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactTest", "ReactTest\ReactTest.csproj", "{046C58B4-D3BE-4882-B56C-9BBBDBA4052B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToVsCodeTest", "ToVsCodeTest\ToVsCodeTest.csproj", "{549DFF7A-B979-44D2-A57F-FE9ECD8CBD72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToVsCodeTest", "ToVsCodeTest\ToVsCodeTest.csproj", "{549DFF7A-B979-44D2-A57F-FE9ECD8CBD72}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebRootSample", "WebRootSample\WebRootSample.csproj", "{8A033DB4-5A19-44E6-BA76-62B55F178ED9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -239,6 +241,10 @@ Global
 		{549DFF7A-B979-44D2-A57F-FE9ECD8CBD72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{549DFF7A-B979-44D2-A57F-FE9ECD8CBD72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{549DFF7A-B979-44D2-A57F-FE9ECD8CBD72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A033DB4-5A19-44E6-BA76-62B55F178ED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A033DB4-5A19-44E6-BA76-62B55F178ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A033DB4-5A19-44E6-BA76-62B55F178ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A033DB4-5A19-44E6-BA76-62B55F178ED9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
