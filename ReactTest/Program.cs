@@ -1,15 +1,6 @@
-using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json.Serialization;
 
-
-var builder = WebApplication.CreateBuilder(new WebApplicationOptions
-{
-	Args = args,
-	// Look for static files in webroot
-	WebRootPath = "webroot"
-});
-
-
+var builder = WebApplication.CreateBuilder(args);
 
 #region ConfigureServices
 //API모델을 파스칼 케이스 유지하기
@@ -36,29 +27,10 @@ app.UseRouting();
 //https로 자동 리디렉션
 app.UseHttpsRedirection();
 
-
 //기본 페이지
 app.UseDefaultFiles();
-
-//웹 루트
-//app.UseStaticFiles();
-if (true == app.Environment.IsDevelopment())
-{//개발일때
-	app.UseStaticFiles(new StaticFileOptions
-	{
-		FileProvider = new PhysicalFileProvider(
-		   Path.Combine(builder.Environment.ContentRootPath, @"wwwroot\dist")),
-	});
-}
-else
-{//배포일때
-	app.UseStaticFiles(new StaticFileOptions
-	{
-		FileProvider = new PhysicalFileProvider(
-		   Path.Combine(builder.Environment.ContentRootPath, @"wwwroot\production")),
-	});
-}
-
+//wwwroot
+app.UseStaticFiles();
 
 
 app.MapControllers();
