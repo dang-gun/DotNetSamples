@@ -39,7 +39,7 @@ module.exports = (env, argv) =>
     return {
         //서비스 모드
         mode: EnvPrductionIs ? "production" : "development",
-        devtool: "eval",
+        devtool: "eval-cheap-source-map",
         //devtool: "inline-source-map",
         resolve: {
             extensions: [".js", ".jsx"]
@@ -73,7 +73,16 @@ module.exports = (env, argv) =>
                                 loader: MiniCssExtractPlugin.loader,
                                 options: { esModule: false }
                             },
-                            { loader: 'css-loader' },
+                            {
+                                loader: 'css-loader',
+                                //options: {
+                                //    sourceMap: true,
+                                //    modules: {//모든 스타일이 고유이름을 같도록 변경
+                                //          //겹치지 않는 이름도 변경하므로 보류
+                                //        localIdentName: "[local]--[hash:base64:5]"
+                                //    }
+                                //}
+                            },
                             { loader: 'sass-loader' },
                             { loader: 'postcss-loader' },
                         ]
