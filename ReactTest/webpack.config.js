@@ -15,7 +15,7 @@ const WwwRootPath = path.resolve(__dirname, WwwRoot);
 //리액트 템플릿 위치
 const React_IndexHtmlPath = path.resolve(SrcPath, "index.html");
 //결과물 출력 폴더 이름
-let OutputFolder = "dist";
+let OutputFolder = "development";
 //결과물 출력 폴더 이름 - 이미지 폴더
 const OutputFolder_Images = "images";
 //결과물 출력 위치

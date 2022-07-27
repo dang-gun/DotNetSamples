@@ -9,6 +9,6 @@
 		"glob-stream": "^7.0.0"
 	},
 	"devDependencies": {
-		"gulp": "^4.0.2"
+		"gulp": "^3.9.1"
 	}
 }
