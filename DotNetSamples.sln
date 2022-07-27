@@ -87,6 +87,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToVsCodeTest", "ToVsCodeTes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebRootSample", "WebRootSample\WebRootSample.csproj", "{8A033DB4-5A19-44E6-BA76-62B55F178ED9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore6DefultSetting_React", "AspNetCore6DefultSetting_React\AspNetCore6DefultSetting_React.csproj", "{712F6FC9-F14A-46C4-980B-876186948069}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -245,6 +247,10 @@ Global
 		{8A033DB4-5A19-44E6-BA76-62B55F178ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A033DB4-5A19-44E6-BA76-62B55F178ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A033DB4-5A19-44E6-BA76-62B55F178ED9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{712F6FC9-F14A-46C4-980B-876186948069}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{712F6FC9-F14A-46C4-980B-876186948069}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{712F6FC9-F14A-46C4-980B-876186948069}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{712F6FC9-F14A-46C4-980B-876186948069}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -261,6 +267,7 @@ Global
 		{BE1144B0-F0B9-40C3-9732-606FF762B665} = {8F9692C8-6FAD-4593-A659-22BDB94255CD}
 		{494004E5-8715-413D-825C-B723283F4E45} = {22A0D0AA-FA0B-4838-911D-875F0B2AF7AB}
 		{297C014A-0BDE-47E5-9859-3168C71079F3} = {22A0D0AA-FA0B-4838-911D-875F0B2AF7AB}
+		{712F6FC9-F14A-46C4-980B-876186948069} = {0E9B96E2-2B39-40B5-9557-9018D4C46781}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5CBB7027-9855-46CE-8FFA-32A9E65217FF}
