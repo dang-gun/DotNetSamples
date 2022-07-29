@@ -19,12 +19,13 @@ function Test()
         TestInt: 124,
         TestFunc: TestCall
     }
-    let aa = "<button onClick={TestCall}>버튼 이벤트 호출</button>";
-    let bb = '<div><button onclick="console.log(\'hello\')">Hello World</button></div>';
-    let cc = '<div><button onclick={TestFunc}>{TestText}</button></div>';
+    let sTestHtml1 = TestHtml1;
+    console.log(sTestHtml1);
+    let sTestHtml2 = TestHtml2;
+    console.log(sTestHtml2);
 
-    var reactElement
-        = parse(bb
+    let reactElement
+        = parse(sTestHtml1
             , {
                 replace: domNode =>
                 {
@@ -46,55 +47,6 @@ function Test()
                 }
             });
     
-    console.log(reactElement);
-
-
-    let r = cc.match(/\{[\w]+\}/g);
-    r && r.forEach((state) =>
-    {
-        var regex = new RegExp(state, 'g');
-        var stateItem = state.split(/{|}/g)[1];
-        cc = cc.replace(regex, jsonData[stateItem]);
-    });
-    console.log(cc);
-
-    var reactElement2
-        = parse(cc
-            , {
-                replace: domNode =>
-                {
-                    if (domNode.name === 'button')
-                    {
-                        console.log(domNode);
-                        let temp = domNode.attribs.onclick;
-
-                        delete domNode.attribs.onclick;
-
-                        //domNode.attribs.onClick
-                        //    = domNode.attribs.onclick;
-                        return (
-                            <button
-                                {...domNode.attribs}
-                                onClick={() => { Function('"use strict";return (' + temp + ')')(); }}
-                            >{domNode.children[0].data}</button>
-                        );
-                    }
-                }
-            });
-
-    console.log(reactElement);
-
-    //return (
-    //    <div className="Test">
-    //        테스트 입니다.
-    //        <br />
-    //        <br />
-    //        {parse(TestHtml1)}
-    //        <br />
-    //        <br />
-    //        {parse(TestHtml2)}
-    //    </div>
-    //);
 
     return (
         <div className="Test">
@@ -104,14 +56,14 @@ function Test()
             <button onClick={TestCall}>백엔드 호출 1</button>
             <br />
             <br />
-            <div dangerouslySetInnerHTML={{ __html: aa }}></div>
+            <div dangerouslySetInnerHTML={{ __html: sTestHtml1 }}></div>
+            <br />
+            <br />
+            {sTestHtml2}
+            <br />
+            <br />
+            <div dangerouslySetInnerHTML={{ __html: sTestHtml2}}></div>
             
-            <br />
-            <br />
-            {reactElement}
-            <br />
-            <br />
-            {reactElement2}
         </div>
     );
 }
