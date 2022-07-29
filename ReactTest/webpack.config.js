@@ -78,6 +78,10 @@ module.exports = (env, argv) =>
                             { loader: 'postcss-loader' },
                         ]
                 },
+                {//html 파일
+                    test: /\.html$/i,
+                    loader: "html-loader",
+                },
                 {//이미지 파일
                     rules: [
                         {

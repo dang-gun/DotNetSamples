@@ -87,7 +87,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToVsCodeTest", "ToVsCodeTes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebRootSample", "WebRootSample\WebRootSample.csproj", "{8A033DB4-5A19-44E6-BA76-62B55F178ED9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore6DefultSetting_React", "AspNetCore6DefultSetting_React\AspNetCore6DefultSetting_React.csproj", "{712F6FC9-F14A-46C4-980B-876186948069}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore6DefultSetting_React", "AspNetCore6DefultSetting_React\AspNetCore6DefultSetting_React.csproj", "{712F6FC9-F14A-46C4-980B-876186948069}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
