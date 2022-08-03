@@ -3,7 +3,7 @@
 import parse from 'html-react-parser'
 import { replace } from 'lodash';
 
-import "./index.scss";
+import "./test.scss";
 import TestHtml1 from './test1.html';
 import TestHtml2 from './test2.html';
 
