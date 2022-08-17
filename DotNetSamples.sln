@@ -89,6 +89,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebRootSample", "WebRootSam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore6DefultSetting_React", "AspNetCore6DefultSetting_React\AspNetCore6DefultSetting_React.csproj", "{712F6FC9-F14A-46C4-980B-876186948069}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThrowTest", "ThrowTest\ThrowTest.csproj", "{C719456B-395F-4DE5-A03F-37D93C624E86}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -251,6 +253,10 @@ Global
 		{712F6FC9-F14A-46C4-980B-876186948069}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{712F6FC9-F14A-46C4-980B-876186948069}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{712F6FC9-F14A-46C4-980B-876186948069}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C719456B-395F-4DE5-A03F-37D93C624E86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C719456B-395F-4DE5-A03F-37D93C624E86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C719456B-395F-4DE5-A03F-37D93C624E86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C719456B-395F-4DE5-A03F-37D93C624E86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
