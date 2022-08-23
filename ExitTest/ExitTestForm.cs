@@ -25,7 +25,7 @@ namespace ExitTest
 						Debug.WriteLine(String.Format("Foreground :{0}", DateTime.Now.ToString("HH:mm:ss")));
 					};
 				});
-
+			//threadForeground.IsBackground = true;
 			threadForeground.Start();
 		}
 
