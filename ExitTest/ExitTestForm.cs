@@ -47,6 +47,7 @@ namespace ExitTest
 		private void btnEnvironmentExit_Click(object sender, EventArgs e)
 		{
 			Environment.Exit(0);
+			//Environment.Exit(1);
 		}
 
 		private void btnProcessKill_Click(object sender, EventArgs e)
