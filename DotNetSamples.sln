@@ -91,9 +91,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore6DefultSetting_Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThrowTest", "ThrowTest\ThrowTest.csproj", "{C719456B-395F-4DE5-A03F-37D93C624E86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaProxyToNodeTest", "SpaProxyToNodeTest\SpaProxyToNodeTest.csproj", "{3F80CC15-9AA3-4635-ADBE-8A9E8A1A47D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaProxyToNodeTest", "SpaProxyToNodeTest\SpaProxyToNodeTest.csproj", "{3F80CC15-9AA3-4635-ADBE-8A9E8A1A47D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExitTest", "ExitTest\ExitTest.csproj", "{E8271A8A-500E-495D-A667-BC93404E07ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExitTest", "ExitTest\ExitTest.csproj", "{E8271A8A-500E-495D-A667-BC93404E07ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebpackBreakpointTest", "WebpackBreakpointTest\WebpackBreakpointTest.csproj", "{F5A9730E-06DA-4423-8AED-B440F1825ABE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -269,6 +271,10 @@ Global
 		{E8271A8A-500E-495D-A667-BC93404E07ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8271A8A-500E-495D-A667-BC93404E07ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8271A8A-500E-495D-A667-BC93404E07ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5A9730E-06DA-4423-8AED-B440F1825ABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5A9730E-06DA-4423-8AED-B440F1825ABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5A9730E-06DA-4423-8AED-B440F1825ABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5A9730E-06DA-4423-8AED-B440F1825ABE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
