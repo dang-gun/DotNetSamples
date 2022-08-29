@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -39,8 +40,8 @@ module.exports = (env, argv) =>
     return {
         /** 서비스 모드 */
         mode: EnvPrductionIs ? "production" : "development",
-        devtool: "eval",
-        //devtool: "inline-source-map",
+        //devtool: "eval",
+        devtool: "inline-source-map",
         resolve: {
             extensions: [".js", ".jsx"]
         },
@@ -102,6 +103,7 @@ module.exports = (env, argv) =>
             ],
         },
         plugins: [
+            new webpack.SourceMapDevToolPlugin({}),
             // 빌드한 결과물(예>번들파일)을 HTML에 삽입해주는 플러그인
             new HtmlWebpackPlugin({ template: React_IndexHtmlPath }),
             // 출력폴더를 비워주는 플러그인
