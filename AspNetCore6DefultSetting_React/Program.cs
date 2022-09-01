@@ -1,7 +1,19 @@
+using AspNetCore6DefultSetting_React.Global;
 using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+#region Startup
+//appsettings.json
+IConfiguration configuration = builder.Configuration;
+
+//DB 커낵션 스트링 받아오기
+string sConnectStringSelect = "Test_sqlite";
+GlobalStatic.DBType = configuration[sConnectStringSelect + ":DBType"].ToLower();
+GlobalStatic.DBString = configuration[sConnectStringSelect + ":ConnectionString"];
+#endregion
 
 #region ConfigureServices
 //API모델을 파스칼 케이스 유지하기

@@ -109,6 +109,7 @@ module.exports = (env, argv) =>
             ],
         },
         plugins: [
+            new webpack.ProvidePlugin({ $: "jquery", jQuery: "jquery" }),
             new webpack.SourceMapDevToolPlugin({}),
             // 빌드한 결과물(예>번들파일)을 HTML에 삽입해주는 플러그인
             new HtmlWebpackPlugin({ template: React_IndexHtmlPath }),

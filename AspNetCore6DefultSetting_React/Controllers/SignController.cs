@@ -1,7 +1,7 @@
-﻿using ReactTest.Global;
-using ReactTest.Models;
+﻿using ReactTest.Models;
 using Microsoft.AspNetCore.Mvc;
 using ModelsDB;
+using AspNetCore6DefultSetting_React.Global;
 
 namespace ReactTest.Controllers
 {
@@ -14,8 +14,8 @@ namespace ReactTest.Controllers
 	{
 		[HttpPut]
 		public ActionResult<SignInModel> SignIn(
-					[FromForm] string sSignName
-					, [FromForm] string sPassword)
+			[FromForm] string sSignName
+			, [FromForm] string sPassword)
 		{
 			//로그인 처리용 모델
 			SignInModel smResult = new SignInModel();

@@ -1,7 +1,9 @@
 ﻿import React, { Component } from 'react';
+import $ from 'jquery';
 
-import parse from 'html-react-parser'
+import parse from 'html-react-parser';
 import { replace } from 'lodash';
+
 
 import "./test.scss";
 import TestHtml1 from './test1.html';
@@ -87,13 +89,6 @@ export default class Test extends Component
         alert("'TestCall'에서 호출됨");
     }
 
-    async TestCall_Api01(e)
-    {
-        const response = await fetch("/api/Test/SuccessCall");
-        const data = await response.json();
-        alert("'SuccessCall' : " + data );
-    }
-
     async TestCall_Api02(e)
     {
         const response = await fetch("https://localhost:7214/api/Test/SuccessCall");
@@ -103,6 +98,89 @@ export default class Test extends Component
 
     async TestCall_Api03(e)
     {
+    }
+
+    /** API 호출 - 무조건 성공, fetch 호출*/
+    async SuccessCall()
+    {
+        await fetch("/api/Test/SuccessCall")
+            .then((data) =>
+            {
+                if (true === data.ok)
+                {
+                    console.log(data);
+                    alert("'SuccessCall' : " + data.statusText);
+                }
+                else
+                {
+                    alert("알수 없는 오류가 발생했습니다. " + data.statusText);
+                }
+                
+            })
+            .catch((error) =>
+            {
+                console.error('Error:', error);
+
+                alert("알수 없는 오류가 발생했습니다.");
+            });
+    }
+
+    async SignInCall()
+    {
+        let formData = new FormData();
+        formData.append("sSignName", $("#txtSignName").val());
+        formData.append("sPassword", $("#txtPassword").val());
+
+        let jsonResult
+            = await fetch("/api/Sign/SignIn",
+                {
+                    method: 'PUT',
+                    dataType: 'json',
+                    headers: {
+                        'Accept': 'application/json',
+                        //'Content-Type': 'application/json'
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .catch((error) =>
+                {
+                    console.error('Error:', error);
+                    alert("알수 없는 오류가 발생했습니다.");
+                });
+
+        if (undefined !== jsonResult)
+        {//재대로 데이터를 전달 받았다.
+            alert("성공(SignInCall) : " + jsonResult.Token);
+        }
+        else
+        {
+            alert("알수 없는 오류가 발생했습니다. " + jsonResult);
+        }
+
+
+    }
+
+    async SignInfoCall()
+    {
+        $.ajax({
+            url: "api/Sign/SignInfo",
+            type: "Get",
+            data: { idUser: 1 },
+            success: function (data)
+            {
+                console.log(data);
+                alert("성공 : " + data.UserInfo.SignName);
+                alert(data);
+            },
+            error: function (error)
+            {
+                console.log(error);
+
+                alert("알수 없는 오류가 발생했습니다.");
+
+            }
+        });
     }
 }
 

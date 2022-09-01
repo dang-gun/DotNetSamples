@@ -1,5 +1,5 @@
 ﻿using System;
-using AspNetCore6DefultSetting_DB.Global;
+using AspNetCore6DefultSetting_React.Global;
 using Microsoft.EntityFrameworkCore;
 
 namespace ModelsDB
