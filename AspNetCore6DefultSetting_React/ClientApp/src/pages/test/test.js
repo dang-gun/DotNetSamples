@@ -136,10 +136,6 @@ export default class Test extends Component
                 {
                     method: 'PUT',
                     dataType: 'json',
-                    headers: {
-                        'Accept': 'application/json',
-                        //'Content-Type': 'application/json'
-                    },
                     body: formData
                 })
                 .then(response => response.json())
@@ -148,6 +144,7 @@ export default class Test extends Component
                     console.error('Error:', error);
                     alert("알수 없는 오류가 발생했습니다.");
                 });
+
 
         if (undefined !== jsonResult)
         {//재대로 데이터를 전달 받았다.
