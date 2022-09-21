@@ -95,7 +95,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaProxyToNodeTest", "SpaPr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExitTest", "ExitTest\ExitTest.csproj", "{E8271A8A-500E-495D-A667-BC93404E07ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebpackBreakpointTest", "WebpackBreakpointTest\WebpackBreakpointTest.csproj", "{F5A9730E-06DA-4423-8AED-B440F1825ABE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebpackBreakpointTest", "WebpackBreakpointTest\WebpackBreakpointTest.csproj", "{F5A9730E-06DA-4423-8AED-B440F1825ABE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionTest", "VersionTest\VersionTest.csproj", "{7761A17D-F932-4F48-8F18-67813EDBE7CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -275,6 +277,10 @@ Global
 		{F5A9730E-06DA-4423-8AED-B440F1825ABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5A9730E-06DA-4423-8AED-B440F1825ABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5A9730E-06DA-4423-8AED-B440F1825ABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7761A17D-F932-4F48-8F18-67813EDBE7CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7761A17D-F932-4F48-8F18-67813EDBE7CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7761A17D-F932-4F48-8F18-67813EDBE7CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7761A17D-F932-4F48-8F18-67813EDBE7CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

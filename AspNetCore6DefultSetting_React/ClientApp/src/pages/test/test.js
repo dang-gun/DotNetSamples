@@ -161,14 +161,14 @@ export default class Test extends Component
     async SignInfoCall()
     {
         $.ajax({
-            url: "api/Sign/SignInfo",
+            url: "/api/Sign/SignInfo",
             type: "Get",
             data: { idUser: 1 },
             success: function (data)
             {
                 console.log(data);
                 alert("성공 : " + data.UserInfo.SignName);
-                alert(data);
+                //alert(data);
             },
             error: function (error)
             {

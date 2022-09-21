@@ -53,7 +53,11 @@ export default class GlobalStatic
                                     onClick=
                                     {(event, param) =>
                                     {
-                                        funcCall(event, param);
+                                        if (undefined != funcCall
+                                            && null != funcCall)
+                                        {
+                                            funcCall(event, param);
+                                        }
                                     }}
                                 >{domNode.children[0].data}</button>
                             );
