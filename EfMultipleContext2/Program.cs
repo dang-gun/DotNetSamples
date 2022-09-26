@@ -43,5 +43,19 @@ public class Program
 				});
 			db2.SaveChanges();
 		}
+
+		using (AllContext dbAll = new AllContext())
+		{
+			var all
+				= (from s in dbAll.Students
+				  join t in dbAll.Teachers 
+					on s.ID equals t.ID
+					select new { t, s })
+					.ToList();
+
+
+			Console.WriteLine(all);
+
+		}
 	}
 }
