@@ -7,11 +7,8 @@ namespace ModelsDB;
 
 public class DbModel_MssqlContext : DbModelContext
 {
-
-
-	protected override void OnConfiguring(DbContextOptionsBuilder options)
-	{
-		options.UseSqlServer(ModelDllGlobal.DbConnectString);
-	}
-
+	//protected override void OnConfiguring(DbContextOptionsBuilder options)
+	//{
+	//	options.UseSqlServer(ModelDllGlobal.DbConnectString);
+	//}
 }

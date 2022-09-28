@@ -20,8 +20,8 @@ switch (ModelDllGlobal.DbType)
 	case TargetDbType.Mssql:
 		//Add-Migration InitialCreate -Context ModelsDB.DbModel_MssqlContext -OutputDir Migrations/Mssql
 		//Update-Database -Context ModelsDB.DbModel_MssqlContext -Migration 0	
-		//ModelDllGlobal.DbConnectString
-		//	= "Server=[주소];DataBase=[데이터 베이스];UId=[아이디];pwd=[비밀번호]";
+		//Remove-Migration -Context ModelsDB.DbModel_MssqlContext
+		//ModelDllGlobal.DbConnectString = "Server=[주소];DataBase=[데이터 베이스];UId=[아이디];pwd=[비밀번호]";
 		ModelDllGlobal.DbConnectString = loadGBI!.ConnectionString_Mssql;
 		break;
 
