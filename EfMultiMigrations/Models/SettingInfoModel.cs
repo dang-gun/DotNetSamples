@@ -1,4 +1,4 @@
-﻿namespace EfMultiMigrations_Asp;
+﻿namespace EfMultiMigrations.Models;
 
 /// <summary>
 /// 이 프로젝트에서 사용할 설정 모델

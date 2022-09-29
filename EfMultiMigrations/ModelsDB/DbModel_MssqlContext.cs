@@ -2,13 +2,43 @@
 using Microsoft.EntityFrameworkCore.Design;
 using EfMultiMigrations;
 using EfMultiMigrations.Models;
+using Newtonsoft.Json;
 
 namespace ModelsDB;
 
 public class DbModel_MssqlContext : DbModelContext
 {
-	//protected override void OnConfiguring(DbContextOptionsBuilder options)
-	//{
-	//	options.UseSqlServer(ModelDllGlobal.DbConnectString);
-	//}
+	public DbModel_MssqlContext(DbContextOptions<DbModelContext> options)
+		: base(options)
+	{
+	}
+
+	public DbModel_MssqlContext()
+	{
+	}
+}
+
+
+
+public class DbContext_MssqlFactory : IDesignTimeDbContextFactory<DbModel_MssqlContext>
+{
+	public DbModel_MssqlContext CreateDbContext(string[] args)
+	{
+		DbContextOptionsBuilder<DbModelContext> optionsBuilder
+			= new DbContextOptionsBuilder<DbModelContext>();
+
+		//설정 파일 읽기
+		string sJson = File.ReadAllText("SettingInfo_gitignore.json");
+		SettingInfoModel? loadSetting = JsonConvert.DeserializeObject<SettingInfoModel>(sJson);
+
+		//Add-Migration InitialCreate -Context ModelsDB.DbModel_MssqlContext -OutputDir Migrations/Mssql
+		//Update-Database -Context ModelsDB.DbModel_MssqlContext -Migration 0
+		//"Server=[주소];DataBase=[데이터 베이스];UId=[아이디];pwd=[비밀번호]"
+		ModelDllGlobal.DbType = TargetDbType.Mssql;
+		ModelDllGlobal.DbConnectString = loadSetting!.ConnectionString_Mssql;
+
+		optionsBuilder.UseSqlServer(ModelDllGlobal.DbConnectString);
+
+		return new DbModel_MssqlContext(optionsBuilder.Options);
+	}
 }

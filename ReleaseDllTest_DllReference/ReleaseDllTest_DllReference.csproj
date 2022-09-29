@@ -3,11 +3,13 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
+    <Configurations>Debug;Release;Debug_Sqlite</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="ReleaseTestDll">
       <HintPath Condition="'$(Configuration)'=='Debug'">..\lib\debug\ReleaseTestDll.dll</HintPath>
+      <HintPath Condition="'$(Configuration)'=='Debug_Sqlite'">..\lib\debug\ReleaseTestDll.dll</HintPath>
       <HintPath Condition="'$(Configuration)'=='Release'">..\lib\release\ReleaseTestDll.dll</HintPath>
     </Reference>
   </ItemGroup>

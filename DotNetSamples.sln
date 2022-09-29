@@ -105,9 +105,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EntityFramework", "EntityFr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfMultipleContext2", "EfMultipleContext2\EfMultipleContext2.csproj", "{73321565-B0B0-4E52-860A-D074F309C9D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfMultiMigrations", "EfMultiMigrations\EfMultiMigrations.csproj", "{72D76732-766E-4732-B4DB-DB4FD0AE22CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfMultiMigrations", "EfMultiMigrations\EfMultiMigrations.csproj", "{72D76732-766E-4732-B4DB-DB4FD0AE22CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfMultiMigrations_Asp", "EfMultiMigrations_Asp\EfMultiMigrations_Asp.csproj", "{AE05E897-5402-45EF-B767-306151E212CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfMultiMigrations_Asp", "EfMultiMigrations_Asp\EfMultiMigrations_Asp.csproj", "{AE05E897-5402-45EF-B767-306151E212CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

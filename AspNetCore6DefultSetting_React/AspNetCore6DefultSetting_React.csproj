@@ -13,6 +13,8 @@
 	  <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
 	  
     <ImplicitUsings>enable</ImplicitUsings>
+	  
+    <Configurations>Debug;Release;Debug_Sqlite</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

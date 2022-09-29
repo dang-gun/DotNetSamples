@@ -1,40 +1,56 @@
 using EfMultiMigrations;
 using EfMultiMigrations.Models;
-using EfMultiMigrations_Asp;
+using Microsoft.EntityFrameworkCore;
+using ModelsDB;
 using Newtonsoft.Json;
 using System.Data;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 //설정 파일 읽기
 string sJson = File.ReadAllText("SettingInfo_gitignore.json");
-SettingInfoModel? loadGBI = JsonConvert.DeserializeObject<SettingInfoModel>(sJson);
+SettingInfoModel? loadSetting = JsonConvert.DeserializeObject<SettingInfoModel>(sJson);
+
 
 // Add services to the container.
+
 ModelDllGlobal.DbType = TargetDbType.Sqlite;
 //ModelDllGlobal.DbType = TargetDbType.Mssql;
 
 switch (ModelDllGlobal.DbType)
 {
+	case TargetDbType.Sqlite:
+		//Add-Migration InitialCreate -Context ModelsDB.DbModel_SqliteContext -OutputDir Migrations/Sqlite
+		ModelDllGlobal.DbConnectString
+			= "Data Source=Test.db";
+
+		using (DbModel_SqliteContext db1 = new DbModel_SqliteContext())
+		{
+			db1.Database.Migrate();
+		}
+		break;
+
 	case TargetDbType.Mssql:
 		//Add-Migration InitialCreate -Context ModelsDB.DbModel_MssqlContext -OutputDir Migrations/Mssql
 		//Update-Database -Context ModelsDB.DbModel_MssqlContext -Migration 0	
 		//Remove-Migration -Context ModelsDB.DbModel_MssqlContext
 		//ModelDllGlobal.DbConnectString = "Server=[주소];DataBase=[데이터 베이스];UId=[아이디];pwd=[비밀번호]";
-		ModelDllGlobal.DbConnectString = loadGBI!.ConnectionString_Mssql;
-		break;
+		ModelDllGlobal.DbConnectString = loadSetting!.ConnectionString_Mssql;
 
-	case TargetDbType.Sqlite:
-		//Add-Migration InitialCreate -Context ModelsDB.DbModel_SqliteContext -OutputDir Migrations/Sqlite
-		ModelDllGlobal.DbConnectString
-			= "Data Source=Test.db";
+		using (DbModel_MssqlContext db2 = new DbModel_MssqlContext())
+		{
+			db2.Database.Migrate();
+		}
 		break;
 }
 
 
 
-var app = builder.Build();
+
+
+	var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
