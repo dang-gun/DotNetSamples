@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "EfMultiMigrations": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:2663;http://localhost:2664"
+    }
+  }
+}
