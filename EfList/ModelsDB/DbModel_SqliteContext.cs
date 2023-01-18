@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EfList.Global;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using EfMultiMigrations;
-using EfMultiMigrations.Models;
+
 using System.Text;
 
 namespace ModelsDB;
@@ -29,11 +29,11 @@ public class DbContext_SqliteFactory : IDesignTimeDbContextFactory<DbModel_Sqlit
 			= new DbContextOptionsBuilder<DbModelContext>();
 
 		//Add-Migration InitialCreate -Context ModelsDB.DbModel_SqliteContext -OutputDir Migrations/Sqlite
-		ModelDllGlobal.DbType = TargetDbType.Sqlite;
-		ModelDllGlobal.DbConnectString
+		GlobalStatic.DbType = "sqlite";
+		GlobalStatic.DbConnectString
 			= "Data Source=Test.db";
 
-		optionsBuilder.UseSqlite(ModelDllGlobal.DbConnectString);
+		optionsBuilder.UseSqlite(GlobalStatic.DbConnectString);
 
 		return new DbModel_SqliteContext(optionsBuilder.Options);
 	}
