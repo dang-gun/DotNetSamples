@@ -11,4 +11,10 @@
     <PackageReference Include="NetCoreAudio" Version="1.7.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Fighting.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
