@@ -89,6 +89,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiApp1", "MauiApp1\MauiAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RhombusOutlinePoint", "RhombusOutlinePoint\RhombusOutlinePoint.csproj", "{31C4E6BD-DCE5-46BE-B65A-3DB17868CB26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreAudioTest", "NetCoreAudioTest\NetCoreAudioTest.csproj", "{E2AD40FB-7B1B-463A-890C-635ABB4C4679}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_Sqlite|Any CPU = Debug_Sqlite|Any CPU
@@ -838,6 +840,24 @@ Global
 		{31C4E6BD-DCE5-46BE-B65A-3DB17868CB26}.Release|ARM.Build.0 = Release|Any CPU
 		{31C4E6BD-DCE5-46BE-B65A-3DB17868CB26}.Release|ARM64.ActiveCfg = Release|Any CPU
 		{31C4E6BD-DCE5-46BE-B65A-3DB17868CB26}.Release|ARM64.Build.0 = Release|Any CPU
+		{E2AD40FB-7B1B-463A-890C-635ABB4C4679}.Debug_Sqlite|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2AD40FB-7B1B-463A-890C-635ABB4C4679}.Debug_Sqlite|Any CPU.Build.0 = Debug|Any CPU
+		{E2AD40FB-7B1B-463A-890C-635ABB4C4679}.Debug_Sqlite|ARM.ActiveCfg = Debug|Any CPU
+		{E2AD40FB-7B1B-463A-890C-635ABB4C4679}.Debug_Sqlite|ARM.Build.0 = Debug|Any CPU
+		{E2AD40FB-7B1B-463A-890C-635ABB4C4679}.Debug_Sqlite|ARM64.ActiveCfg = Debug|Any CPU
+		{E2AD40FB-7B1B-463A-890C-635ABB4C4679}.Debug_Sqlite|ARM64.Build.0 = Debug|Any CPU
+		{E2AD40FB-7B1B-463A-890C-635ABB4C4679}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2AD40FB-7B1B-463A-890C-635ABB4C4679}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2AD40FB-7B1B-463A-890C-635ABB4C4679}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{E2AD40FB-7B1B-463A-890C-635ABB4C4679}.Debug|ARM.Build.0 = Debug|Any CPU
+		{E2AD40FB-7B1B-463A-890C-635ABB4C4679}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{E2AD40FB-7B1B-463A-890C-635ABB4C4679}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{E2AD40FB-7B1B-463A-890C-635ABB4C4679}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2AD40FB-7B1B-463A-890C-635ABB4C4679}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2AD40FB-7B1B-463A-890C-635ABB4C4679}.Release|ARM.ActiveCfg = Release|Any CPU
+		{E2AD40FB-7B1B-463A-890C-635ABB4C4679}.Release|ARM.Build.0 = Release|Any CPU
+		{E2AD40FB-7B1B-463A-890C-635ABB4C4679}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{E2AD40FB-7B1B-463A-890C-635ABB4C4679}.Release|ARM64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
