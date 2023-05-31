@@ -30,12 +30,13 @@ namespace StopwatchTimer
 				this.OnElapsed(this);
 			}
 		}
-		#endregion
+        #endregion
 
-		/// <summary>
-		/// 이벤트 간격
-		/// </summary>
-		public int Interval 
+
+        /// <summary>
+        /// 이벤트 간격(ms)
+        /// </summary>
+        public long Interval 
 		{
 			get
 			{
@@ -44,14 +45,16 @@ namespace StopwatchTimer
 			set
 			{
 				this._Interval_Ori = value;
-				//스톱워치는 정밀도가 높아 한 틱의 단위가 *10000 이다.
-				this.TickOneInterval = (this._Interval_Ori * 10000) ;
+				//스톱워치는 정밀도가 높아 1s가 *10000000 이다.
+				//리눅스에서는 *1000000000
+				//ms로 바꾸기 위해 *0.001을 해준다.
+				this.TickOneInterval = (this._Interval_Ori * (int)(Stopwatch.Frequency * 0.001));
 			}
 		}
-		/// <summary>
-		/// 이벤트 간격(원본)
-		/// </summary>
-		public int _Interval_Ori = 16;
+        /// <summary>
+        /// 이벤트 간격(ms) - 원본
+        /// </summary>
+        public long _Interval_Ori = 16;
 
 		/// <summary>
 		/// 한 틱의 간격
@@ -59,7 +62,7 @@ namespace StopwatchTimer
 		/// <remarks>
 		/// 기본값이 166666은 FPS로 60이다.
 		/// </remarks>
-		public int TickOneInterval { get; private set; } = 166666;
+		public long TickOneInterval { get; private set; } = 166666;
 
 		/// <summary>
 		/// 동작중인지 여부
