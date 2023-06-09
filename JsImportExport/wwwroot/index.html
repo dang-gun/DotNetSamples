@@ -22,14 +22,21 @@
     <br />
     <br />
 
+    <!--<script>var exports = {};</script>-->
     <script type="module">
-        import { TestStart } from "/TestStart.js?v=1";
+
+
+        import { TestStart } from "./TestStart.js?v=1";
+
+        import AppStart from "./ts2js/app.js";
 
         //전역 스코프에 개체 저장
         window.app = new TestStart();
+
+        window.app2 = new AppStart();
     </script>
-    <script>
+    <!--<script>
                     //var app = window.app;
-    </script>
+    </script>-->
 </body>
 </html>
