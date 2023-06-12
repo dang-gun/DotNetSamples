@@ -16,7 +16,7 @@ namespace NetCoreAudioTest
             Console.WriteLine("Welcome to the demo of NetCoreAudio package");
             ShowFileEntryPrompt();
             //var fileName = Console.ReadLine();
-            var fileName = "Fighting.wav";
+            var fileName = "Test1.wav";
             ShowInstruction();
 
             while (true)
