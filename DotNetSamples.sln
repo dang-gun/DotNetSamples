@@ -21,8 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SelfHost", "SelfHost\SelfHo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TreeDepth", "TreeDepth\TreeDepth.csproj", "{C5A42C53-5261-4A8F-B915-9B799857569B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsImportExport", "JsImportExport\JsImportExport.csproj", "{85E6F190-03A0-4D38-8123-821A3ABB9316}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsFetchApiTest", "JsFetchApiTest\JsFetchApiTest.csproj", "{8338B364-D13A-4743-94CD-6552ED1AFEDD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsAjaxAssistTest", "JsAjaxAssistTest\JsAjaxAssistTest.csproj", "{35BDADE2-44A0-4D84-BF1E-88DE420739F2}"
@@ -91,7 +89,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RhombusOutlinePoint", "Rhom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreAudioTest", "NetCoreAudioTest\NetCoreAudioTest.csproj", "{E2AD40FB-7B1B-463A-890C-635ABB4C4679}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StopwatchTimer_Test", "StopwatchTimer_Test\StopwatchTimer_Test.csproj", "{A2DA7856-9C0D-4831-BE3E-052A20D62318}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StopwatchTimer_Test", "StopwatchTimer_Test\StopwatchTimer_Test.csproj", "{A2DA7856-9C0D-4831-BE3E-052A20D62318}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -268,24 +266,6 @@ Global
 		{C5A42C53-5261-4A8F-B915-9B799857569B}.Release|ARM.Build.0 = Release|Any CPU
 		{C5A42C53-5261-4A8F-B915-9B799857569B}.Release|ARM64.ActiveCfg = Release|Any CPU
 		{C5A42C53-5261-4A8F-B915-9B799857569B}.Release|ARM64.Build.0 = Release|Any CPU
-		{85E6F190-03A0-4D38-8123-821A3ABB9316}.Debug_Sqlite|Any CPU.ActiveCfg = Debug_Sqlite|Any CPU
-		{85E6F190-03A0-4D38-8123-821A3ABB9316}.Debug_Sqlite|Any CPU.Build.0 = Debug_Sqlite|Any CPU
-		{85E6F190-03A0-4D38-8123-821A3ABB9316}.Debug_Sqlite|ARM.ActiveCfg = Debug_Sqlite|Any CPU
-		{85E6F190-03A0-4D38-8123-821A3ABB9316}.Debug_Sqlite|ARM.Build.0 = Debug_Sqlite|Any CPU
-		{85E6F190-03A0-4D38-8123-821A3ABB9316}.Debug_Sqlite|ARM64.ActiveCfg = Debug_Sqlite|Any CPU
-		{85E6F190-03A0-4D38-8123-821A3ABB9316}.Debug_Sqlite|ARM64.Build.0 = Debug_Sqlite|Any CPU
-		{85E6F190-03A0-4D38-8123-821A3ABB9316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{85E6F190-03A0-4D38-8123-821A3ABB9316}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{85E6F190-03A0-4D38-8123-821A3ABB9316}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{85E6F190-03A0-4D38-8123-821A3ABB9316}.Debug|ARM.Build.0 = Debug|Any CPU
-		{85E6F190-03A0-4D38-8123-821A3ABB9316}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{85E6F190-03A0-4D38-8123-821A3ABB9316}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{85E6F190-03A0-4D38-8123-821A3ABB9316}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{85E6F190-03A0-4D38-8123-821A3ABB9316}.Release|Any CPU.Build.0 = Release|Any CPU
-		{85E6F190-03A0-4D38-8123-821A3ABB9316}.Release|ARM.ActiveCfg = Release|Any CPU
-		{85E6F190-03A0-4D38-8123-821A3ABB9316}.Release|ARM.Build.0 = Release|Any CPU
-		{85E6F190-03A0-4D38-8123-821A3ABB9316}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{85E6F190-03A0-4D38-8123-821A3ABB9316}.Release|ARM64.Build.0 = Release|Any CPU
 		{8338B364-D13A-4743-94CD-6552ED1AFEDD}.Debug_Sqlite|Any CPU.ActiveCfg = Debug_Sqlite|Any CPU
 		{8338B364-D13A-4743-94CD-6552ED1AFEDD}.Debug_Sqlite|Any CPU.Build.0 = Debug_Sqlite|Any CPU
 		{8338B364-D13A-4743-94CD-6552ED1AFEDD}.Debug_Sqlite|ARM.ActiveCfg = Debug_Sqlite|Any CPU
