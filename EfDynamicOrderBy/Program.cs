@@ -1,6 +1,8 @@
-﻿using EfDynamicOrderBy.Asontu;
+﻿using Microsoft.EntityFrameworkCore;
+
+using Utility.AsontuDynamicOrderBy;
+
 using Global.DB;
-using Microsoft.EntityFrameworkCore;
 using ModelsDB;
 
 namespace EfDynamicOrderBy;

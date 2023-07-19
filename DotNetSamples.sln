@@ -5,8 +5,6 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumBitFlags", "EnumBitFlags\EnumBitFlags.csproj", "{629786A6-72F9-4747-A928-ECAA4F41614B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SammyJs_Test", "SammyJs_Test\SammyJs_Test.csproj", "{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "i18next_Test", "i18next_Test\i18next_Test.csproj", "{07E33192-8CCF-4D8D-8FC3-1E58AD5B1E11}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Localize_WinFormsLocalizeAuto", "Localize_WinFormsLocalizeAuto\Localize_WinFormsLocalizeAuto.csproj", "{68D127E8-5898-4012-89D9-10B3F343C5D4}"
@@ -87,7 +85,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreAudioTest", "NetCore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StopwatchTimer_Test", "StopwatchTimer_Test\StopwatchTimer_Test.csproj", "{A2DA7856-9C0D-4831-BE3E-052A20D62318}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfDynamicOrderBy", "EfDynamicOrderBy\EfDynamicOrderBy.csproj", "{779D3D3A-6B6A-43AE-8639-09497F044452}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfDynamicOrderBy", "EfDynamicOrderBy\EfDynamicOrderBy.csproj", "{779D3D3A-6B6A-43AE-8639-09497F044452}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -120,24 +118,6 @@ Global
 		{629786A6-72F9-4747-A928-ECAA4F41614B}.Release|ARM.Build.0 = Release|Any CPU
 		{629786A6-72F9-4747-A928-ECAA4F41614B}.Release|ARM64.ActiveCfg = Release|Any CPU
 		{629786A6-72F9-4747-A928-ECAA4F41614B}.Release|ARM64.Build.0 = Release|Any CPU
-		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Debug_Sqlite|Any CPU.ActiveCfg = Debug_Sqlite|Any CPU
-		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Debug_Sqlite|Any CPU.Build.0 = Debug_Sqlite|Any CPU
-		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Debug_Sqlite|ARM.ActiveCfg = Debug_Sqlite|Any CPU
-		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Debug_Sqlite|ARM.Build.0 = Debug_Sqlite|Any CPU
-		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Debug_Sqlite|ARM64.ActiveCfg = Debug_Sqlite|Any CPU
-		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Debug_Sqlite|ARM64.Build.0 = Debug_Sqlite|Any CPU
-		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Debug|ARM.Build.0 = Debug|Any CPU
-		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Release|Any CPU.Build.0 = Release|Any CPU
-		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Release|ARM.ActiveCfg = Release|Any CPU
-		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Release|ARM.Build.0 = Release|Any CPU
-		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{72104E2B-C7AE-49EB-A62A-A67EB7E01C38}.Release|ARM64.Build.0 = Release|Any CPU
 		{07E33192-8CCF-4D8D-8FC3-1E58AD5B1E11}.Debug_Sqlite|Any CPU.ActiveCfg = Debug_Sqlite|Any CPU
 		{07E33192-8CCF-4D8D-8FC3-1E58AD5B1E11}.Debug_Sqlite|Any CPU.Build.0 = Debug_Sqlite|Any CPU
 		{07E33192-8CCF-4D8D-8FC3-1E58AD5B1E11}.Debug_Sqlite|ARM.ActiveCfg = Debug_Sqlite|Any CPU
