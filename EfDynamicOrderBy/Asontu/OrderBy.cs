@@ -22,15 +22,13 @@ public class OrderBy<TToOrder, TBy> : IOrderBy
     public dynamic Expression => this.expression;
 
     /// <summary>
-    /// 
+    /// 실행식을 전달받아 저장한다.
     /// </summary>
     /// <param name="expression">실행식</param>
     public OrderBy(Expression<Func<TToOrder, TBy>> expression)
     {
         this.expression = expression;
     }
-
-    
 }
 
 

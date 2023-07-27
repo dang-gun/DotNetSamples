@@ -109,6 +109,38 @@ internal class Program
 
             iqTO = iqTO.OrderBy(ob => ob.idTestOrderBy);
             List<TestOrderBy> listTO = iqTO.ToList();
+
+            //Test code
+            //string sColumn = "Name";
+            //bool bAsc = true;
+
+            //IOrderBy? orderBy = null;
+
+            //switch (sColumn)
+            //{
+            //    case "idTestOrderBy":
+            //        orderBy = new OrderBy<TestOrderBy, int>(x => x.idTestOrderBy);
+            //        break;
+
+            //    case "Str":
+            //        orderBy = new OrderBy<TestOrderBy, string>(x => x.Str);
+            //        break;
+
+            //    case "Int":
+            //        orderBy = new OrderBy<TestOrderBy, int>(x => x.Int);
+            //        break;
+            //}
+
+            //if (true == bAsc)
+            //{
+            //    iqTO = iqTO.OrderBy(orderBy!);
+            //}
+            //else
+            //{
+            //    iqTO = iqTO.OrderByDescending(orderBy!);
+            //}
+
+
         }
         using (ModelsDbContext db1 = new ModelsDbContext())
         {
