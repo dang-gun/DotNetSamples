@@ -25,6 +25,8 @@ public partial class Form1 : Form
         GlobalDb.DBString = txtMssql_ConnectStriong.Text;
 
         this.DbSetting();
+
+        radioMssqlUse.Checked = true;
     }
     #endregion
 
@@ -35,6 +37,8 @@ public partial class Form1 : Form
         GlobalDb.DBString = txtSqlite_ConnectStriong.Text;
 
         this.DbSetting();
+
+        radioSqliteUse.Checked = true;
     }
     #endregion
 
