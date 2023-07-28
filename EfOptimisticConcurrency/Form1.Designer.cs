@@ -57,6 +57,7 @@
             btnServerConcurrency = new Button();
             btnApplicationConcurrency = new Button();
             groupBox6 = new GroupBox();
+            btnServerConcurrency2 = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -353,11 +354,22 @@
             groupBox6.TabStop = false;
             groupBox6.Text = "동시성 처리 방식";
             // 
+            // btnServerConcurrency2
+            // 
+            btnServerConcurrency2.Location = new Point(194, 252);
+            btnServerConcurrency2.Name = "btnServerConcurrency2";
+            btnServerConcurrency2.Size = new Size(193, 23);
+            btnServerConcurrency2.TabIndex = 6;
+            btnServerConcurrency2.Text = "서버 - TestOC2 - 함수화";
+            btnServerConcurrency2.UseVisualStyleBackColor = true;
+            btnServerConcurrency2.Click += btnServerConcurrency2_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(407, 388);
+            Controls.Add(btnServerConcurrency2);
             Controls.Add(groupBox6);
             Controls.Add(groupBox5);
             Controls.Add(groupBox4);
@@ -411,5 +423,6 @@
         private Button btnServerConcurrency;
         private Button btnApplicationConcurrency;
         private GroupBox groupBox6;
+        private Button btnServerConcurrency2;
     }
 }

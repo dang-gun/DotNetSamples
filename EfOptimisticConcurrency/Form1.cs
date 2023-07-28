@@ -27,6 +27,7 @@ public partial class Form1 : Form
         this.DbSetting();
 
         radioMssqlUse.Checked = true;
+        radioSqliteUse.Checked = false;
     }
     #endregion
 
@@ -38,6 +39,7 @@ public partial class Form1 : Form
 
         this.DbSetting();
 
+        radioMssqlUse.Checked = false;
         radioSqliteUse.Checked = true;
     }
     #endregion
@@ -223,6 +225,63 @@ public partial class Form1 : Form
 
     #endregion
 
+    #region 동시성 서버2
+
+    /// <summary>
+    /// 동시성 서버
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void btnServerConcurrency2_Click(object sender, EventArgs e)
+    {
+        this.DB_Update_ServerConcurrency2(3000, "첫번째");
+        this.DB_Update_ServerConcurrency2(0, "두번째");
+    }
+
+    /// <summary>
+    /// 동시성 서버
+    /// </summary>
+    /// <remarks>
+    /// 
+    /// </remarks>
+    /// <param name="nDelay"></param>
+    /// <param name="sStr"></param>
+    private void DB_Update_ServerConcurrency2(
+        int nDelay
+        , string sStr)
+    {
+        //비동기 처리
+        Task.Run(() =>
+        {
+            TestOC2? findTarget = null;
+
+            using (ModelsDbContext db1 = new ModelsDbContext())
+            {
+                findTarget = db1.TestOC2.Where(w => w.idTestOC2 == 1).FirstOrDefault();
+
+                if (null != findTarget)
+                {
+                    GlobalDb.SaveChanges_UpdateConcurrency(
+                        db1
+                        , () =>
+                        {
+                            findTarget.Int += 1;
+                            findTarget.Str = sStr;
+
+                            Thread.Sleep(nDelay);
+
+                            return true;
+                        }
+                        , -1);
+                }
+
+            }//end using db1
+
+            this.ReloadDB();
+        });
+    }
+
+    #endregion
 
     #region 동시성 없음
     /// <summary>
