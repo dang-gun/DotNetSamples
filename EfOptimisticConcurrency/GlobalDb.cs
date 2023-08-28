@@ -17,27 +17,19 @@ public static class GlobalDb
     public static UseDbType DBType = UseDbType.Mssql;
     public static string DBString = "Server=192.168.0.222;DataBase=LocalTest;UId=LocalTest_Login;pwd=asdf1234@";
 
-
-    /// <summary>
-    /// 문자열로 저장된 배열(혹은 리스트)의 데이터를 구분할때 사용하는 구분자
-    /// </summary>
-    /// <remarks>
-    /// 이 값을 중간에 바꾸면 기존의 데이터를 재대로 못읽을 수 있다.
-    /// </remarks>
-    public static char DbArrayDiv = '▒';
-
-
     /// <summary>
     /// 낙관적 동시성 적용
     /// </summary>
     /// <remarks>
     /// 낙관적 동시성이 체크가 성공하면 저장한다.<br />
-    /// 지정된 실행식을 지정된 횟수만큼 반복한다.
+    /// 지정된 실행식을 지정된 횟수만큼 반복한다.<br />
+    /// 추적중인 데이터가 모두 다시 로드 되므로 가급적 Context를 짧게 만들어야 
+    /// 부하도 적고 속도도 빨라진다.
     /// </remarks>
     /// <param name="db1"></param>
-    /// <param name="callback"></param>
+    /// <param name="callback">반복해서 동작시킬 실행식.</param>
     /// <param name="nMaxLoop">최대 반복수. 마이너스 값이면 무한반복한다.</param>
-    /// <returns></returns>
+    /// <returns>업데이트 성공 여부</returns>
     public static bool SaveChanges_UpdateConcurrency(
         ModelsDbContext db1
         , Func<bool> callback
