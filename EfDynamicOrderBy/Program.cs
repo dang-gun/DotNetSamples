@@ -306,6 +306,8 @@ internal class Program
                 newTO.Date = new DateTime(rand.Next(0, 1000000));
                 db1.TestOrderBy.Add(newTO);
             }
+
+            db1.SaveChanges();
         }
 
         using (ModelsDbContext db2 = new ModelsDbContext())
