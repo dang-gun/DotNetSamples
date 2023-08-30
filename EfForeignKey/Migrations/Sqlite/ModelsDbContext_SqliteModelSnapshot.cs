@@ -29,7 +29,7 @@ namespace EfForeignKey.Migrations.Sqlite
 
                     b.HasKey("idTest1Blog");
 
-                    b.ToTable("Test1Blog");
+                    b.ToTable("Test1Blog", (string)null);
                 });
 
             modelBuilder.Entity("ModelsDB.Test1Post", b =>
@@ -55,7 +55,7 @@ namespace EfForeignKey.Migrations.Sqlite
 
                     b.HasIndex("idTest1Blog");
 
-                    b.ToTable("Test1Post");
+                    b.ToTable("Test1Post", (string)null);
                 });
 
             modelBuilder.Entity("ModelsDB.Test2Blog", b =>
@@ -70,7 +70,7 @@ namespace EfForeignKey.Migrations.Sqlite
 
                     b.HasKey("idTest2Blog");
 
-                    b.ToTable("Test2Blog");
+                    b.ToTable("Test2Blog", (string)null);
                 });
 
             modelBuilder.Entity("ModelsDB.Test2Post", b =>
@@ -99,7 +99,7 @@ namespace EfForeignKey.Migrations.Sqlite
 
                     b.HasIndex("Test2BlogidTest2Blog");
 
-                    b.ToTable("Test2Post");
+                    b.ToTable("Test2Post", (string)null);
                 });
 
             modelBuilder.Entity("ModelsDB.Test1Post", b =>

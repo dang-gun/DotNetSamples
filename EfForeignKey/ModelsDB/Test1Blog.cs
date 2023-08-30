@@ -28,5 +28,5 @@ public class Test1Blog
     /// 외래키에 연결된 리스트
     /// </summary>
     [ForeignKey("idTest1Blog")]
-    public ICollection<Test1Post> Posts { get; set; }
+    public ICollection<Test1Post> Posts { get; set; } = new List<Test1Post>();
 }

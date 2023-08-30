@@ -43,7 +43,7 @@ internal class Program
         }
 
         //딱 한번만 호출해야 한다.
-        Db_DataAdd();
+        //Db_DataAdd();
 
         DateTime dtNow = DateTime.Now;
 
