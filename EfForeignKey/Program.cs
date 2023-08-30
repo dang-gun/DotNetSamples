@@ -14,9 +14,6 @@ internal class Program
         Console.WriteLine("Hello, Entity Framework Foreign Key test!");
 
         Console.WriteLine("DB Setting....");
-        GlobalDb.DBType = UseDbType.Sqlite;
-        //GlobalDb.DBType = UseDbType.Mssql;
-
 
         //db 마이그레이션 적용
         switch (GlobalDb.DBType)
@@ -46,45 +43,43 @@ internal class Program
         }
 
         //딱 한번만 호출해야 한다.
-        //Db_DataAdd();
+        Db_DataAdd();
 
         DateTime dtNow = DateTime.Now;
 
         //테스트
-        using (ModelsDbContext db1 = new ModelsDbContext())
-        {
-            //블로그는 순차 생성
-            for (int i = 1; i < 100; ++i)
-            {
-                Test1Blog newT1B = new Test1Blog();
-                newT1B.Name = $"Test1Blog {i}";
-                db1.Test1Blog.Add(newT1B);
+        //using (ModelsDbContext db1 = new ModelsDbContext())
+        //{
+        //    //블로그는 순차 생성
+        //    //for (int i = 1; i < 100; ++i)
+        //    //{
+        //    //    Test1Blog newT1B = new Test1Blog();
+        //    //    newT1B.Name = $"Test1Blog {i}";
+        //    //    db1.Test1Blog.Add(newT1B);
 
-                Test2Blog newT2B = new Test2Blog();
-                newT2B.Name = $"Test2Blog {i}";
-                db1.Test2Blog.Add(newT2B);
-            }
+        //    //    Test2Blog newT2B = new Test2Blog();
+        //    //    newT2B.Name = $"Test2Blog {i}";
+        //    //    db1.Test2Blog.Add(newT2B);
+        //    //}
 
+        //    //db1.SaveChanges();
 
-
-            db1.SaveChanges();
-
-            Db_DataAdd_Temp2(new Random(), db1);
-            db1.SaveChanges();
+        //    //Db_DataAdd_Temp2(new Random(), db1);
+        //    //db1.SaveChanges();
 
 
-            Test1Blog iqTO = db1.Test1Blog.Include(x => x.Posts).First();
+        //    Test1Blog iqTO = db1.Test1Blog.Include(x => x.Posts).First();
 
-            List<Test1Post> listTO = new List<Test1Post>();
+        //    List<Test1Post> listTO = new List<Test1Post>();
 
-            Test1Post t1pTemp = db1.Test1Post.First();
-            Test1Blog t1bTemp = t1pTemp.Blog;
+        //    Test1Post t1pTemp = db1.Test1Post.First();
+        //    Test1Blog t1bTemp = t1pTemp.Blog;
 
-            Console.WriteLine($"iqTO : {iqTO.Name}, listTO count : {listTO.Count}");
-            Console.WriteLine($"t1pTemp = t1bTemp : {t1bTemp.Name}");
-        }
+        //    Console.WriteLine($"iqTO : {iqTO.Name}, listTO count : {listTO.Count}");
+        //    Console.WriteLine($"t1pTemp = t1bTemp : {t1bTemp.Name}");
+        //}
 
-        return;
+        //return;
 
         Console.WriteLine("****** select list ******");
         Console.WriteLine(" start select fk list --------------");
@@ -114,7 +109,7 @@ internal class Program
 
 
         Console.WriteLine(" ");
-        Console.WriteLine("****** select take(non query) child ******");
+        Console.WriteLine("****** select take(non Include) child ******");
         Console.WriteLine(" start select fk list --------------");
         using (ModelsDbContext db1 = new ModelsDbContext())
         {
@@ -164,7 +159,7 @@ internal class Program
 
             //리스트를 받고
             IQueryable<Test1Select> list
-                = (from t1b in db1.Test1Blog.Take(1)
+                = (from t1b in db1.Test1Blog.Take(1).Include(i => i.Posts)
                    select new Test1Select()
                    {
                        idTest1Blog = t1b.idTest1Blog,
@@ -174,7 +169,7 @@ internal class Program
 
             List<Test1Select> listTo = list.ToList();
 
-            Console.WriteLine($"count : {listTo.Count}, delay : {(DateTime.Now.Ticks - dtNow.Ticks)}");
+            Console.WriteLine($"count : {listTo.Count}, post:{listTo[0].Posts!.Count}, delay : {(DateTime.Now.Ticks - dtNow.Ticks)}");
 
             //Console.WriteLine("query : ");
             //Console.WriteLine(list.ToQueryString());
@@ -196,7 +191,7 @@ internal class Program
                    });
 
             List<Test2Select> listTo = list.ToList();
-            Console.WriteLine($"count : {listTo.Count}, delay : {(DateTime.Now.Ticks - dtNow.Ticks)}");
+            Console.WriteLine($"count : {listTo.Count}, post:{listTo[0].Posts!.Count}, delay : {(DateTime.Now.Ticks - dtNow.Ticks)}");
 
             //Console.WriteLine("query : ");
             //Console.WriteLine(list.ToQueryString());
@@ -365,7 +360,7 @@ internal class Program
 
 
 
-
+        Console.WriteLine(" ");
         Console.WriteLine("****** item to parent list ******");
         Console.WriteLine(" start select fk list --------------");
         using (ModelsDbContext db1 = new ModelsDbContext())
@@ -373,12 +368,16 @@ internal class Program
             dtNow = DateTime.Now;
 
             //리스트를 받고
-            Test1Post iqTO = db1.Test1Post.First();
+            Test1Post iqTO = db1.Test1Post.Include(i => i.Blog).First();
             Console.WriteLine($"item select, delay : {(DateTime.Now.Ticks - dtNow.Ticks)}");
 
-
-            Test1Blog t1b = iqTO.Blog;
-            Console.WriteLine($"blog : {t1b.Name}, delay : {(DateTime.Now.Ticks - dtNow.Ticks)}");
+            Test1Blog? t1b = iqTO.Blog;
+            string sName = string.Empty;
+            if(null != t1b)
+            {
+                sName = t1b.Name;
+            }
+            Console.WriteLine($"blog : {sName}, delay : {(DateTime.Now.Ticks - dtNow.Ticks)}");
         }
 
         Console.WriteLine(" start select non fk list --------------");
@@ -398,6 +397,49 @@ internal class Program
             Console.WriteLine($"blog : {t2b.Name}, delay : {(DateTime.Now.Ticks - dtNow.Ticks)}");
         }
 
+
+
+        Console.WriteLine(" ");
+        Console.WriteLine("****** item to parent list (non Include) ******");
+        Console.WriteLine(" start select fk list --------------");
+        using (ModelsDbContext db1 = new ModelsDbContext())
+        {
+            dtNow = DateTime.Now;
+
+            //리스트를 받고
+            Test1Post iqTO = db1.Test1Post.First();
+            Console.WriteLine($"item select, delay : {(DateTime.Now.Ticks - dtNow.Ticks)}");
+
+            iqTO.Blog
+                = db1.Test1Blog
+                    .Where(w => w.idTest1Blog == iqTO.idTest1Blog)
+                    .FirstOrDefault();
+
+            Test1Blog? t1b = iqTO.Blog;
+            string sName = string.Empty;
+            if (null != t1b)
+            {
+                sName = t1b.Name;
+            }
+            Console.WriteLine($"blog : {sName}, delay : {(DateTime.Now.Ticks - dtNow.Ticks)}");
+        }
+
+        Console.WriteLine(" start select non fk list --------------");
+        using (ModelsDbContext db1 = new ModelsDbContext())
+        {
+            dtNow = DateTime.Now;
+
+            //리스트를 받고
+            Test2Post iqTO = db1.Test2Post.First();
+            Console.WriteLine($"item select, delay : {(DateTime.Now.Ticks - dtNow.Ticks)}");
+
+
+            Test2Blog t2b
+                = db1.Test2Blog
+                    .Where(w => w.idTest2Blog == iqTO.idTest2Blog)
+                    .First();
+            Console.WriteLine($"blog : {t2b.Name}, delay : {(DateTime.Now.Ticks - dtNow.Ticks)}");
+        }
 
 
 
@@ -487,7 +529,8 @@ internal class Program
         int Int = rand.Next(0, 100000);
         string Str = Guid.NewGuid().ToString();
         DateTime Date = new DateTime(rand.Next(0, 1000000));
-        long idFK = rand.Next(0, 10000);
+        long idFK = rand.Next(1, 10000);
+        //long idFK = rand.Next(0, 100);
 
         Test1Post newT1P = new Test1Post();
         newT1P.Int = Int;
