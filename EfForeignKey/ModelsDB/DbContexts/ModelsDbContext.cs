@@ -79,7 +79,9 @@ public class ModelsDbContext : DbContext
     /// <param name="modelBuilder"></param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
-		
-
+        modelBuilder.Entity<Test1Post>()
+       .HasOne(c => c.Blog)
+       .WithMany(p => p.Posts)
+       .HasForeignKey(c => c.idTest1Blog);
     }
 }

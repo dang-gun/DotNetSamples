@@ -37,8 +37,9 @@ public class Test1Post
     /// <summary>
     /// 연결된 외래키
     /// </summary>
-    [ForeignKey("idTest1Blog")]
-    public long idTest1Blog { get; set; }
+    [ForeignKey("Test1Blog")]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    public long? idTest1Blog { get; set; }
     /// <summary>
     /// 외래키에 연결된 대상
     /// </summary>
