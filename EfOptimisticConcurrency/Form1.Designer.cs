@@ -72,7 +72,7 @@
             groupBox1.Controls.Add(txtMssql_ConnectStriong);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(radioMssqlUse);
-            groupBox1.Location = new Point(12, 22);
+            groupBox1.Location = new Point(12, 9);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(381, 86);
             groupBox1.TabIndex = 0;
@@ -125,7 +125,7 @@
             groupBox2.Controls.Add(txtSqlite_ConnectStriong);
             groupBox2.Controls.Add(label2);
             groupBox2.Controls.Add(radioSqliteUse);
-            groupBox2.Location = new Point(12, 114);
+            groupBox2.Location = new Point(12, 101);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(381, 81);
             groupBox2.TabIndex = 0;
@@ -187,7 +187,7 @@
             groupBox3.Controls.Add(txtDb_TestOC1_Str);
             groupBox3.Controls.Add(txtDb_TestOC1_Int);
             groupBox3.Controls.Add(label3);
-            groupBox3.Location = new Point(12, 315);
+            groupBox3.Location = new Point(12, 302);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(123, 72);
             groupBox3.TabIndex = 2;
@@ -234,7 +234,7 @@
             groupBox4.Controls.Add(txtDb_TestOC2_Str);
             groupBox4.Controls.Add(txtDb_TestOC2_Int);
             groupBox4.Controls.Add(label6);
-            groupBox4.Location = new Point(141, 315);
+            groupBox4.Location = new Point(141, 302);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(123, 72);
             groupBox4.TabIndex = 2;
@@ -281,7 +281,7 @@
             groupBox5.Controls.Add(txtDb_TestOC3_Str);
             groupBox5.Controls.Add(txtDb_TestOC3_Int);
             groupBox5.Controls.Add(label8);
-            groupBox5.Location = new Point(270, 315);
+            groupBox5.Location = new Point(270, 302);
             groupBox5.Name = "groupBox5";
             groupBox5.Size = new Size(123, 72);
             groupBox5.TabIndex = 2;
@@ -347,7 +347,7 @@
             groupBox6.Controls.Add(btnApplicationConcurrency);
             groupBox6.Controls.Add(btnNotConcurrency);
             groupBox6.Controls.Add(btnServerConcurrency);
-            groupBox6.Location = new Point(12, 201);
+            groupBox6.Location = new Point(12, 188);
             groupBox6.Name = "groupBox6";
             groupBox6.Size = new Size(173, 112);
             groupBox6.TabIndex = 5;
@@ -356,7 +356,7 @@
             // 
             // btnServerConcurrency2
             // 
-            btnServerConcurrency2.Location = new Point(194, 252);
+            btnServerConcurrency2.Location = new Point(194, 239);
             btnServerConcurrency2.Name = "btnServerConcurrency2";
             btnServerConcurrency2.Size = new Size(193, 23);
             btnServerConcurrency2.TabIndex = 6;
@@ -368,7 +368,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(407, 388);
+            ClientSize = new Size(407, 381);
             Controls.Add(btnServerConcurrency2);
             Controls.Add(groupBox6);
             Controls.Add(groupBox5);
