@@ -103,37 +103,44 @@ public partial class Form1 : Form
         //비동기 처리
         Task.Run(() =>
         {
+            //수정할 개체
             TestOC1? findTarget = null;
 
             using (ModelsDbContext db1 = new ModelsDbContext())
             {
-                bool saveFailed = false;
+                //저장이 실패했는지 여부
+                bool bSave = true;
+                //수정할 대상 찾기
                 findTarget = db1.TestOC1.Where(w => w.idTestOC1 == 1).FirstOrDefault();
 
                 do
                 {
-                    saveFailed = false;
+                    bSave = true;
                     try
                     {
                         if (null != findTarget)
-                        {
+                        {//수정할 대상이 있다.
+
                             Log("TestOC1 findTarget : " + findTarget.Str);
 
+                            //값 변경
                             findTarget.Int += 1;
                             findTarget.Str = sStr;
 
                             //☆☆☆☆ 저장할때 항상 GUID를 변경해야 한다.
                             findTarget.Version = Guid.NewGuid();
 
+                            //테스트를 위한 딜레이
                             Thread.Sleep(nDelay);
 
+                            //DB에 업데이트 요청
                             db1.SaveChanges();
                             Log("TestOC1 db1.SaveChanges : " + sStr);
                         }
                     }
                     catch (DbUpdateConcurrencyException ex)
                     {
-                        saveFailed = true;
+                        bSave = false;
 
                         // Update the values of the entity that failed to save from the store
                         // 수정하려던 요소를 다시 로드 한다.
@@ -141,7 +148,8 @@ public partial class Form1 : Form
                         ex.Entries.Single().Reload();
                     }
 
-                } while (saveFailed);
+                    //저장에 실패했다면 다시 시도
+                } while (false == bSave);
 
             }//end using db1
 
@@ -180,34 +188,40 @@ public partial class Form1 : Form
         //비동기 처리
         Task.Run(() =>
         {
+            //수정할 개체
             TestOC2? findTarget = null;
 
             using (ModelsDbContext db1 = new ModelsDbContext())
             {
-                bool saveFailed = false;
+                //저장이 실패했는지 여부
+                bool bSave = true;
+                //수정할 대상 찾기
                 findTarget = db1.TestOC2.Where(w => w.idTestOC2 == 1).FirstOrDefault();
 
                 do
                 {
-                    saveFailed = false;
+                    bSave = true;
                     try
                     {
                         if (null != findTarget)
-                        {
+                        {//수정할 대상이 있다.
                             Log("TestOC2 findTarget : " + findTarget.Str);
 
+                            //값 변경
                             findTarget.Int += 1;
                             findTarget.Str = sStr;
 
+                            //테스트를 위한 딜레이
                             Thread.Sleep(nDelay);
 
+                            //DB에 업데이트 요청
                             db1.SaveChanges();
                             Log("TestOC2 db1.SaveChanges : " + sStr);
                         }
                     }
                     catch (DbUpdateConcurrencyException ex)
                     {
-                        saveFailed = true;
+                        bSave = false;
 
                         // Update the values of the entity that failed to save from the store
                         // 수정하려던 요소를 다시 로드 한다.
@@ -215,7 +229,7 @@ public partial class Form1 : Form
                         ex.Entries.Single().Reload();
                     }
 
-                } while (saveFailed);
+                } while (false == bSave);
 
             }//end using db1
 
@@ -242,7 +256,7 @@ public partial class Form1 : Form
     /// 동시성 서버
     /// </summary>
     /// <remarks>
-    /// 
+    /// 동시성 처리용 함수를 만들어 처리
     /// </remarks>
     /// <param name="nDelay"></param>
     /// <param name="sStr"></param>
