@@ -58,12 +58,16 @@
             btnApplicationConcurrency = new Button();
             groupBox6 = new GroupBox();
             btnServerConcurrency2 = new Button();
+            btnMultUpdate = new Button();
+            groupBox7 = new GroupBox();
+            btnMultUpdateFunc = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
             groupBox4.SuspendLayout();
             groupBox5.SuspendLayout();
             groupBox6.SuspendLayout();
+            groupBox7.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -173,7 +177,7 @@
             // 
             // btnNotConcurrency
             // 
-            btnNotConcurrency.Location = new Point(6, 80);
+            btnNotConcurrency.Location = new Point(6, 109);
             btnNotConcurrency.Name = "btnNotConcurrency";
             btnNotConcurrency.Size = new Size(154, 23);
             btnNotConcurrency.TabIndex = 1;
@@ -187,7 +191,7 @@
             groupBox3.Controls.Add(txtDb_TestOC1_Str);
             groupBox3.Controls.Add(txtDb_TestOC1_Int);
             groupBox3.Controls.Add(label3);
-            groupBox3.Location = new Point(12, 302);
+            groupBox3.Location = new Point(12, 333);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(123, 72);
             groupBox3.TabIndex = 2;
@@ -234,7 +238,7 @@
             groupBox4.Controls.Add(txtDb_TestOC2_Str);
             groupBox4.Controls.Add(txtDb_TestOC2_Int);
             groupBox4.Controls.Add(label6);
-            groupBox4.Location = new Point(141, 302);
+            groupBox4.Location = new Point(141, 333);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(123, 72);
             groupBox4.TabIndex = 2;
@@ -281,7 +285,7 @@
             groupBox5.Controls.Add(txtDb_TestOC3_Str);
             groupBox5.Controls.Add(txtDb_TestOC3_Int);
             groupBox5.Controls.Add(label8);
-            groupBox5.Location = new Point(270, 302);
+            groupBox5.Location = new Point(270, 333);
             groupBox5.Name = "groupBox5";
             groupBox5.Size = new Size(123, 72);
             groupBox5.TabIndex = 2;
@@ -345,31 +349,63 @@
             // groupBox6
             // 
             groupBox6.Controls.Add(btnApplicationConcurrency);
+            groupBox6.Controls.Add(btnServerConcurrency2);
             groupBox6.Controls.Add(btnNotConcurrency);
             groupBox6.Controls.Add(btnServerConcurrency);
             groupBox6.Location = new Point(12, 188);
             groupBox6.Name = "groupBox6";
-            groupBox6.Size = new Size(173, 112);
+            groupBox6.Size = new Size(173, 139);
             groupBox6.TabIndex = 5;
             groupBox6.TabStop = false;
             groupBox6.Text = "동시성 처리 방식";
             // 
             // btnServerConcurrency2
             // 
-            btnServerConcurrency2.Location = new Point(194, 239);
+            btnServerConcurrency2.Location = new Point(6, 80);
             btnServerConcurrency2.Name = "btnServerConcurrency2";
-            btnServerConcurrency2.Size = new Size(193, 23);
+            btnServerConcurrency2.Size = new Size(154, 23);
             btnServerConcurrency2.TabIndex = 6;
             btnServerConcurrency2.Text = "서버 - TestOC2 - 함수화";
             btnServerConcurrency2.UseVisualStyleBackColor = true;
             btnServerConcurrency2.Click += btnServerConcurrency2_Click;
             // 
+            // btnMultUpdate
+            // 
+            btnMultUpdate.Location = new Point(7, 22);
+            btnMultUpdate.Name = "btnMultUpdate";
+            btnMultUpdate.Size = new Size(189, 23);
+            btnMultUpdate.TabIndex = 6;
+            btnMultUpdate.Text = "구현 테스트 - TestOC2";
+            btnMultUpdate.UseVisualStyleBackColor = true;
+            btnMultUpdate.Click += btnMultUpdate_Click;
+            // 
+            // groupBox7
+            // 
+            groupBox7.Controls.Add(btnMultUpdateFunc);
+            groupBox7.Controls.Add(btnMultUpdate);
+            groupBox7.Location = new Point(194, 188);
+            groupBox7.Name = "groupBox7";
+            groupBox7.Size = new Size(202, 91);
+            groupBox7.TabIndex = 7;
+            groupBox7.TabStop = false;
+            groupBox7.Text = "여러개 업데이트";
+            // 
+            // btnMultUpdateFunc
+            // 
+            btnMultUpdateFunc.Location = new Point(7, 51);
+            btnMultUpdateFunc.Name = "btnMultUpdateFunc";
+            btnMultUpdateFunc.Size = new Size(189, 23);
+            btnMultUpdateFunc.TabIndex = 7;
+            btnMultUpdateFunc.Text = "공통화 함수 - TestOC2";
+            btnMultUpdateFunc.UseVisualStyleBackColor = true;
+            btnMultUpdateFunc.Click += btnMultUpdateFunc_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(407, 381);
-            Controls.Add(btnServerConcurrency2);
+            ClientSize = new Size(407, 412);
+            Controls.Add(groupBox7);
             Controls.Add(groupBox6);
             Controls.Add(groupBox5);
             Controls.Add(groupBox4);
@@ -389,6 +425,7 @@
             groupBox5.ResumeLayout(false);
             groupBox5.PerformLayout();
             groupBox6.ResumeLayout(false);
+            groupBox7.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -424,5 +461,8 @@
         private Button btnApplicationConcurrency;
         private GroupBox groupBox6;
         private Button btnServerConcurrency2;
+        private Button btnMultUpdate;
+        private GroupBox groupBox7;
+        private Button btnMultUpdateFunc;
     }
 }

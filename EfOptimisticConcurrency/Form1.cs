@@ -83,8 +83,8 @@ public partial class Form1 : Form
     /// <param name="e"></param>
     private void btnApplicationConcurrency_Click(object sender, EventArgs e)
     {
-        this.DB_Update_ApplicationConcurrency(3000, "첫번째");
-        this.DB_Update_ApplicationConcurrency(0, "두번째");
+        this.DB_Update_ApplicationConcurrency(1, 3000, "첫번째");
+        this.DB_Update_ApplicationConcurrency(1, 0, "두번째");
     }
 
     /// <summary>
@@ -94,10 +94,12 @@ public partial class Form1 : Form
     /// 애플리케이션 관리 동시성 토큰
     /// https://learn.microsoft.com/ko-kr/ef/core/saving/concurrency?tabs=data-annotations#application-managed-concurrency-tokens
     /// </remarks>
+    /// <param name="idTestOC1"></param>
     /// <param name="nDelay"></param>
     /// <param name="sStr"></param>
     private void DB_Update_ApplicationConcurrency(
-        int nDelay
+        int idTestOC1
+        , int nDelay
         , string sStr)
     {
         //비동기 처리
@@ -111,7 +113,7 @@ public partial class Form1 : Form
                 //저장이 실패했는지 여부
                 bool bSave = true;
                 //수정할 대상 찾기
-                findTarget = db1.TestOC1.Where(w => w.idTestOC1 == 1).FirstOrDefault();
+                findTarget = db1.TestOC1.Where(w => w.idTestOC1 == idTestOC1).FirstOrDefault();
 
                 do
                 {
@@ -168,8 +170,8 @@ public partial class Form1 : Form
     /// <param name="e"></param>
     private void btnServerConcurrency_Click(object sender, EventArgs e)
     {
-        this.DB_Update_ServerConcurrency(3000, "첫번째");
-        this.DB_Update_ServerConcurrency(0, "두번째");
+        this.DB_Update_ServerConcurrency(1, 3000, "첫번째");
+        this.DB_Update_ServerConcurrency(1, 0, "두번째");
     }
 
     /// <summary>
@@ -179,10 +181,12 @@ public partial class Form1 : Form
     /// 다시 로드를 사용하여 낙관적 동시성 예외 해결(데이터베이스 승리)
     /// https://learn.microsoft.com/ko-kr/ef/ef6/saving/concurrency#resolving-optimistic-concurrency-exceptions-with-reload-database-wins
     /// </remarks>
+    /// <param name="idTestOC2"></param>
     /// <param name="nDelay"></param>
     /// <param name="sStr"></param>
     private void DB_Update_ServerConcurrency(
-        int nDelay
+        int idTestOC2
+        , int nDelay
         , string sStr)
     {
         //비동기 처리
@@ -196,7 +200,7 @@ public partial class Form1 : Form
                 //저장이 실패했는지 여부
                 bool bSave = true;
                 //수정할 대상 찾기
-                findTarget = db1.TestOC2.Where(w => w.idTestOC2 == 1).FirstOrDefault();
+                findTarget = db1.TestOC2.Where(w => w.idTestOC2 == idTestOC2).FirstOrDefault();
 
                 do
                 {
@@ -205,7 +209,7 @@ public partial class Form1 : Form
                     {
                         if (null != findTarget)
                         {//수정할 대상이 있다.
-                            Log("TestOC2 findTarget : " + findTarget.Str);
+                            Log($"TestOC2 findTarget.Str:{findTarget.Str}, sStr:{sStr}");
 
                             //값 변경
                             findTarget.Int += 1;
@@ -216,7 +220,7 @@ public partial class Form1 : Form
 
                             //DB에 업데이트 요청
                             db1.SaveChanges();
-                            Log("TestOC2 db1.SaveChanges : " + sStr);
+                            Log($"TestOC2 db1.SaveChanges - findTarget.Str:{findTarget.Str}, sStr:{sStr}");
                         }
                     }
                     catch (DbUpdateConcurrencyException ex)
@@ -227,6 +231,7 @@ public partial class Form1 : Form
                         // 수정하려던 요소를 다시 로드 한다.
                         // 수정하려던 값이 초기화 되므로 넣으려는 값을 다시 계산해야 한다.
                         ex.Entries.Single().Reload();
+                        Log($"ex  sStr:{sStr} =");
                     }
 
                 } while (false == bSave);
@@ -248,8 +253,8 @@ public partial class Form1 : Form
     /// <param name="e"></param>
     private void btnServerConcurrency2_Click(object sender, EventArgs e)
     {
-        this.DB_Update_ServerConcurrency2(3000, "첫번째");
-        this.DB_Update_ServerConcurrency2(0, "두번째");
+        this.DB_Update_ServerConcurrency2(1, 3000, "첫번째");
+        this.DB_Update_ServerConcurrency2(1, 0, "두번째");
     }
 
     /// <summary>
@@ -258,10 +263,12 @@ public partial class Form1 : Form
     /// <remarks>
     /// 동시성 처리용 함수를 만들어 처리
     /// </remarks>
+    /// <param name="idTestOC2"></param>
     /// <param name="nDelay"></param>
     /// <param name="sStr"></param>
     private void DB_Update_ServerConcurrency2(
-        int nDelay
+        int idTestOC2
+        , int nDelay
         , string sStr)
     {
         //비동기 처리
@@ -271,12 +278,13 @@ public partial class Form1 : Form
 
             using (ModelsDbContext db1 = new ModelsDbContext())
             {
-                findTarget = db1.TestOC2.Where(w => w.idTestOC2 == 1).FirstOrDefault();
+                findTarget = db1.TestOC2.Where(w => w.idTestOC2 == idTestOC2).FirstOrDefault();
 
                 if (null != findTarget)
                 {
                     GlobalDb.SaveChanges_UpdateConcurrency(
                         db1
+                        , - 1
                         , () =>
                         {
                             findTarget.Int += 1;
@@ -285,8 +293,7 @@ public partial class Form1 : Form
                             Thread.Sleep(nDelay);
 
                             return true;
-                        }
-                        , -1);
+                        });
                 }
 
             }//end using db1
@@ -350,6 +357,164 @@ public partial class Form1 : Form
     #endregion
 
 
+    #region 여러개 업데이트 : 구현 테스트 - TestOC2
+    private void btnMultUpdate_Click(object sender, EventArgs e)
+    {
+        this.DB_Update_ServerConcurrency3<TestOC2>(3000, "첫번째");
+        this.DB_Update_ServerConcurrency(1, 0, "두번째");
+    }
+
+
+    private void DB_Update_ServerConcurrency3<T>(
+        int nDelay
+        , string sStr)
+    {
+        //비동기 처리
+        Task.Run(() =>
+        {
+            //수정할 개체
+            List<TestOC2>? findTarget = null;
+
+            Log($"DB_Update_ServerConcurrency3 call - sStr:{sStr}");
+
+            using (ModelsDbContext db1 = new ModelsDbContext())
+            {
+                //저장이 실패했는지 여부
+                bool bSave = true;
+                //수정할 대상 찾기
+                findTarget
+                    = db1.TestOC2
+                        .ToList();
+
+
+                //남은 리스트
+                List<TestOC2> listLeft = new List<TestOC2>();
+                listLeft.AddRange(findTarget);
+
+                do
+                {
+                    bSave = true;
+
+                    try
+                    {
+                        if (null != listLeft)
+                        {
+                            for (int i = 0; i < listLeft.Count; ++i)
+                            {
+                                TestOC2 item = listLeft[i];
+
+                                Log($"TestOC2 - sStr:{sStr}, findTarget.Str:{item.Str} ");
+
+                                //값 변경
+                                item.Int += 1;
+                                item.Str = sStr + " - " + i;
+                            }
+
+                            //테스트를 위한 딜레이
+                            Thread.Sleep(nDelay);
+
+                            //DB에 업데이트 요청
+                            db1.SaveChanges();
+                            Log($"TestOC2 db1.SaveChanges - sStr:{sStr}");
+                        }
+
+                    }
+                    catch (DbUpdateConcurrencyException ex)
+                    {
+                        bSave = false;
+
+                        // Update the values of the entity that failed to save from the store
+                        // 수정하려던 요소를 다시 로드 한다.
+                        // 수정하려던 값이 초기화 되므로 넣으려는 값을 다시 계산해야 한다.
+                        var aaa = ex.Entries.Single();
+                        aaa.Reload();
+                        //listSuccess.Add(aaa.Entity as TestOC2);
+                        var bbb = aaa.Entity as TestOC2;
+                        Log($"ex  sStr:{sStr} = idTestOC2 : {bbb!.idTestOC2}, Int : {bbb.Int}, Str : {bbb.Str}");
+
+
+                        int nIdx = listLeft!.IndexOf(bbb);
+
+                        if (-1 != nIdx)
+                        {//업데이트에 실패한 개체가 있다.
+
+                            //인덱스 전까지 있는 
+                            listLeft.RemoveRange(0, nIdx);
+                            //리스트의 맨끝으로 이동한다.
+                            TestOC2 tData = listLeft[0];
+                            listLeft.RemoveAt(0);
+                            listLeft.Add(tData);
+
+                        }
+
+                    }
+
+                } while (false == bSave);
+
+            }//end using db1
+
+            this.ReloadDB();
+        });
+    }
+    #endregion
+
+
+    #region 여러개 업데이트 : 공통화 함수 - TestOC2
+    private void btnMultUpdateFunc_Click(object sender, EventArgs e)
+    {
+        this.DB_Update_ServerMultiConcurrency(3000, "첫번째");
+
+        //this.DB_Update_ServerMultiConcurrency(0, "두번째");
+        this.DB_Update_ServerConcurrency(1, 0, "두번째");
+    }
+
+    /// <summary>
+    /// 동시성 여러개 업데이트 함수화
+    /// </summary>
+    /// <remarks>
+    /// 동시성 처리용 함수를 만들어 처리
+    /// </remarks>
+    /// <param name="nDelay"></param>
+    /// <param name="sStr"></param>
+    private void DB_Update_ServerMultiConcurrency(
+        int nDelay
+        , string sStr)
+    {
+        //비동기 처리
+        Task.Run(() =>
+        {
+            List<TestOC2> findTarget;
+
+            using (ModelsDbContext db1 = new ModelsDbContext())
+            {
+                //대상 리스트
+                findTarget = db1.TestOC2.ToList();
+
+                if (null != findTarget)
+                {
+                    GlobalDb.SaveChanges_MultiUpdateConcurrency<TestOC2>(
+                        db1
+                        , -1
+                        , ref findTarget
+                        , (TestOC2 item) =>
+                        {//각 아이템에 대한 동작
+
+                            item.Int += 1;
+                            item.Str = sStr;
+
+                            
+
+                            return true;
+                        }
+                        , nDelay);
+                }
+
+            }//end using db1
+
+            this.ReloadDB();
+        });
+    }
+    #endregion
 
     private void ReloadDB()
     {
