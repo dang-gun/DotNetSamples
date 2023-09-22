@@ -284,7 +284,7 @@ public partial class Form1 : Form
                 {
                     GlobalDb.SaveChanges_UpdateConcurrency(
                         db1
-                        , - 1
+                        , -1
                         , () =>
                         {
                             findTarget.Int += 1;
@@ -465,7 +465,8 @@ public partial class Form1 : Form
         this.DB_Update_ServerMultiConcurrency(3000, "첫번째");
 
         //this.DB_Update_ServerMultiConcurrency(0, "두번째");
-        this.DB_Update_ServerConcurrency(1, 0, "두번째");
+        //this.DB_Update_ServerConcurrency(1, 0, "두번째");
+        this.DB_Update_ServerConcurrency(2, 0, "두번째");
     }
 
     /// <summary>
@@ -501,8 +502,6 @@ public partial class Form1 : Form
 
                             item.Int += 1;
                             item.Str = sStr;
-
-                            
 
                             return true;
                         }
@@ -571,6 +570,5 @@ public partial class Form1 : Form
             , DateTime.Now.ToString("HH:mm:ss")
             , sMsg));
     }
-
 
 }

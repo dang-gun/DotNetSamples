@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using EfAnalyze.Globals;
 using Global.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;

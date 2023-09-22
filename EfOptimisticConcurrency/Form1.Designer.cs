@@ -385,7 +385,7 @@
             groupBox7.Controls.Add(btnMultUpdate);
             groupBox7.Location = new Point(194, 188);
             groupBox7.Name = "groupBox7";
-            groupBox7.Size = new Size(202, 91);
+            groupBox7.Size = new Size(202, 132);
             groupBox7.TabIndex = 7;
             groupBox7.TabStop = false;
             groupBox7.Text = "여러개 업데이트";
