@@ -606,7 +606,7 @@ namespace EfAnalyze.Forms
 
             //this.DB_Update_ServerMultiConcurrency(0, "두번째-컨택스트 멀티");
             //this.DB_Update_ServerConcurrency(1, 0, "두번째-컨택스트 멀티");
-            this.DB_Update_ServerConcurrency(1, 0, "두번째-컨택스트 멀티");
+            this.DB_Update_ServerConcurrency(2, 0, "두번째-컨택스트 멀티");
         }
 
         /// <summary>

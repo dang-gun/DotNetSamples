@@ -101,7 +101,7 @@ public static class GlobalDb_OC
             // Update the values of the entity that failed to save from the store
             // 수정하려던 요소를 다시 로드 한다.
             // 수정하려던 값이 초기화 되므로 넣으려는 값을 다시 계산해야 한다.
-            ex.Entries.Single().Reload();
+            //ex.Entries.Single().Reload();
 
             //수정하려다 실패한 개체
             //DbUpdateConcurrencyException는 실패한 첫 개체를 준다.
@@ -114,7 +114,7 @@ public static class GlobalDb_OC
             //에러난 개체를 찾는다.
             
             StringBuilder sb = new StringBuilder();
-            sb.Append($"SaveChanges Exception : \n");
+            sb.Append($"SaveChanges_UpdateConcurrencyCheck Exception : \n");
             TestOC2 tempItem = dataFail.Entity as TestOC2;
             sb.Append($"    {tempItem.idTestOC2}: {tempItem.Int}, {tempItem.Str}\n");
             Debug.WriteLine(sb.ToString());
@@ -125,10 +125,10 @@ public static class GlobalDb_OC
 
     #endregion
 
-    #region 낙관적 동시성 여러줄 처리 - 각자 컨택스트 생성하여 처리함
+    #region 낙관적 동시성 여러줄 처리 - 각자 컨택스트 생성하여 처리함(동기)
 
     /// <summary>
-    /// 낙관적 동시성 여러줄 처리 - 각자 컨택스트 생성하여 처리함
+    /// 낙관적 동시성 여러줄 처리 - 각자 컨택스트 생성하여 처리함(동기)
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="nMaxLoop"></param>
@@ -146,29 +146,33 @@ public static class GlobalDb_OC
         {
             T item = listLeft[i];
 
+            //비동기로 처리해도 트랜젝션은 한개라 전체가 롤백된다.
+            //동기로 처리하면 각 컨택스트가 별도의 트랙젝션 처리가 되어 하나씩 처리된다.
             //비동기 처리
-            Task.Run(() => 
-            {
-                using (ModelsDbContext db1 = new ModelsDbContext())
-                {
-                    db1.Update(item);
+            //Task.Run(() => 
+            //{
+                
+            //});
 
-                    bool bSaveSTemp
-                        = SaveChanges_UpdateConcurrency<T>(
-                            db1
-                            , nMaxLoop
-                            , callbackItem
-                            , item
-                            , nDelay);
-                }//end using db1
-            });
-            
+            using (ModelsDbContext db1 = new ModelsDbContext())
+            {
+                db1.Update(item!);
+
+                bool bSaveSTemp
+                    = SaveChanges_UpdateConcurrency<T>(
+                        db1
+                        , nMaxLoop
+                        , callbackItem
+                        , item
+                        , nDelay);
+            }//end using db1
+
         }//end for i
 
     }
 
     /// <summary>
-    /// 낙관적 동시성 저장 시도 - 재네릭 방식
+    /// 낙관적 동시성 저장 시도 - 제네릭 방식
     /// </summary>
     /// <typeparam name="T">낙관적 동시성 저장을 시도할 개체 모델</typeparam>
     /// <param name="db1">추적중인 컨택스트</param>
