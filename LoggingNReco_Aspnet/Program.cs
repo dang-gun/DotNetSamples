@@ -16,8 +16,45 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        builder.Services.AddLogging(loggingBuilder
+            => loggingBuilder.AddFile("Logs/Log_{0:yyyy}-{0:MM}-{0:dd}.log"
+                , fileLoggerOpts =>
+                {
+                    //파일 출력 이름
+                    fileLoggerOpts.FormatLogFileName = fName =>
+                    {
+                        return String.Format(fName, DateTime.Now);
+                    };
+
+                    //메시지 커스텀
+                    fileLoggerOpts.FormatLogEntry = (lmMsg) =>
+                    {
+                        string sLevel = string.Empty;
+
+                        switch (lmMsg.LogLevel)
+                        {
+                            case LogLevel.Information:
+                                sLevel = "Info";
+                                break;
+                            case LogLevel.Warning:
+                                sLevel = "Warn";
+                                break;
+
+                            default:
+                                sLevel = lmMsg.LogLevel.ToString();
+                                break;
+                        }
+
+                        return $"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}] {sLevel} [{lmMsg.LogName}] {lmMsg.Message}";
+                    };
+                }));
+
+
+
         //builder.Logging.SetMinimumLevel(LogLevel.Trace);
-        builder.Logging.AddFilter((provider, category, logLevel) =>
+        builder.Logging
+            .AddSimpleConsole(c => c.TimestampFormat = "[yyyy-MM-dd HH:mm:ss] ")
+            .AddFilter((provider, category, logLevel) =>
         {
             return true;
         });
