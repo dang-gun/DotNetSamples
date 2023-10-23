@@ -72,12 +72,21 @@ public class ModelsDbContext : DbContext
     /// </summary>
     public DbSet<Test2Post> Test2Post { get; set; }
 
+	/// <summary>
+	/// 테스트3 블로그 - 다른 네임스페이스 지정
+	/// </summary>
+	public DbSet<Test3Blog.Test3Blog> Test3Blog { get; set; }
+	/// <summary>
+	/// 테스트3 포스트
+	/// </summary>
+	public DbSet<Test3Post> Test3Post { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="modelBuilder"></param>
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="modelBuilder"></param>
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
     }
 }

@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ModelsDB;
 
@@ -16,23 +15,17 @@ namespace EfForeignKey.Migrations.Mssql
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.20")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.20");
 
             modelBuilder.Entity("ModelsDB.Test1Blog", b =>
                 {
                     b.Property<long>("idTest1Blog")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("idTest1Blog"), 1L, 1);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("idTest1Blog");
 
@@ -43,22 +36,20 @@ namespace EfForeignKey.Migrations.Mssql
                 {
                     b.Property<long>("idTest1Post")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("idTest1Post"), 1L, 1);
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Int")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Str")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<long>("idTest1Blog")
-                        .HasColumnType("bigint");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("idTest1Post");
 
@@ -71,13 +62,11 @@ namespace EfForeignKey.Migrations.Mssql
                 {
                     b.Property<long>("idTest2Blog")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("idTest2Blog"), 1L, 1);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("idTest2Blog");
 
@@ -88,31 +77,73 @@ namespace EfForeignKey.Migrations.Mssql
                 {
                     b.Property<long>("idTest2Post")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("idTest2Post"), 1L, 1);
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Int")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Str")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<long?>("Test2BlogidTest2Blog")
-                        .HasColumnType("bigint");
+                        .HasColumnType("INTEGER");
 
                     b.Property<long>("idTest2Blog")
-                        .HasColumnType("bigint");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("idTest2Post");
 
                     b.HasIndex("Test2BlogidTest2Blog");
 
                     b.ToTable("Test2Post");
+                });
+
+            modelBuilder.Entity("ModelsDB.Test3Blog.Test3Blog", b =>
+                {
+                    b.Property<long>("idTest3Blog")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("idTest3Blog");
+
+                    b.ToTable("Test3Blog");
+                });
+
+            modelBuilder.Entity("ModelsDB.Test3Post", b =>
+                {
+                    b.Property<long>("idTest1Post")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("BlogidTest3Blog")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Int")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Str")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("idTest3Blog")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("idTest1Post");
+
+                    b.HasIndex("BlogidTest3Blog");
+
+                    b.ToTable("Test3Post");
                 });
 
             modelBuilder.Entity("ModelsDB.Test1Post", b =>
@@ -131,6 +162,15 @@ namespace EfForeignKey.Migrations.Mssql
                     b.HasOne("ModelsDB.Test2Blog", null)
                         .WithMany("Posts")
                         .HasForeignKey("Test2BlogidTest2Blog");
+                });
+
+            modelBuilder.Entity("ModelsDB.Test3Post", b =>
+                {
+                    b.HasOne("ModelsDB.Test3Blog.Test3Blog", "Blog")
+                        .WithMany()
+                        .HasForeignKey("BlogidTest3Blog");
+
+                    b.Navigation("Blog");
                 });
 
             modelBuilder.Entity("ModelsDB.Test1Blog", b =>

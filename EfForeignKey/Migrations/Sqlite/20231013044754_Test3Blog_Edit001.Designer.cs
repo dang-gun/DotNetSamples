@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ModelsDB;
 
@@ -10,9 +11,10 @@ using ModelsDB;
 namespace EfForeignKey.Migrations.Sqlite
 {
     [DbContext(typeof(ModelsDbContext_Sqlite))]
-    partial class ModelsDbContext_SqliteModelSnapshot : ModelSnapshot
+    [Migration("20231013044754_Test3Blog_Edit001")]
+    partial class Test3Blog_Edit001
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.20");
@@ -120,7 +122,6 @@ namespace EfForeignKey.Migrations.Sqlite
             modelBuilder.Entity("ModelsDB.Test3Post", b =>
                 {
                     b.Property<long>("idTest3Post")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Date")
@@ -164,8 +165,14 @@ namespace EfForeignKey.Migrations.Sqlite
             modelBuilder.Entity("ModelsDB.Test3Post", b =>
                 {
                     b.HasOne("ModelsDB.Test3Blog.Test3Blog", "Blog3")
-                        .WithMany("Test3Post")
+                        .WithMany()
                         .HasForeignKey("idTest3Blog")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ModelsDB.Test3Blog.Test3Blog", null)
+                        .WithMany("Test3Post")
+                        .HasForeignKey("idTest3Post")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

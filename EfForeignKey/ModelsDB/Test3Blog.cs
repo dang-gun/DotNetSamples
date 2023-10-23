@@ -6,18 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModelsDB;
+namespace ModelsDB.Test3Blog;
 
 /// <summary>
 /// 테스트용 테이블
 /// </summary>
-public class Test1Blog
+public class Test3Blog
 {
     /// <summary>
     /// 고유키
     /// </summary>
     [Key]
-    public long idTest1Blog { get; set; }
+    public long idTest3Blog { get; set; }
 
     /// <summary>
     /// 블로그 이름
@@ -25,14 +25,7 @@ public class Test1Blog
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// 외래키에 연결된 리스트
+    /// 매장의 자주쓰는 정보
     /// </summary>
-    [ForeignKey("idTest1Blog")]
-    public ICollection<Test1Post> Posts { get; set; } = new List<Test1Post>();
-
-
-    //[ForeignKey("idTest3Blog")]
-    //public ICollection<Test3Post> Posts3 { get; set; } = new List<Test3Post>();
-
-
+    public ICollection<Test3Post> Test3Post { get; set; } = new List<Test3Post>();
 }

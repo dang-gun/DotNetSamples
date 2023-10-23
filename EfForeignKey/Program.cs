@@ -3,6 +3,7 @@ using System.Linq;
 
 using Global.DB;
 using ModelsDB;
+using ModelsDB.Test3Blog;
 
 namespace EfForeignKey;
 
@@ -80,6 +81,55 @@ internal class Program
         //}
 
         //return;
+
+
+
+        //임의 테스트용
+        using (ModelsDbContext db0 = new ModelsDbContext())
+        {
+            //Test3Blog new1T3_1 = new Test3Blog();
+            //new1T3_1.Name = "new1T3_1";
+            //db0.Test3Blog.Add(new1T3_1);
+            //Test3Blog new1T3_2 = new Test3Blog();
+            //new1T3_2.Name = "new1T3_2";
+            //db0.Test3Blog.Add(new1T3_2);
+
+            //db0.SaveChanges();
+
+            //Test3Post newT3_P1 = new Test3Post();
+            //newT3_P1.idTest3Blog = new1T3_1.idTest3Blog;
+            //newT3_P1.Date = dtNow;
+            //newT3_P1.Str = "newT3_P1";
+            //db0.Test3Post.Add(newT3_P1);
+
+            //Test3Post newT3_P2 = new Test3Post();
+            //newT3_P2.idTest3Blog = new1T3_1.idTest3Blog;
+            //newT3_P2.Date = dtNow;
+            //newT3_P2.Str = "newT3_P2";
+            //db0.Test3Post.Add(newT3_P2);
+
+            //Test3Post newT3_P_2_1 = new Test3Post();
+            //newT3_P_2_1.idTest3Blog = new1T3_2.idTest3Blog;
+            //newT3_P_2_1.Date = dtNow;
+            //newT3_P_2_1.Str = "newT3_P1";
+            //db0.Test3Post.Add(newT3_P_2_1);
+
+            //db0.SaveChanges();
+
+
+            List<Test3Post> list
+                = db0.Test3Blog
+                    .Where(w => w.idTest3Blog == 1)
+                    .First()
+                    .Test3Post
+                    .ToList();
+
+            if (1 == 1)
+            { }
+
+        }
+
+
 
         Console.WriteLine("****** select list ******");
         Console.WriteLine(" start select fk list --------------");

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ModelsDB;
 
@@ -10,9 +11,10 @@ using ModelsDB;
 namespace EfForeignKey.Migrations.Sqlite
 {
     [DbContext(typeof(ModelsDbContext_Sqlite))]
-    partial class ModelsDbContext_SqliteModelSnapshot : ModelSnapshot
+    [Migration("20231012073532_Test3Blog_Add6")]
+    partial class Test3Blog_Add6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.20");
@@ -123,6 +125,12 @@ namespace EfForeignKey.Migrations.Sqlite
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<long?>("Blog3idTest3Blog")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("BlogidTest1Blog")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
@@ -133,12 +141,17 @@ namespace EfForeignKey.Migrations.Sqlite
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<long>("idTest1Blog")
+                        .HasColumnType("INTEGER");
+
                     b.Property<long>("idTest3Blog")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("idTest3Post");
 
-                    b.HasIndex("idTest3Blog");
+                    b.HasIndex("Blog3idTest3Blog");
+
+                    b.HasIndex("BlogidTest1Blog");
 
                     b.ToTable("Test3Post");
                 });
@@ -164,10 +177,14 @@ namespace EfForeignKey.Migrations.Sqlite
             modelBuilder.Entity("ModelsDB.Test3Post", b =>
                 {
                     b.HasOne("ModelsDB.Test3Blog.Test3Blog", "Blog3")
-                        .WithMany("Test3Post")
-                        .HasForeignKey("idTest3Blog")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("Blog3idTest3Blog");
+
+                    b.HasOne("ModelsDB.Test1Blog", "Blog")
+                        .WithMany()
+                        .HasForeignKey("BlogidTest1Blog");
+
+                    b.Navigation("Blog");
 
                     b.Navigation("Blog3");
                 });
@@ -180,11 +197,6 @@ namespace EfForeignKey.Migrations.Sqlite
             modelBuilder.Entity("ModelsDB.Test2Blog", b =>
                 {
                     b.Navigation("Posts");
-                });
-
-            modelBuilder.Entity("ModelsDB.Test3Blog.Test3Blog", b =>
-                {
-                    b.Navigation("Test3Post");
                 });
 #pragma warning restore 612, 618
         }

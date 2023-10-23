@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+	  <!-- NETSDK1138 경고 제거 : false -->
+	  <CheckEolTargetFramework>false</CheckEolTargetFramework>
     <Configurations>Debug;Release;Debug_Sqlite</Configurations>
   </PropertyGroup>
 
