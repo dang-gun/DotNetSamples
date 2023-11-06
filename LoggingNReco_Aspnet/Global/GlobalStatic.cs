@@ -1,4 +1,5 @@
 ﻿
+
 namespace LoggingNReco_Aspnet.Global;
 
 /// <summary>
@@ -26,7 +27,5 @@ public class GlobalStatic
             logger.LogDebug(sMessage);
             logger.LogInformation(sMessage);
         }
-
-        
     }
 }

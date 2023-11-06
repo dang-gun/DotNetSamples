@@ -55,9 +55,9 @@ public class Program
         builder.Logging
             .AddSimpleConsole(c => c.TimestampFormat = "[yyyy-MM-dd HH:mm:ss] ")
             .AddFilter((provider, category, logLevel) =>
-        {
-            return true;
-        });
+            {
+                return true;
+            });
         var app = builder.Build();
         
 
