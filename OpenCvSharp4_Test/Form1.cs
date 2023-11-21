@@ -8,7 +8,7 @@ public partial class Form1 : Form
     {
         InitializeComponent();
 
-        this.ocvCapture = new OpenCv_Capture(0, 2160, 3840);
+        this.ocvCapture = new OpenCv_Capture(0, 3840, 2160);
     }
 
     private void Form1_FormClosing(object sender, FormClosingEventArgs e)
