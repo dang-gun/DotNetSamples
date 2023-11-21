@@ -101,13 +101,13 @@ internal class OpenCv_Capture: IDisposable
     {
         Bitmap? bitmapReturn = null;
 
-        // 0번 장비로 생성된 VideoCapture 객체에서 frame을 읽어옴
         if(null != this.Cam)
         {
+            //지정된 장비에서 캡쳐
             this.Cam.Read(this.FrameMat);
             try
             {
-                // 읽어온 Mat 데이터를 Bitmap 데이터로 변경 후 컨트롤에 그려줌
+                //읽어온 Mat 데이터를 Bitmap 데이터로 변환
                 bitmapReturn = this.FrameMat.ToBitmap();
             }
             catch { }
