@@ -103,6 +103,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggingNReco_WinForm", "Log
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggingNReco_WPF", "LoggingNReco_WPF\LoggingNReco_WPF.csproj", "{36509EEE-6721-4B58-AE2D-22BB9DD5D606}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenCvSharp4_Test", "OpenCvSharp4_Test\OpenCvSharp4_Test.csproj", "{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_Sqlite|Any CPU = Debug_Sqlite|Any CPU
@@ -942,6 +944,24 @@ Global
 		{36509EEE-6721-4B58-AE2D-22BB9DD5D606}.Release|ARM.Build.0 = Release|Any CPU
 		{36509EEE-6721-4B58-AE2D-22BB9DD5D606}.Release|ARM64.ActiveCfg = Release|Any CPU
 		{36509EEE-6721-4B58-AE2D-22BB9DD5D606}.Release|ARM64.Build.0 = Release|Any CPU
+		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Debug_Sqlite|Any CPU.ActiveCfg = Debug|Any CPU
+		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Debug_Sqlite|Any CPU.Build.0 = Debug|Any CPU
+		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Debug_Sqlite|ARM.ActiveCfg = Debug|Any CPU
+		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Debug_Sqlite|ARM.Build.0 = Debug|Any CPU
+		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Debug_Sqlite|ARM64.ActiveCfg = Debug|Any CPU
+		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Debug_Sqlite|ARM64.Build.0 = Debug|Any CPU
+		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Debug|ARM.Build.0 = Debug|Any CPU
+		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Release|Any CPU.Build.0 = Release|Any CPU
+		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Release|ARM.ActiveCfg = Release|Any CPU
+		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Release|ARM.Build.0 = Release|Any CPU
+		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Release|ARM64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
