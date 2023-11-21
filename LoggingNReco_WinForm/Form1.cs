@@ -16,6 +16,17 @@ namespace LoggingNReco_WinForm
                     {
                         return true;
                     });
+
+                    //파일 출력
+                    loggingBuilder.AddFile("Logs/Log_{0:yyyy}-{0:MM}-{0:dd}.log"
+                        , fileLoggerOpts =>
+                        {
+                            //파일 출력 이름
+                            fileLoggerOpts.FormatLogFileName = sNameFormat =>
+                            {
+                                return String.Format(sNameFormat, DateTime.Now);
+                            };
+                        });
                 });
 
             InitializeComponent();
