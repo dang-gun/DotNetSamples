@@ -10,7 +10,7 @@ public class GlobalStatic
     /// <summary>
     /// 로거 팩토리
     /// </summary>
-    public static ILoggerFactory? LoggerFactory;
+    public static ILoggerFactory? LoggerFactory_My;
 
     /// <summary>
     /// 테스트 로그 출력
@@ -18,9 +18,9 @@ public class GlobalStatic
     /// <param name="sMessage"></param>
     public static void TestLog(string sMessage )
     {
-        if(null != GlobalStatic.LoggerFactory)
+        if(null != GlobalStatic.LoggerFactory_My)
         {
-            ILogger logger = GlobalStatic.LoggerFactory.CreateLogger("GlobalStatic");
+            ILogger logger = GlobalStatic.LoggerFactory_My.CreateLogger("GlobalStatic");
 
             
             logger.LogTrace(sMessage);

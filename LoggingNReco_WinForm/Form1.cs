@@ -5,18 +5,16 @@ namespace LoggingNReco_WinForm
 {
     public partial class Form1 : Form
     {
+        /// <summary>
+        /// 자체 로거 개체
+        /// </summary>
+        private ILogger logger;
+
         public Form1()
         {
             GlobalStatic.LoggerFactory_My
                 = LoggerFactory.Create(loggingBuilder =>
                 {
-                    //콘솔 사용시 표시 옵션
-                    loggingBuilder.AddSimpleConsole(x => x.TimestampFormat = "[yyyy-MM-dd HH:mm:ss] ");
-                    loggingBuilder.AddFilter((provider, category, logLevel) =>
-                    {
-                        return true;
-                    });
-
                     //파일 출력
                     loggingBuilder.AddFile("Logs/Log_{0:yyyy}-{0:MM}-{0:dd}.log"
                         , fileLoggerOpts =>
@@ -27,30 +25,60 @@ namespace LoggingNReco_WinForm
                                 return String.Format(sNameFormat, DateTime.Now);
                             };
                         });
+
+                    //콘솔 사용시 표시 옵션
+                    loggingBuilder.AddSimpleConsole(x => x.TimestampFormat = "[yyyy-MM-dd HH:mm:ss] ");
+                    loggingBuilder.AddFilter((provider, category, logLevel) =>
+                    {
+                        return true;
+                    });
                 });
+
+            //이 클래스 로거 설정
+            this.logger = GlobalStatic.LoggerFactory_My
+                            .CreateLogger("Form1");
 
             InitializeComponent();
         }
 
+        #region 로그 Form1
         private void btnLog_Info_Click(object sender, EventArgs e)
         {
-            GlobalStatic.LoggerFactory_My!
-                .CreateLogger("Form1")
-                .LogInformation("btnLog_Info 클릭!");
+            this.logger.LogInformation("btnLog_Info 클릭!");
         }
 
         private void btnLog_Debug_Click(object sender, EventArgs e)
         {
-            GlobalStatic.LoggerFactory_My!
-                .CreateLogger("Form1")
-                .LogDebug("btnLog_Debug 클릭!");
+            this.logger.LogDebug("btnLog_Debug 클릭!");
         }
 
         private void btnLog_Warning_Click(object sender, EventArgs e)
         {
+            this.logger.LogDebug("btnLog_Warning 클릭!");
+        }
+        #endregion
+
+        #region 로그 GlobalStatic
+        private void btnLogGlobal_Info_Click(object sender, EventArgs e)
+        {
             GlobalStatic.LoggerFactory_My!
                 .CreateLogger("Form1")
-                .LogDebug("btnLog_Warning 클릭!");
+                .LogInformation("btnLogGlobal_Info 클릭!");
         }
+
+        private void btnLogGlobal_Debug_Click(object sender, EventArgs e)
+        {
+            GlobalStatic.LoggerFactory_My!
+                .CreateLogger("Form1")
+                .LogDebug("btnLogGlobal_Debug 클릭!");
+        }
+
+        private void btnLogGlobal_Warning_Click(object sender, EventArgs e)
+        {
+            GlobalStatic.LoggerFactory_My!
+                .CreateLogger("Form1")
+                .LogDebug("btnLogGlobal_Warning 클릭!");
+        }
+        #endregion
     }
 }

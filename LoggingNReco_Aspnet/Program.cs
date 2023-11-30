@@ -7,7 +7,8 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);
+        WebApplicationBuilder builder 
+            = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
 
@@ -16,6 +17,7 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        //로깅 주입 및 로그 파일 설정
         builder.Services.AddLogging(loggingBuilder
             => loggingBuilder.AddFile("Logs/Log_{0:yyyy}-{0:MM}-{0:dd}.log"
                 , fileLoggerOpts =>
@@ -52,6 +54,7 @@ public class Program
 
 
         //builder.Logging.SetMinimumLevel(LogLevel.Trace);
+        //로거 표시 설정
         builder.Logging
             .AddSimpleConsole(c => c.TimestampFormat = "[yyyy-MM-dd HH:mm:ss] ")
             .AddFilter((provider, category, logLevel) =>
@@ -62,7 +65,7 @@ public class Program
         
 
         //로거팩토리 백업
-        GlobalStatic.LoggerFactory 
+        GlobalStatic.LoggerFactory_My 
             = app.Services.GetRequiredService<ILoggerFactory>();
         
 

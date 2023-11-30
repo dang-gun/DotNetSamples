@@ -23,27 +23,65 @@ namespace LoggingNReco_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        /// <summary>
+		/// 자체 로거 개체
+		/// </summary>
+        private readonly ILogger logger;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="loggerFactory">종속성으로 주입된 로거 개체</param>
+        public MainWindow(ILogger<MainWindow> loggerFactory)
         {
-            GlobalStatic.LoggerFactory_My
-                = LoggerFactory.Create(loggingBuilder =>
-                {
-                    //콘솔 사용시 표시 옵션
-                    loggingBuilder.AddSimpleConsole(x => x.TimestampFormat = "[yyyy-MM-dd HH:mm:ss] ");
-                    loggingBuilder.AddFilter((provider, category, logLevel) =>
-                    {
-                        return true;
-                    });
-                });
+            this.logger = loggerFactory;
 
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        #region 로그 MainWindow
+        private void btnLog_Info_Click(object sender, RoutedEventArgs e)
         {
-            GlobalStatic.LoggerFactory_My!
-                .CreateLogger("Form1")
+            this.logger
                 .LogInformation("btnLog_Info 클릭!");
         }
+
+        private void btnLog_Debug_Click(object sender, RoutedEventArgs e)
+        {
+            this.logger
+                .LogInformation("btnLog_Info 클릭!");
+        }
+
+        private void btnLog_Warning_Click(object sender, RoutedEventArgs e)
+        {
+            this.logger
+                .LogInformation("btnLog_Info 클릭!");
+        }
+        #endregion
+
+        #region 로그 GlobalStatic
+        private void btnLogGlobal_Info_Click(object sender, RoutedEventArgs e)
+        {
+            GlobalStatic.LoggerFactory_My!
+                .CreateLogger("MainWindow")
+                .LogInformation("btnLogGlobal_Info 클릭!");
+        }
+
+        private void btnLogGlobal_Debug_Click(object sender, RoutedEventArgs e)
+        {
+            GlobalStatic.LoggerFactory_My!
+                .CreateLogger("MainWindow")
+                .LogDebug("btnLogGlobal_Debug 클릭!");
+        }
+
+        private void btnLogGlobal_Warning_Click(object sender, RoutedEventArgs e)
+        {
+            GlobalStatic.LoggerFactory_My!
+                .CreateLogger("MainWindow")
+                .LogDebug("btnLogGlobal_Warning 클릭!");
+        }
+        #endregion
+
+
     }
 }

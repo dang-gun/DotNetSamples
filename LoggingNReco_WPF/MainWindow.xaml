@@ -5,9 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LoggingNReco_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="228,149,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        Title="MainWindow" Height="250" Width="200">
+    <StackPanel>
+        <GroupBox Header="MainWindow">
+            <StackPanel>
+                <Button Content="정보 로그" Margin="0,10,0,0" Click="btnLog_Info_Click" />
+                <Button Content="디버그 로그" Margin="0,10,0,0" Click="btnLog_Debug_Click" />
+                <Button Content="경고 로그" Margin="0,10,0,0" Click="btnLog_Warning_Click" />
+            </StackPanel>
+        </GroupBox>
 
-    </Grid>
+        <GroupBox Header="GlobalStatic">
+            <StackPanel>
+                <Button Content="정보 로그" Margin="0,10,0,0" Click="btnLogGlobal_Info_Click" />
+                <Button Content="디버그 로그" Margin="0,10,0,0" Click="btnLogGlobal_Debug_Click" />
+                <Button Content="경고 로그" Margin="0,10,0,0" Click="btnLogGlobal_Warning_Click" />
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
 </Window>
