@@ -28,41 +28,67 @@
         /// </summary>
         private void InitializeComponent()
         {
-            groupBox1 = new GroupBox();
-            btnCamCapture = new Button();
             pictureView = new PictureBox();
-            groupBox1.SuspendLayout();
+            menuStrip1 = new MenuStrip();
+            cameraToolStripMenuItem = new ToolStripMenuItem();
+            tsmiCamCapture = new ToolStripMenuItem();
+            tsmiDeviceList = new ToolStripMenuItem();
+            tsmiCamera_DeviceList_ListRefresh = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)pictureView).BeginInit();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(btnCamCapture);
-            groupBox1.Location = new Point(12, 12);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(200, 51);
-            groupBox1.TabIndex = 0;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "groupBox1";
-            // 
-            // btnCamCapture
-            // 
-            btnCamCapture.Location = new Point(6, 22);
-            btnCamCapture.Name = "btnCamCapture";
-            btnCamCapture.Size = new Size(93, 23);
-            btnCamCapture.TabIndex = 0;
-            btnCamCapture.Text = "Cam Capture";
-            btnCamCapture.UseVisualStyleBackColor = true;
-            btnCamCapture.Click += btnCamCapture_Click;
             // 
             // pictureView
             // 
-            pictureView.Location = new Point(12, 69);
+            pictureView.Location = new Point(0, 24);
             pictureView.Name = "pictureView";
             pictureView.Size = new Size(575, 369);
             pictureView.SizeMode = PictureBoxSizeMode.Zoom;
             pictureView.TabIndex = 1;
             pictureView.TabStop = false;
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { cameraToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(599, 24);
+            menuStrip1.TabIndex = 2;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // cameraToolStripMenuItem
+            // 
+            cameraToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { tsmiCamCapture, tsmiDeviceList });
+            cameraToolStripMenuItem.Name = "cameraToolStripMenuItem";
+            cameraToolStripMenuItem.Size = new Size(60, 20);
+            cameraToolStripMenuItem.Text = "Camera";
+            // 
+            // tsmiCamCapture
+            // 
+            tsmiCamCapture.Name = "tsmiCamCapture";
+            tsmiCamCapture.Size = new Size(180, 22);
+            tsmiCamCapture.Text = "Capture";
+            tsmiCamCapture.Click += tsmiCamCapture_Click_1;
+            // 
+            // tsmiDeviceList
+            // 
+            tsmiDeviceList.DropDownItems.AddRange(new ToolStripItem[] { tsmiCamera_DeviceList_ListRefresh, toolStripMenuItem1 });
+            tsmiDeviceList.Name = "tsmiDeviceList";
+            tsmiDeviceList.Size = new Size(180, 22);
+            tsmiDeviceList.Text = "Device List";
+            // 
+            // tsmiCamera_DeviceList_ListRefresh
+            // 
+            tsmiCamera_DeviceList_ListRefresh.Name = "tsmiCamera_DeviceList_ListRefresh";
+            tsmiCamera_DeviceList_ListRefresh.Size = new Size(180, 22);
+            tsmiCamera_DeviceList_ListRefresh.Text = "List Refresh";
+            tsmiCamera_DeviceList_ListRefresh.Click += tsmiCamera_DeviceList_ListRefresh_Click;
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(177, 6);
             // 
             // Form1
             // 
@@ -70,19 +96,26 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(599, 450);
             Controls.Add(pictureView);
-            Controls.Add(groupBox1);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
             Name = "Form1";
             Text = "Form1";
             FormClosing += Form1_FormClosing;
-            groupBox1.ResumeLayout(false);
+            ResizeEnd += Form1_ResizeEnd;
             ((System.ComponentModel.ISupportInitialize)pictureView).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
-
-        private GroupBox groupBox1;
-        private Button btnCamCapture;
         private PictureBox pictureView;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem cameraToolStripMenuItem;
+        private ToolStripMenuItem tsmiCamCapture;
+        private ToolStripMenuItem tsmiDeviceList;
+        private ToolStripMenuItem tsmiCamera_DeviceList_ListRefresh;
+        private ToolStripSeparator toolStripMenuItem1;
     }
 }
