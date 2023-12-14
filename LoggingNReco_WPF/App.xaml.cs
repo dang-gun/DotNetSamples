@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+
 using LoggingNReco_WPF.Global;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -34,28 +35,6 @@ public partial class App : Application
                     {
                         return String.Format(fName, DateTime.Now);
                     };
-
-                    //메시지 커스텀
-                    fileLoggerOpts.FormatLogEntry = (lmMsg) =>
-                    {
-                        string sLevel = string.Empty;
-
-                        switch (lmMsg.LogLevel)
-                        {
-                            case LogLevel.Information:
-                                sLevel = "Info";
-                                break;
-                            case LogLevel.Warning:
-                                sLevel = "Warn";
-                                break;
-
-                            default:
-                                sLevel = lmMsg.LogLevel.ToString();
-                                break;
-                        }
-
-                        return $"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}] {sLevel} [{lmMsg.LogName}] {lmMsg.Message}";
-                    };
                 })
                 //로거 표시 설정
                 .AddSimpleConsole(c => c.TimestampFormat = "[yyyy-MM-dd HH:mm:ss] ")
@@ -65,13 +44,12 @@ public partial class App : Application
                 }));
 
         services.AddSingleton<MainWindow>();
-        serviceProvider = services.BuildServiceProvider();
-
+        this.serviceProvider = services.BuildServiceProvider();
 
 
         //로거팩토리 백업
         GlobalStatic.LoggerFactory_My
-            = serviceProvider.GetRequiredService<ILoggerFactory>();
+            = this.serviceProvider.GetRequiredService<ILoggerFactory>();
 
     }
 
@@ -81,7 +59,7 @@ public partial class App : Application
     /// <param name="e"></param>
     protected override void OnStartup(StartupEventArgs e)
     {
-        serviceProvider.GetService<MainWindow>()!.Show();
+        this.serviceProvider.GetService<MainWindow>()!.Show();
 
         base.OnStartup(e);
     }
