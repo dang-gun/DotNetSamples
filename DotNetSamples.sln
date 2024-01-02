@@ -101,6 +101,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggingNReco_WPF", "Logging
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCvSharp4_Test", "OpenCvSharp4_Test\OpenCvSharp4_Test.csproj", "{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenCvSharp4_Calibration", "OpenCvSharp4_Calibration\OpenCvSharp4_Calibration.csproj", "{04B64410-DB35-4E20-84B6-322B83A46556}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_Sqlite|Any CPU = Debug_Sqlite|Any CPU
@@ -906,6 +908,24 @@ Global
 		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Release|ARM.Build.0 = Release|Any CPU
 		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Release|ARM64.ActiveCfg = Release|Any CPU
 		{742BA1E6-9C16-4BC3-8CE8-8F88549CB144}.Release|ARM64.Build.0 = Release|Any CPU
+		{04B64410-DB35-4E20-84B6-322B83A46556}.Debug_Sqlite|Any CPU.ActiveCfg = Debug|Any CPU
+		{04B64410-DB35-4E20-84B6-322B83A46556}.Debug_Sqlite|Any CPU.Build.0 = Debug|Any CPU
+		{04B64410-DB35-4E20-84B6-322B83A46556}.Debug_Sqlite|ARM.ActiveCfg = Debug|Any CPU
+		{04B64410-DB35-4E20-84B6-322B83A46556}.Debug_Sqlite|ARM.Build.0 = Debug|Any CPU
+		{04B64410-DB35-4E20-84B6-322B83A46556}.Debug_Sqlite|ARM64.ActiveCfg = Debug|Any CPU
+		{04B64410-DB35-4E20-84B6-322B83A46556}.Debug_Sqlite|ARM64.Build.0 = Debug|Any CPU
+		{04B64410-DB35-4E20-84B6-322B83A46556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04B64410-DB35-4E20-84B6-322B83A46556}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04B64410-DB35-4E20-84B6-322B83A46556}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{04B64410-DB35-4E20-84B6-322B83A46556}.Debug|ARM.Build.0 = Debug|Any CPU
+		{04B64410-DB35-4E20-84B6-322B83A46556}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{04B64410-DB35-4E20-84B6-322B83A46556}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{04B64410-DB35-4E20-84B6-322B83A46556}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04B64410-DB35-4E20-84B6-322B83A46556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04B64410-DB35-4E20-84B6-322B83A46556}.Release|ARM.ActiveCfg = Release|Any CPU
+		{04B64410-DB35-4E20-84B6-322B83A46556}.Release|ARM.Build.0 = Release|Any CPU
+		{04B64410-DB35-4E20-84B6-322B83A46556}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{04B64410-DB35-4E20-84B6-322B83A46556}.Release|ARM64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
