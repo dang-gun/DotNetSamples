@@ -366,7 +366,6 @@ namespace EfAnalyze.Forms
             this.DB_Update_ServerConcurrency(1, 0, "두번째");
         }
 
-
         private void DB_Update_ServerConcurrency3<T>(
             int nDelay
             , string sStr)
@@ -702,5 +701,59 @@ namespace EfAnalyze.Forms
                 GlobalStatic.DbItemInfoReload();
             });
         }
+
+        #region 한개 업데이트
+
+        /// <summary>
+        /// 컬럼 한개 업데이트
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnOneColumn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DB_Update_ServerMultiContext_OneData(
+            int nDelay
+            , string sStr)
+        {
+            //비동기 처리
+            Task.Run(() =>
+            {
+                List<TestOC2> findTarget;
+
+                using (ModelsDbContext db1 = new ModelsDbContext())
+                {
+                    //대상 리스트
+                    findTarget
+                    = db1.TestOC2
+                        .Select(s => new TestOC2() { idTestOC2 = s.idTestOC2, Str = s.Str })
+                        .ToList();
+                    //findTarget = db1.TestOC2.Where(w => w.idTestOC2 == 1).ToList();
+
+                }//end using db1
+
+                if (null != findTarget)
+                {
+                    GlobalDb_OC.SaveChanges_MultiContext<TestOC2>(
+                        -1
+                        , ref findTarget
+                        , (TestOC2 item) =>
+                        {//각 아이템에 대한 동작
+
+                            //item.Int += 1;
+                            item.Str = $"{sStr} : {item.idTestOC2}";
+
+                            return true;
+                        }
+                        , nDelay);
+                }
+
+                GlobalStatic.DbItemInfoReload();
+            });
+        }
+
+        #endregion
     }
 }

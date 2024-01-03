@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             groupBox7 = new GroupBox();
+            btnMultUpdate_MultContext_Select = new Button();
             btnMultUpdate_MultContext = new Button();
             btnMultUpdateFunc = new Button();
             btnMultUpdateNoOc = new Button();
@@ -39,7 +40,7 @@
             btnServerConcurrency2 = new Button();
             btnNotConcurrency = new Button();
             btnServerConcurrency = new Button();
-            btnMultUpdate_MultContext_Select = new Button();
+            btnOneColumn = new Button();
             groupBox7.SuspendLayout();
             groupBox6.SuspendLayout();
             SuspendLayout();
@@ -57,6 +58,16 @@
             groupBox7.TabIndex = 9;
             groupBox7.TabStop = false;
             groupBox7.Text = "여러줄 업데이트";
+            // 
+            // btnMultUpdate_MultContext_Select
+            // 
+            btnMultUpdate_MultContext_Select.Location = new Point(6, 155);
+            btnMultUpdate_MultContext_Select.Name = "btnMultUpdate_MultContext_Select";
+            btnMultUpdate_MultContext_Select.Size = new Size(189, 23);
+            btnMultUpdate_MultContext_Select.TabIndex = 7;
+            btnMultUpdate_MultContext_Select.Text = "DB 컨택스트 생성(Select)";
+            btnMultUpdate_MultContext_Select.UseVisualStyleBackColor = true;
+            btnMultUpdate_MultContext_Select.Click += btnMultUpdate_MultContext_Select_Click;
             // 
             // btnMultUpdate_MultContext
             // 
@@ -103,11 +114,12 @@
             groupBox6.Controls.Add(btnApplicationConcurrency);
             groupBox6.Controls.Add(btnNoOc);
             groupBox6.Controls.Add(btnServerConcurrency2);
+            groupBox6.Controls.Add(btnOneColumn);
             groupBox6.Controls.Add(btnNotConcurrency);
             groupBox6.Controls.Add(btnServerConcurrency);
             groupBox6.Location = new Point(12, 12);
             groupBox6.Name = "groupBox6";
-            groupBox6.Size = new Size(168, 166);
+            groupBox6.Size = new Size(168, 202);
             groupBox6.TabIndex = 8;
             groupBox6.TabStop = false;
             groupBox6.Text = "동시성 처리 방식";
@@ -162,21 +174,21 @@
             btnServerConcurrency.UseVisualStyleBackColor = true;
             btnServerConcurrency.Click += btnServerConcurrency_Click;
             // 
-            // btnMultUpdate_MultContext_Select
+            // btnOneColumn
             // 
-            btnMultUpdate_MultContext_Select.Location = new Point(6, 155);
-            btnMultUpdate_MultContext_Select.Name = "btnMultUpdate_MultContext_Select";
-            btnMultUpdate_MultContext_Select.Size = new Size(189, 23);
-            btnMultUpdate_MultContext_Select.TabIndex = 7;
-            btnMultUpdate_MultContext_Select.Text = "DB 컨택스트 생성(Select)";
-            btnMultUpdate_MultContext_Select.UseVisualStyleBackColor = true;
-            btnMultUpdate_MultContext_Select.Click += btnMultUpdate_MultContext_Select_Click;
+            btnOneColumn.Location = new Point(6, 179);
+            btnOneColumn.Name = "btnOneColumn";
+            btnOneColumn.Size = new Size(154, 23);
+            btnOneColumn.TabIndex = 1;
+            btnOneColumn.Text = "한개 컬럼 업데이트 - TestOC2";
+            btnOneColumn.UseVisualStyleBackColor = true;
+            btnOneColumn.Click += btnOneColumn_Click;
             // 
             // OptimisticConcurrencyForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(402, 209);
+            ClientSize = new Size(402, 264);
             Controls.Add(groupBox7);
             Controls.Add(groupBox6);
             MaximizeBox = false;
@@ -202,5 +214,6 @@
         private Button btnMultUpdateNoOc;
         private Button btnMultUpdate_MultContext;
         private Button btnMultUpdate_MultContext_Select;
+        private Button btnOneColumn;
     }
 }
