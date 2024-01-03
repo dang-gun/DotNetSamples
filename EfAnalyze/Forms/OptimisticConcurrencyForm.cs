@@ -705,50 +705,69 @@ namespace EfAnalyze.Forms
         #region 한개 업데이트
 
         /// <summary>
-        /// 컬럼 한개 업데이트
+        /// 컬럼 한개씩 업데이트
         /// </summary>
+        /// <remarks>
+        /// 같은 로우의 다른 컬럼을 동시에 수정하려고 할때 테스트
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnOneColumn_Click(object sender, EventArgs e)
         {
-
+            this.DB_Update_ServerMultiContext_OneData(3000, "첫번째-컨택스트 멀티", 0);
+            this.DB_Update_ServerMultiContext_OneData(2, "두번째-컨택스트 멀티", 1);
         }
 
+        /// <summary>
+        /// 데이터 한개 수정
+        /// </summary>
+        /// <param name="nDelay"></param>
+        /// <param name="sStr"></param>
+        /// <param name="nTarget"></param>
         private void DB_Update_ServerMultiContext_OneData(
             int nDelay
-            , string sStr)
+            , string sStr
+            , int nTarget)
         {
             //비동기 처리
             Task.Run(() =>
             {
-                List<TestOC2> findTarget;
+
+                //테스트를 위한 딜레이
+                Thread.Sleep(nDelay);
 
                 using (ModelsDbContext db1 = new ModelsDbContext())
                 {
                     //대상 리스트
-                    findTarget
-                    = db1.TestOC2
-                        .Select(s => new TestOC2() { idTestOC2 = s.idTestOC2, Str = s.Str })
-                        .ToList();
+                    TestOC2 findTarget = db1.TestOC2.First();
                     //findTarget = db1.TestOC2.Where(w => w.idTestOC2 == 1).ToList();
+
+                    if (null != findTarget)
+                    {
+                        GlobalDb_OC.SaveChanges_UpdateConcurrency(
+                            db1
+                            , -1
+                            , () =>
+                            {//각 아이템에 대한 동작
+
+                                switch (nTarget)
+                                {
+                                    case 0:
+                                        findTarget.Str = $"{sStr} : {findTarget.idTestOC2}, {findTarget.Int}";
+                                        break;
+
+                                    case 1:
+                                        findTarget.Int += 1;
+                                        break;
+                                }
+
+                                return true;
+                            });
+                    }
 
                 }//end using db1
 
-                if (null != findTarget)
-                {
-                    GlobalDb_OC.SaveChanges_MultiContext<TestOC2>(
-                        -1
-                        , ref findTarget
-                        , (TestOC2 item) =>
-                        {//각 아이템에 대한 동작
-
-                            //item.Int += 1;
-                            item.Str = $"{sStr} : {item.idTestOC2}";
-
-                            return true;
-                        }
-                        , nDelay);
-                }
+                
 
                 GlobalStatic.DbItemInfoReload();
             });

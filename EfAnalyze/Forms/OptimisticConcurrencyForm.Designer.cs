@@ -38,9 +38,9 @@
             btnApplicationConcurrency = new Button();
             btnNoOc = new Button();
             btnServerConcurrency2 = new Button();
+            btnOneColumn = new Button();
             btnNotConcurrency = new Button();
             btnServerConcurrency = new Button();
-            btnOneColumn = new Button();
             groupBox7.SuspendLayout();
             groupBox6.SuspendLayout();
             SuspendLayout();
@@ -119,7 +119,7 @@
             groupBox6.Controls.Add(btnServerConcurrency);
             groupBox6.Location = new Point(12, 12);
             groupBox6.Name = "groupBox6";
-            groupBox6.Size = new Size(168, 202);
+            groupBox6.Size = new Size(168, 231);
             groupBox6.TabIndex = 8;
             groupBox6.TabStop = false;
             groupBox6.Text = "동시성 처리 방식";
@@ -154,6 +154,16 @@
             btnServerConcurrency2.UseVisualStyleBackColor = true;
             btnServerConcurrency2.Click += btnServerConcurrency2_Click;
             // 
+            // btnOneColumn
+            // 
+            btnOneColumn.Location = new Point(6, 179);
+            btnOneColumn.Name = "btnOneColumn";
+            btnOneColumn.Size = new Size(154, 42);
+            btnOneColumn.TabIndex = 1;
+            btnOneColumn.Text = "한개 씩 컬럼 업데이트 - TestOC2";
+            btnOneColumn.UseVisualStyleBackColor = true;
+            btnOneColumn.Click += btnOneColumn_Click;
+            // 
             // btnNotConcurrency
             // 
             btnNotConcurrency.Location = new Point(6, 138);
@@ -173,16 +183,6 @@
             btnServerConcurrency.Text = "서버 - TestOC2";
             btnServerConcurrency.UseVisualStyleBackColor = true;
             btnServerConcurrency.Click += btnServerConcurrency_Click;
-            // 
-            // btnOneColumn
-            // 
-            btnOneColumn.Location = new Point(6, 179);
-            btnOneColumn.Name = "btnOneColumn";
-            btnOneColumn.Size = new Size(154, 23);
-            btnOneColumn.TabIndex = 1;
-            btnOneColumn.Text = "한개 컬럼 업데이트 - TestOC2";
-            btnOneColumn.UseVisualStyleBackColor = true;
-            btnOneColumn.Click += btnOneColumn_Click;
             // 
             // OptimisticConcurrencyForm
             // 

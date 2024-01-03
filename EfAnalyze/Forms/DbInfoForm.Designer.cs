@@ -229,7 +229,7 @@
             txtMssql_ConnectStriong.Name = "txtMssql_ConnectStriong";
             txtMssql_ConnectStriong.Size = new Size(114, 23);
             txtMssql_ConnectStriong.TabIndex = 2;
-            txtMssql_ConnectStriong.Text = "Server=192.168.0.222;DataBase=LocalTest;UId=LocalTest_Login;pwd=asdf1234@";
+            txtMssql_ConnectStriong.Text = "Server=192.168.0.222,5501;DataBase=LocalTest;UId=LocalTest_Login;pwd=asdf1234@";
             // 
             // label1
             // 
