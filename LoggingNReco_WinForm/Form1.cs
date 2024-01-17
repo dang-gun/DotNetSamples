@@ -16,7 +16,7 @@ namespace LoggingNReco_WinForm
                 = LoggerFactory.Create(loggingBuilder =>
                 {
                     //파일 출력
-                    loggingBuilder.AddFile("Logs/Log_{0:yyyy}-{0:MM}-{0:dd}.log"
+                    loggingBuilder.AddFile("Logs/LogFrom_{0:yyyy}-{0:MM}-{0:dd}.log"
                         , fileLoggerOpts =>
                         {
                             //파일 출력 이름
@@ -41,7 +41,7 @@ namespace LoggingNReco_WinForm
             InitializeComponent();
         }
 
-        #region 로그 Form1
+        #region Form log - Form1
         private void btnLog_Info_Click(object sender, EventArgs e)
         {
             this.logger.LogInformation("btnLog_Info 클릭!");
@@ -58,7 +58,7 @@ namespace LoggingNReco_WinForm
         }
         #endregion
 
-        #region 로그 GlobalStatic
+        #region Form log - GlobalStatic
         private void btnLogGlobal_Info_Click(object sender, EventArgs e)
         {
             GlobalStatic.LoggerFactory_My!
@@ -80,5 +80,42 @@ namespace LoggingNReco_WinForm
                 .LogDebug("btnLogGlobal_Warning 클릭!");
         }
         #endregion
+
+        #region DotNetLogging - GlobalStatic
+        private void btnDotNetLogging_Form_Info_Click(object sender, EventArgs e)
+        {
+            GlobalStatic.Log.LogInfo("btnDotNetLogging_Form_Info 클릭!");
+        }
+
+        private void btnDotNetLogging_Form_Debug_Click(object sender, EventArgs e)
+        {
+            GlobalStatic.Log.LogDebug("btnDotNetLogging_Form_Debug 클릭!");
+        }
+
+        private void btnDotNetLogging_Form_Warning_Click(object sender, EventArgs e)
+        {
+            GlobalStatic.Log.LogWarning("btnDotNetLogging_Form_Warning 클릭!");
+        }
+        #endregion
+
+        #region DotNetLogging - GlobalStatic
+        private void btnDotNetLogging_GlobalStatic_Info_Click(object sender, EventArgs e)
+        {
+            GlobalStatic.LogGs_Info("btnDotNetLogging_GlobalStatic_Info 클릭!");
+        }
+
+        private void btnDotNetLogging_GlobalStatic_Debug_Click(object sender, EventArgs e)
+        {
+            GlobalStatic.LogGs_Debug("btnDotNetLogging_GlobalStatic_Debug 클릭!");
+        }
+
+        private void btnDotNetLogging_GlobalStatic_Warning_Click(object sender, EventArgs e)
+        {
+            GlobalStatic.LogGs_Warning("btnDotNetLogging_GlobalStatic_Warning 클릭!");
+        }
+        #endregion
+
+
+
     }
 }

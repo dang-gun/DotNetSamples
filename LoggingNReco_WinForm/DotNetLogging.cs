@@ -36,7 +36,7 @@ internal class DotNetLogging
     /// <param name="bConsole"></param>
     internal DotNetLogging(bool bConsole)
     {
-        this.LoggerFactory_My = new LoggerFactory();
+        //this.LoggerFactory_My = new LoggerFactory();
 
         //https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0#non-host-console-app
         this.LoggerFactory_My
