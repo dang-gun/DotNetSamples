@@ -311,4 +311,25 @@ public class DotNetLogging
             .LogWarning(sMessage);
     }
 
+    /// <summary>
+    /// 심각 로그 출력
+    /// </summary>
+    /// <param name="sMessage"></param>
+    public void LogCritical(string sMessage)
+    {
+        this.LogCritical(this.CategoryName(), sMessage);
+    }
+    /// <summary>
+    /// 심각 로그 출력
+    /// </summary>
+    /// <param name="sCategoryName"></param>
+    /// <param name="sMessage"></param>
+    public void LogCritical(
+        string sCategoryName
+        , string sMessage)
+    {
+        this.LoggerFactory_My
+            .CreateLogger(sCategoryName)
+            .LogCritical(sMessage);
+    }
 }
