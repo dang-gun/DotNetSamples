@@ -23,7 +23,12 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        if(false)
+        //종속성 주입을 어떻게 처리할지 여부
+        //true = DotNetLogging를 이용하는 경우
+        //false = 종속성 주입을 직접 할 경우
+        bool bLogger = false;
+
+        if(bLogger)
         {//종속성 주입을 직접 할 경우
 
 
@@ -83,11 +88,24 @@ public class Program
         
 
         var app = builder.Build();
+
+        //직접 주입하는 경우
+        //로거팩토리 백업
+        GlobalStatic.LoggerFactory_My
+            = app.Services.GetRequiredService<ILoggerFactory>();
+
+        if (false == bLogger)
+        {//DotNetLogging를 이용하는 경우
+
+            //생성한 로거팩토리를 전달하여 DotNetLogging를 다시 생성한다.
+            GlobalStatic.Log
+                = new DotNetLogging(
+                    app.Services.GetRequiredService<ILoggerFactory>()
+                    , true);
+        }
         
 
-        //로거팩토리 백업
-        GlobalStatic.LoggerFactory_My 
-            = app.Services.GetRequiredService<ILoggerFactory>();
+            
         
 
         // Configure the HTTP request pipeline.
