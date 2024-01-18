@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LoggingNReco_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="250" Width="200">
+        Title="MainWindow" Width="200">
     <StackPanel>
         <GroupBox Header="MainWindow">
             <StackPanel>
@@ -20,6 +20,14 @@
                 <Button Content="정보 로그" Margin="0,10,0,0" Click="btnLogGlobal_Info_Click" />
                 <Button Content="디버그 로그" Margin="0,10,0,0" Click="btnLogGlobal_Debug_Click" />
                 <Button Content="경고 로그" Margin="0,10,0,0" Click="btnLogGlobal_Warning_Click" />
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="DotNetLogging">
+            <StackPanel>
+                <Button Content="정보 로그" Margin="0,10,0,0" Click="btnLogDotNetLogging_Info_Click" />
+                <Button Content="디버그 로그" Margin="0,10,0,0" Click="btnLogDotNetLogging_Debug_Click" />
+                <Button Content="경고 로그" Margin="0,10,0,0" Click="btnLogDotNetLogging_Warning_Click" />
             </StackPanel>
         </GroupBox>
     </StackPanel>

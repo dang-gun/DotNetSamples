@@ -1,5 +1,10 @@
-using LoggingNReco_WinForm.Global;
 using Microsoft.Extensions.Logging;
+
+using NReco.Logging.File;
+
+using LoggingNReco_WinForm.Global;
+
+
 
 namespace LoggingNReco_WinForm
 {
@@ -117,5 +122,11 @@ namespace LoggingNReco_WinForm
 
 
 
+        private void btnLog_AnotherFile_Click(object sender, EventArgs e)
+        {
+            GlobalStatic.Log_AnotherFile.LogInfo("다른 파일 - 정보");
+            GlobalStatic.Log_AnotherFile.LogDebug("다른 파일 - 디버그");
+            GlobalStatic.Log_AnotherFile.LogWarning("다른 파일 - 경고");
+        }
     }
 }

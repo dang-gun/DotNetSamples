@@ -46,6 +46,7 @@
             btnDotNetLogging_GlobalStatic_Warning = new Button();
             groupBox5 = new GroupBox();
             groupBox6 = new GroupBox();
+            btnLog_AnotherFile = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -244,13 +245,26 @@
             groupBox6.TabStop = false;
             groupBox6.Text = "DotNetLogging";
             // 
+            // btnLog_AnotherFile
+            // 
+            btnLog_AnotherFile.Location = new Point(18, 281);
+            btnLog_AnotherFile.Name = "btnLog_AnotherFile";
+            btnLog_AnotherFile.Size = new Size(295, 23);
+            btnLog_AnotherFile.TabIndex = 11;
+            btnLog_AnotherFile.Text = "다른 파일에 로그 생성";
+            btnLog_AnotherFile.UseVisualStyleBackColor = true;
+            btnLog_AnotherFile.Click += btnLog_AnotherFile_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(328, 280);
+            ClientSize = new Size(327, 308);
+            Controls.Add(btnLog_AnotherFile);
             Controls.Add(groupBox6);
             Controls.Add(groupBox5);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "Form1";
             Text = "Form1";
             groupBox1.ResumeLayout(false);
@@ -282,5 +296,6 @@
         private Button btnDotNetLogging_GlobalStatic_Warning;
         private GroupBox groupBox5;
         private GroupBox groupBox6;
+        private Button btnLog_AnotherFile;
     }
 }

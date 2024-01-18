@@ -79,12 +79,31 @@ internal class DotNetLogging_Copy
 
     /// <summary>
     /// 미리 세팅된 기본 옵션으로 로거를 생성한다.
+    /// <para>파일 경로도 기본 세팅된 것을 기준으로 사용한다.</para>
     /// </summary>
     /// <param name="loggingBuilder"></param>
-    /// <param name="bConsole"></param>
+    /// <param name="bConsole">콘솔 표시 여부</param>
     /// <returns></returns>
     internal static ILoggingBuilder configure(
         ILoggingBuilder loggingBuilder
+        , bool bConsole)
+    {
+        return configure(
+            loggingBuilder
+            , Path.Combine("Logs", "Log_{0:yyyy}-{0:MM}-{0:dd}.log")
+            , bConsole);
+    }
+
+    /// <summary>
+    /// 미리 세팅된 기본 옵션으로 로거를 생성한다.
+    /// </summary>
+    /// <param name="loggingBuilder"></param>
+    /// <param name="sPathFormat">로그 파일을 생성할 경로 포맷</param>
+    /// <param name="bConsole">콘솔 표시 여부</param>
+    /// <returns></returns>
+    internal static ILoggingBuilder configure(
+        ILoggingBuilder loggingBuilder
+        , string sPathFormat
         , bool bConsole)
     {
         if (true == bConsole)
@@ -100,7 +119,7 @@ internal class DotNetLogging_Copy
                 return true;
             });
 
-        loggingBuilder.AddFile(Path.Combine("Logs", "Log_{0:yyyy}-{0:MM}-{0:dd}.log")
+        loggingBuilder.AddFile(sPathFormat
             , fileLoggerOpts =>
             {
                 fileLoggerOpts.FormatLogFileName = sNameFormat =>

@@ -1,6 +1,7 @@
-﻿
-using Microsoft.Extensions.Logging;
-using Utility.ApplicationLogger;
+﻿using Microsoft.Extensions.Logging;
+
+using LoggingNReco_DotNetLogging;
+
 
 namespace LoggingNReco_WinForm.Global;
 
@@ -31,7 +32,7 @@ namespace LoggingNReco_WinForm.Global;
     /// <summary>
     /// DotNetLogging를 이용한 로거
     /// </summary>
-    internal static DotNetLogging Log = new DotNetLogging(true);
+    internal static DotNetLogging Log = new DotNetLogging(null, true);
 
     public static void LogGs_Info(string sMessage)
     {
@@ -45,4 +46,12 @@ namespace LoggingNReco_WinForm.Global;
     {
         Log.LogWarning(sMessage);
     }
+
+    /// <summary>
+    /// 다른 파일 로거
+    /// </summary>
+    internal static DotNetLogging Log_AnotherFile 
+        = new DotNetLogging(
+            Path.Combine("Logs", "LogAnotherFile_{0:yyyy}-{0:MM}-{0:dd}.log")
+            , true);
 }

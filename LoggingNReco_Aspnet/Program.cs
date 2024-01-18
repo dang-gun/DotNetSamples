@@ -101,12 +101,11 @@ public class Program
             GlobalStatic.Log
                 = new DotNetLogging(
                     app.Services.GetRequiredService<ILoggerFactory>()
+                    , null
                     , true);
         }
         
 
-            
-        
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())

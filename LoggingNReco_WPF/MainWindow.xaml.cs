@@ -75,5 +75,20 @@ public partial class MainWindow : Window
     }
     #endregion
 
+    #region 로그 DotNetLogging
+    private void btnLogDotNetLogging_Info_Click(object sender, RoutedEventArgs e)
+    {
+        GlobalStatic.Log.LogInfo("btnLogDotNetLogging_Info_Click 클릭!");
+    }
 
+    private void btnLogDotNetLogging_Debug_Click(object sender, RoutedEventArgs e)
+    {
+        GlobalStatic.Log.LogDebug("btnLogDotNetLogging_Debug_Click 클릭!");
+    }
+
+    private void btnLogDotNetLogging_Warning_Click(object sender, RoutedEventArgs e)
+    {
+        GlobalStatic.Log.LogWarning("btnLogDotNetLogging_Warning_Click 클릭!");
+    }
+    #endregion
 }

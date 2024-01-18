@@ -34,15 +34,25 @@ public class DotNetLogging
     /// <summary>
     /// 로거는 자동 생성하고 로거를 기본 옵션으로 초기화 한다.
     /// </summary>
-    /// <param name="bConsole"></param>
-    public DotNetLogging(bool bConsole)
+    /// <param name="sPathFormat">로그 파일을 생성할 경로 포맷</param>
+    /// <param name="bConsole">콘솔 표시 여부</param>
+    public DotNetLogging(
+        string? sPathFormat
+        , bool bConsole)
     {
-        this.LoggerFactory_My = new LoggerFactory();
-
-        //https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0#non-host-console-app
-        this.LoggerFactory_My
-            = LoggerFactory.Create(
-                loggingBuilder => DotNetLogging.configure(loggingBuilder, bConsole));
+        if(null == sPathFormat)
+        {
+            //https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0#non-host-console-app
+            this.LoggerFactory_My
+                = LoggerFactory.Create(
+                    loggingBuilder => DotNetLogging.configure(loggingBuilder, bConsole));
+        }
+        else
+        {
+            this.LoggerFactory_My
+                = LoggerFactory.Create(
+                    loggingBuilder => DotNetLogging.configure(loggingBuilder, sPathFormat, bConsole));
+        }
     }
 
     /// <summary>
@@ -53,9 +63,11 @@ public class DotNetLogging
     /// 자동 생성시 NReco.Logging.File를 기준으로 작성된다.
     /// </remarks>
     /// <param name="loggerFactory">생성한 ILoggerFactory 개채. null이면 자동생성</param>
-    /// <param name="bConsole">자동생성시 콘솔 사용여부</param>
+    /// <param name="sPathFormat">로그 파일을 생성할 경로 포맷</param>
+    /// <param name="bConsole">콘솔 표시 여부</param>
     public DotNetLogging(
         ILoggerFactory? loggerFactory
+        , string? sPathFormat
         , bool bConsole)
     {
         if (null != loggerFactory)
@@ -64,21 +76,49 @@ public class DotNetLogging
         }
         else
         {
-            //https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0#non-host-console-app
-            this.LoggerFactory_My
-                = LoggerFactory.Create(
-                    loggingBuilder => DotNetLogging.configure(loggingBuilder, bConsole));
+            if (null == sPathFormat)
+            {
+                //https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0#non-host-console-app
+                this.LoggerFactory_My
+                    = LoggerFactory.Create(
+                        loggingBuilder => DotNetLogging.configure(loggingBuilder, bConsole));
+            }
+            else
+            {
+                this.LoggerFactory_My
+                    = LoggerFactory.Create(
+                        loggingBuilder => DotNetLogging.configure(loggingBuilder, sPathFormat, bConsole));
+            }
         }
+    }
+
+    /// <summary>
+    /// 미리 세팅된 기본 옵션으로 로거를 생성한다.
+    /// <para>파일 경로도 기본 세팅된 것을 기준으로 사용한다.</para>
+    /// </summary>
+    /// <param name="loggingBuilder"></param>
+    /// <param name="bConsole">콘솔 표시 여부</param>
+    /// <returns></returns>
+    public static ILoggingBuilder configure(
+        ILoggingBuilder loggingBuilder
+        , bool bConsole)
+    {
+        return configure(
+            loggingBuilder
+            , Path.Combine("Logs", "Log_{0:yyyy}-{0:MM}-{0:dd}.log")
+            , bConsole);
     }
 
     /// <summary>
     /// 미리 세팅된 기본 옵션으로 로거를 생성한다.
     /// </summary>
     /// <param name="loggingBuilder"></param>
-    /// <param name="bConsole"></param>
+    /// <param name="sPathFormat">로그 파일을 생성할 경로 포맷</param>
+    /// <param name="bConsole">콘솔 표시 여부</param>
     /// <returns></returns>
     public static ILoggingBuilder configure(
         ILoggingBuilder loggingBuilder
+        , string sPathFormat
         , bool bConsole)
     {
         if (true == bConsole)
@@ -94,7 +134,7 @@ public class DotNetLogging
                 return true;
             });
 
-        loggingBuilder.AddFile(Path.Combine("Logs", "Log_{0:yyyy}-{0:MM}-{0:dd}.log")
+        loggingBuilder.AddFile(sPathFormat
             , fileLoggerOpts =>
             {
                 fileLoggerOpts.FormatLogFileName = sNameFormat =>
