@@ -20,7 +20,7 @@ namespace LoggingNReco_DotNetLogging;
 /// <remarks>
 /// https://stackoverflow.com/questions/48676152/asp-net-core-web-api-logging-from-a-static-class
 /// </remarks>
-internal class DotNetLogging_Copy
+internal class DotNetLogging
 {
 
     /// <summary>
@@ -32,7 +32,7 @@ internal class DotNetLogging_Copy
     /// 기본 생성
     /// <para>로거를 초기화를 하지 않으므로 임시 생성일때만 사용한다.</para>
     /// </summary>
-    internal DotNetLogging_Copy()
+    internal DotNetLogging()
     {
         this.LoggerFactory_My = new LoggerFactory();
     }
@@ -40,15 +40,25 @@ internal class DotNetLogging_Copy
     /// <summary>
     /// 로거는 자동 생성하고 로거를 기본 옵션으로 초기화 한다.
     /// </summary>
-    /// <param name="bConsole"></param>
-    internal DotNetLogging_Copy(bool bConsole)
+    /// <param name="sPathFormat">로그 파일을 생성할 경로 포맷</param>
+    /// <param name="bConsole">콘솔 표시 여부</param>
+    internal DotNetLogging(
+        string? sPathFormat
+        , bool bConsole)
     {
-        this.LoggerFactory_My = new LoggerFactory();
-
-        //https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0#non-host-console-app
-        this.LoggerFactory_My
-            = LoggerFactory.Create(
-                loggingBuilder => DotNetLogging.configure(loggingBuilder, bConsole));
+        if(null == sPathFormat)
+        {
+            //https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0#non-host-console-app
+            this.LoggerFactory_My
+                = LoggerFactory.Create(
+                    loggingBuilder => DotNetLogging.configure(loggingBuilder, bConsole));
+        }
+        else
+        {
+            this.LoggerFactory_My
+                = LoggerFactory.Create(
+                    loggingBuilder => DotNetLogging.configure(loggingBuilder, sPathFormat, bConsole));
+        }
     }
 
     /// <summary>
@@ -59,9 +69,11 @@ internal class DotNetLogging_Copy
     /// 자동 생성시 NReco.Logging.File를 기준으로 작성된다.
     /// </remarks>
     /// <param name="loggerFactory">생성한 ILoggerFactory 개채. null이면 자동생성</param>
-    /// <param name="bConsole">자동생성시 콘솔 사용여부</param>
-    internal DotNetLogging_Copy(
+    /// <param name="sPathFormat">로그 파일을 생성할 경로 포맷</param>
+    /// <param name="bConsole">콘솔 표시 여부</param>
+    internal DotNetLogging(
         ILoggerFactory? loggerFactory
+        , string? sPathFormat
         , bool bConsole)
     {
         if (null != loggerFactory)
@@ -70,10 +82,19 @@ internal class DotNetLogging_Copy
         }
         else
         {
-            //https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0#non-host-console-app
-            this.LoggerFactory_My
-                = LoggerFactory.Create(
-                    loggingBuilder => DotNetLogging.configure(loggingBuilder, bConsole));
+            if (null == sPathFormat)
+            {
+                //https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0#non-host-console-app
+                this.LoggerFactory_My
+                    = LoggerFactory.Create(
+                        loggingBuilder => DotNetLogging.configure(loggingBuilder, bConsole));
+            }
+            else
+            {
+                this.LoggerFactory_My
+                    = LoggerFactory.Create(
+                        loggingBuilder => DotNetLogging.configure(loggingBuilder, sPathFormat, bConsole));
+            }
         }
     }
 
@@ -297,5 +318,6 @@ internal class DotNetLogging_Copy
     }
 
 }
+
 
 #endif
