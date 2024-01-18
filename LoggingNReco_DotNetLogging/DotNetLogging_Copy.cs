@@ -1,11 +1,18 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 using Microsoft.Extensions.Logging;
 
-namespace Utility.ApplicationLogger;
+using NReco.Logging.File;
+
+
+namespace LoggingNReco_DotNetLogging;
+
+
+//복사 붙여넣기 전용코드
+
+//컴파일 제외
+#if ExcludingCompile
 
 /// <summary>
 /// 공유 로거Shared logger
@@ -13,7 +20,7 @@ namespace Utility.ApplicationLogger;
 /// <remarks>
 /// https://stackoverflow.com/questions/48676152/asp-net-core-web-api-logging-from-a-static-class
 /// </remarks>
-internal class DotNetLogging
+internal class DotNetLogging_Copy
 {
 
     /// <summary>
@@ -25,17 +32,19 @@ internal class DotNetLogging
     /// 기본 생성
     /// <para>로거를 초기화를 하지 않으므로 임시 생성일때만 사용한다.</para>
     /// </summary>
-    internal DotNetLogging()
+    internal DotNetLogging_Copy()
     {
         this.LoggerFactory_My = new LoggerFactory();
     }
-    
+
     /// <summary>
     /// 로거는 자동 생성하고 로거를 기본 옵션으로 초기화 한다.
     /// </summary>
-    /// <param name="bConsole">콘솔 사용여부</param>
-    internal DotNetLogging(bool bConsole)
+    /// <param name="bConsole"></param>
+    internal DotNetLogging_Copy(bool bConsole)
     {
+        this.LoggerFactory_My = new LoggerFactory();
+
         //https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0#non-host-console-app
         this.LoggerFactory_My
             = LoggerFactory.Create(
@@ -51,11 +60,11 @@ internal class DotNetLogging
     /// </remarks>
     /// <param name="loggerFactory">생성한 ILoggerFactory 개채. null이면 자동생성</param>
     /// <param name="bConsole">자동생성시 콘솔 사용여부</param>
-    internal DotNetLogging(
+    internal DotNetLogging_Copy(
         ILoggerFactory? loggerFactory
         , bool bConsole)
     {
-        if(null != loggerFactory)
+        if (null != loggerFactory)
         {
             this.LoggerFactory_My = loggerFactory;
         }
@@ -83,6 +92,13 @@ internal class DotNetLogging
             loggingBuilder.AddSimpleConsole(x => x.TimestampFormat = "[yyyy-MM-dd HH:mm:ss] ");
             //loggingBuilder.AddSimpleConsole(x=>x.TimestampFormat)
         }
+
+        //로거 표시 설정(디버거 등의 메시지 출력 설정)
+        loggingBuilder.AddFilter(
+            (provider, category, logLevel) =>
+            {
+                return true;
+            });
 
         loggingBuilder.AddFile(Path.Combine("Logs", "Log_{0:yyyy}-{0:MM}-{0:dd}.log")
             , fileLoggerOpts =>
@@ -129,7 +145,7 @@ internal class DotNetLogging
     /// </summary>
     /// <param name="sCategoryName"></param>
     /// <returns></returns>
-    internal ILogger CreateLogger(string sCategoryName) 
+    internal ILogger CreateLogger(string sCategoryName)
         => LoggerFactory_My.CreateLogger(sCategoryName);
 
     /// <summary>
@@ -151,9 +167,8 @@ internal class DotNetLogging
             if (null != mbTemp)
             {
                 Type? typeTemp = mbTemp.ReflectedType;
-                if (null != typeTemp)
+                if (null != mbTemp)
                 {
-                    //sReturn = typeTemp.Name;
                     sReturn = mbTemp.Name;
                 }
             }
@@ -238,7 +253,7 @@ internal class DotNetLogging
             .LogDebug(sMessage);
     }
 
-    
+
 
     /// <summary>
     /// 경고 로그 출력
@@ -263,3 +278,5 @@ internal class DotNetLogging
     }
 
 }
+
+#endif

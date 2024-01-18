@@ -1,5 +1,11 @@
-using LoggingNReco_Aspnet.Global;
 using System.Diagnostics;
+
+using NReco.Logging.File;
+
+using LoggingNReco_Aspnet.Global;
+using LoggingNReco_DotNetLogging;
+
+
 
 namespace LoggingNReco_Aspnet;
 
@@ -17,50 +23,65 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        //로깅 주입 및 로그 파일 설정
-        builder.Services.AddLogging(loggingBuilder
-            => loggingBuilder.AddFile("Logs/Log_{0:yyyy}-{0:MM}-{0:dd}.log"
-                , fileLoggerOpts =>
-                {
-                    //파일 출력 이름
-                    fileLoggerOpts.FormatLogFileName = fName =>
-                    {
-                        return String.Format(fName, DateTime.Now);
-                    };
+        if(false)
+        {//종속성 주입을 직접 할 경우
 
-                    //메시지 커스텀
-                    fileLoggerOpts.FormatLogEntry = (lmMsg) =>
-                    {
-                        string sLevel = string.Empty;
 
-                        switch (lmMsg.LogLevel)
+            //로깅 주입 및 로그 파일 설정
+            builder.Services.AddLogging(loggingBuilder
+                => loggingBuilder.AddFile("Logs/Log_{0:yyyy}-{0:MM}-{0:dd}.log"
+                    , fileLoggerOpts =>
+                    {
+                        //파일 출력 이름
+                        fileLoggerOpts.FormatLogFileName = fName =>
                         {
-                            case LogLevel.Information:
-                                sLevel = "Info";
-                                break;
-                            case LogLevel.Warning:
-                                sLevel = "Warn";
-                                break;
+                            return String.Format(fName, DateTime.Now);
+                        };
 
-                            default:
-                                sLevel = lmMsg.LogLevel.ToString();
-                                break;
-                        }
+                        //메시지 커스텀
+                        fileLoggerOpts.FormatLogEntry = (lmMsg) =>
+                        {
+                            string sLevel = string.Empty;
 
-                        return $"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}] {sLevel} [{lmMsg.LogName}] {lmMsg.Message}";
-                    };
-                }));
+                            switch (lmMsg.LogLevel)
+                            {
+                                case LogLevel.Information:
+                                    sLevel = "Info";
+                                    break;
+                                case LogLevel.Warning:
+                                    sLevel = "Warn";
+                                    break;
+
+                                default:
+                                    sLevel = lmMsg.LogLevel.ToString();
+                                    break;
+                            }
+
+                            return $"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}] {sLevel} [{lmMsg.LogName}] {lmMsg.Message}";
+                        };
+                    }));
 
 
 
-        //builder.Logging.SetMinimumLevel(LogLevel.Trace);
-        //로거 표시 설정
-        builder.Logging
-            .AddSimpleConsole(c => c.TimestampFormat = "[yyyy-MM-dd HH:mm:ss] ")
-            .AddFilter((provider, category, logLevel) =>
-            {
-                return true;
-            });
+            //builder.Logging.SetMinimumLevel(LogLevel.Trace);
+            //로거 표시 설정
+            builder.Logging
+                .AddSimpleConsole(c => c.TimestampFormat = "[yyyy-MM-dd HH:mm:ss] ")
+                .AddFilter((provider, category, logLevel) =>
+                {
+                    return true;
+                });
+        }
+        else
+        {//DotNetLogging를 이용하는 경우
+
+            //로깅 주입 및 로그 파일 설정
+            builder.Services.AddLogging(loggingBuilder
+                => DotNetLogging.configure(loggingBuilder, true));
+        }
+
+        
+
         var app = builder.Build();
         
 

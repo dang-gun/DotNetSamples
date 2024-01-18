@@ -8,7 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-	  <PackageReference Include="NReco.Logging.File" Version="1.1.6" />
+	  <PackageReference Include="NReco.Logging.File" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LoggingNReco_DotNetLogging\LoggingNReco_DotNetLogging.csproj" />
   </ItemGroup>
 
 </Project>

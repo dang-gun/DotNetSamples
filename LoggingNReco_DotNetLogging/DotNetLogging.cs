@@ -1,11 +1,12 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 using Microsoft.Extensions.Logging;
 
-namespace Utility.ApplicationLogger;
+using NReco.Logging.File;
+
+
+namespace LoggingNReco_DotNetLogging;
 
 /// <summary>
 /// 공유 로거Shared logger
@@ -13,28 +14,28 @@ namespace Utility.ApplicationLogger;
 /// <remarks>
 /// https://stackoverflow.com/questions/48676152/asp-net-core-web-api-logging-from-a-static-class
 /// </remarks>
-internal class DotNetLogging
+public class DotNetLogging
 {
 
     /// <summary>
     /// 로거 팩토리
     /// </summary>
-    internal ILoggerFactory LoggerFactory_My { get; set; }
+    public ILoggerFactory LoggerFactory_My { get; set; }
 
     /// <summary>
     /// 기본 생성
     /// <para>로거를 초기화를 하지 않으므로 임시 생성일때만 사용한다.</para>
     /// </summary>
-    internal DotNetLogging()
+    public DotNetLogging()
     {
         this.LoggerFactory_My = new LoggerFactory();
     }
-    
+
     /// <summary>
     /// 로거는 자동 생성하고 로거를 기본 옵션으로 초기화 한다.
     /// </summary>
     /// <param name="bConsole"></param>
-    internal DotNetLogging(bool bConsole)
+    public DotNetLogging(bool bConsole)
     {
         this.LoggerFactory_My = new LoggerFactory();
 
@@ -53,11 +54,11 @@ internal class DotNetLogging
     /// </remarks>
     /// <param name="loggerFactory">생성한 ILoggerFactory 개채. null이면 자동생성</param>
     /// <param name="bConsole">자동생성시 콘솔 사용여부</param>
-    internal DotNetLogging(
+    public DotNetLogging(
         ILoggerFactory? loggerFactory
         , bool bConsole)
     {
-        if(null != loggerFactory)
+        if (null != loggerFactory)
         {
             this.LoggerFactory_My = loggerFactory;
         }
@@ -76,7 +77,7 @@ internal class DotNetLogging
     /// <param name="loggingBuilder"></param>
     /// <param name="bConsole"></param>
     /// <returns></returns>
-    internal static ILoggingBuilder configure(
+    public static ILoggingBuilder configure(
         ILoggingBuilder loggingBuilder
         , bool bConsole)
     {
@@ -85,6 +86,13 @@ internal class DotNetLogging
             loggingBuilder.AddSimpleConsole(x => x.TimestampFormat = "[yyyy-MM-dd HH:mm:ss] ");
             //loggingBuilder.AddSimpleConsole(x=>x.TimestampFormat)
         }
+
+        //로거 표시 설정(디버거 등의 메시지 출력 설정)
+        loggingBuilder.AddFilter(
+            (provider, category, logLevel) =>
+            {
+                return true;
+            });
 
         loggingBuilder.AddFile(Path.Combine("Logs", "Log_{0:yyyy}-{0:MM}-{0:dd}.log")
             , fileLoggerOpts =>
@@ -125,13 +133,13 @@ internal class DotNetLogging
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    internal ILogger CreateLogger<T>() => LoggerFactory_My.CreateLogger<T>();
+    public ILogger CreateLogger<T>() => LoggerFactory_My.CreateLogger<T>();
     /// <summary>
     /// 카테고리이름을 직접 입력하여 로거 생성
     /// </summary>
     /// <param name="sCategoryName"></param>
     /// <returns></returns>
-    internal ILogger CreateLogger(string sCategoryName) 
+    public ILogger CreateLogger(string sCategoryName)
         => LoggerFactory_My.CreateLogger(sCategoryName);
 
     /// <summary>
@@ -168,7 +176,7 @@ internal class DotNetLogging
     /// 정보 로그로 출력
     /// </summary>
     /// <param name="sMessage"></param>
-    internal void LogInfo(string sMessage)
+    public void LogInfo(string sMessage)
     {
         this.LogInfo(this.CategoryName(), sMessage);
     }
@@ -177,7 +185,7 @@ internal class DotNetLogging
     /// </summary>
     /// <param name="sCategoryName"></param>
     /// <param name="sMessage"></param>
-    internal void LogInfo(
+    public void LogInfo(
         string sCategoryName
         , string sMessage)
     {
@@ -190,7 +198,7 @@ internal class DotNetLogging
     /// 에러 로그로 출력
     /// </summary>
     /// <param name="ex"></param>
-    internal void LogError(Exception ex)
+    public void LogError(Exception ex)
     {
         this.LogError(ex.ToString());
     }
@@ -198,7 +206,7 @@ internal class DotNetLogging
     /// 에러 로그로 출력
     /// </summary>
     /// <param name="sMessage"></param>
-    internal void LogError(string sMessage)
+    public void LogError(string sMessage)
     {
         this.LogError(this.CategoryName(), sMessage);
     }
@@ -207,7 +215,7 @@ internal class DotNetLogging
     /// </summary>
     /// <param name="sCategoryName"></param>
     /// <param name="sMessage"></param>
-    internal void LogError(
+    public void LogError(
         string sCategoryName
         , string sMessage)
     {
@@ -221,7 +229,7 @@ internal class DotNetLogging
     /// 디버그 로그 출력
     /// </summary>
     /// <param name="sMessage"></param>
-    internal void LogDebug(string sMessage)
+    public void LogDebug(string sMessage)
     {
         this.LogDebug(this.CategoryName(), sMessage);
     }
@@ -230,7 +238,7 @@ internal class DotNetLogging
     /// </summary>
     /// <param name="sCategoryName"></param>
     /// <param name="sMessage"></param>
-    internal void LogDebug(
+    public void LogDebug(
         string sCategoryName
         , string sMessage)
     {
@@ -239,13 +247,13 @@ internal class DotNetLogging
             .LogDebug(sMessage);
     }
 
-    
+
 
     /// <summary>
     /// 경고 로그 출력
     /// </summary>
     /// <param name="sMessage"></param>
-    internal void LogWarning(string sMessage)
+    public void LogWarning(string sMessage)
     {
         this.LogWarning(this.CategoryName(), sMessage);
     }
@@ -254,7 +262,7 @@ internal class DotNetLogging
     /// </summary>
     /// <param name="sCategoryName"></param>
     /// <param name="sMessage"></param>
-    internal void LogWarning(
+    public void LogWarning(
         string sCategoryName
         , string sMessage)
     {

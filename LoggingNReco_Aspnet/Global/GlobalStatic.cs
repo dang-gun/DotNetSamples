@@ -1,5 +1,7 @@
 ﻿
 
+using LoggingNReco_DotNetLogging;
+
 namespace LoggingNReco_Aspnet.Global;
 
 /// <summary>
@@ -28,4 +30,9 @@ public class GlobalStatic
             logger.LogInformation(sMessage);
         }
     }
+
+    /// <summary>
+    /// DotNetLogging를 이용한 로거
+    /// </summary>
+    internal static DotNetLogging Log = new DotNetLogging();
 }
