@@ -142,6 +142,9 @@ internal class OpenCv_Capture : IDisposable
         this.FrameMat.Dispose();
     }
 
+    
+
+
     #region 보정 계수 저장/복구 관련
 
     /// <summary>

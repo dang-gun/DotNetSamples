@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System.Text.Json.Serialization;
 using Utility;
@@ -17,13 +18,16 @@ public partial class Form1 : Form
     {
         InitializeComponent();
 
-        
+        this.tstxtCameraIndex.Text = "0";
+        this.tstxtCameraSize_Width.Text = "4096";
+        this.tstxtCameraSize_Height.Text = "2160";
+
     }
 
-    #region 메뉴 - Config
+    #region 메뉴 > Config
     private void tsmiConfig_ViewOrientation_Click(object sender, EventArgs e)
     {
-        if(this.splitMain.Orientation == Orientation.Vertical)
+        if (this.splitMain.Orientation == Orientation.Vertical)
         {
             this.splitMain.Orientation = Orientation.Horizontal;
         }
@@ -34,7 +38,68 @@ public partial class Form1 : Form
     }
     #endregion
 
-    private void tsmiSelectFile_Click(object sender, EventArgs e)
+    #region 메뉴 > Camera
+
+    /// <summary>
+    /// 카메라 세팅이 변경됐는지 여부
+    /// </summary>
+    private bool CameraSetChangeIs = true;
+
+    private void tstxtCameraIndex_TextChanged(object sender, EventArgs e)
+    {
+        int nIndex = 0;
+        if (false == Int32.TryParse(this.tstxtCameraIndex.Text, out nIndex))
+        {//숫자로 바꿀 수 없다.
+
+            //강제로 원래 가로크기로 변경
+            this.tstxtCameraIndex.Text = this.OCV_C.CameraNumber.ToString();
+        }
+        else if (this.OCV_C.CameraNumber != nIndex)
+        {//이전 값과 다르다.
+
+            //세잍이 변경됐음을 알림
+            this.CameraSetChangeIs = true;
+        }
+    }
+
+    private void tstxtCameraSize_Width_TextChanged(object sender, EventArgs e)
+    {
+        int nWidth = 0;
+        if (false == Int32.TryParse(this.tstxtCameraSize_Width.Text, out nWidth))
+        {//숫자로 바꿀 수 없다.
+
+            //강제로 원래 가로크기로 변경
+            this.tstxtCameraSize_Width.Text = this.OCV_C.FrameWidth.ToString();
+        }
+        else if (this.OCV_C.FrameWidth != nWidth)
+        {//이전 값과 다르다.
+
+            //세잍이 변경됐음을 알림
+            this.CameraSetChangeIs = true;
+        }
+    }
+
+    private void tstxtCameraSize_Height_TextChanged(object sender, EventArgs e)
+    {
+        int nHeight = 0;
+        if (false == Int32.TryParse(this.tstxtCameraSize_Height.Text, out nHeight))
+        {//숫자로 바꿀 수 없다.
+
+            //강제로 원래 세로크기로 변경
+            this.tstxtCameraSize_Height.Text = this.OCV_C.FrameHeight.ToString();
+        }
+        else if (this.OCV_C.FrameHeight != nHeight)
+        {//이전 값과 다르다.
+
+            //세잍이 변경됐음을 알림
+            this.CameraSetChangeIs = true;
+        }
+    }
+
+    #endregion
+
+    #region 메뉴 > Calibration
+    private void tsmiCalibration_SelectFile_Click(object sender, EventArgs e)
     {
         bool bError = false;
         string sFilePath = string.Empty;
@@ -72,23 +137,12 @@ public partial class Form1 : Form
         }
     }
 
-    private void tsmiCameraCapture_Click(object sender, EventArgs e)
+    private void tsmiCalibration_CameraCapture_Click(object sender, EventArgs e)
     {
-        this.OCV_C.Capture();
+        this.CameraCapture();
     }
 
-    private void ViewImage()
-    {
-        this.pictureOriginal.Image = this.OCV_C.FrameMat.ToBitmap();
-        try
-        {
-            this.pictureCalibrated.Image = this.OCV_C.FinalMat.ToBitmap();
-        }
-        catch { }
-
-    }
-
-    private void tsmiRadialDistortionCheck_Click(object sender, EventArgs e)
+    private void tsmiCalibration_RadialDistortionCheck_Click(object sender, EventArgs e)
     {
         int nChessBoardWidth = 0;
         if (false == Int32.TryParse(tstxtChessBoardWidth.Text, out nChessBoardWidth))
@@ -115,17 +169,31 @@ public partial class Form1 : Form
         {
             MessageBox.Show(ex.Message);
         }
-
-
     }
 
-    private void tsmiRadialDistortionApply_Click(object sender, EventArgs e)
+    private void tsmiCalibration_RadialDistortionApply_Click(object sender, EventArgs e)
     {
         this.OCV_C.RadialDistortionApplyIs = true;
         this.OCV_C.CaptureImageLoad();
 
         this.ViewImage();
     }
+    #endregion
+
+
+
+    private void ViewImage()
+    {
+        this.pictureOriginal.Image = this.OCV_C.FrameMat.ToBitmap();
+        try
+        {
+            this.pictureCalibrated.Image = this.OCV_C.FinalMat.ToBitmap();
+        }
+        catch { }
+
+    }
+
+    
 
 
     #region 파일 저장
@@ -226,8 +294,27 @@ public partial class Form1 : Form
 
     private void tsmiCamera_Capture_Click(object sender, EventArgs e)
     {
-
+        this.CameraCapture();
     }
 
-    
+    private void CameraCapture()
+    {
+        if(true == this.CameraSetChangeIs)
+        {//카메라 정보가 변경되었다.
+
+            //카메라 새로 생성
+            this.OCV_C
+                = new OpenCv_Capture(
+                    Convert.ToInt32(this.tstxtCameraIndex.Text)
+                    , Convert.ToInt32(this.tstxtCameraSize_Width.Text)
+                    , Convert.ToInt32(this.tstxtCameraSize_Height.Text));
+
+            this.CameraSetChangeIs = false;
+        }
+
+        //캡쳐
+        this.OCV_C.Capture();
+        //이미지 출력
+        this.pictureOriginal.Image = this.OCV_C.FrameMat.ToBitmap();
+    }
 }
