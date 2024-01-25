@@ -22,6 +22,7 @@ public class DotNetLogging
     /// </summary>
     public ILoggerFactory LoggerFactory_My { get; set; }
 
+#pragma warning disable CS8618
     /// <summary>
     /// 기본 생성
     /// <para>로거를 초기화를 하지 않으므로 임시 생성일때만 사용한다.</para>
@@ -40,19 +41,7 @@ public class DotNetLogging
         string? sPathFormat
         , bool bConsole)
     {
-        if(null == sPathFormat)
-        {
-            //https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0#non-host-console-app
-            this.LoggerFactory_My
-                = LoggerFactory.Create(
-                    loggingBuilder => DotNetLogging.configure(loggingBuilder, bConsole));
-        }
-        else
-        {
-            this.LoggerFactory_My
-                = LoggerFactory.Create(
-                    loggingBuilder => DotNetLogging.configure(loggingBuilder, sPathFormat, bConsole));
-        }
+        this.Initialize(null, sPathFormat, bConsole);
     }
 
     /// <summary>
@@ -66,6 +55,25 @@ public class DotNetLogging
     /// <param name="sPathFormat">로그 파일을 생성할 경로 포맷</param>
     /// <param name="bConsole">콘솔 표시 여부</param>
     public DotNetLogging(
+        ILoggerFactory? loggerFactory
+        , string? sPathFormat
+        , bool bConsole)
+    {
+        this.Initialize(loggerFactory, sPathFormat, bConsole);
+    }
+#pragma warning restore CS8618
+
+    /// <summary>
+    /// 이 개체를 초기화 한다.
+    /// </summary>
+    /// <remarks>
+    /// 사용하는 프로젝트가 Microsoft.Extensions.Logging를 참조하고 있어야 한다.
+    /// (누겟에서 설치 가능)
+    /// </remarks>
+    /// <param name="loggerFactory"></param>
+    /// <param name="sPathFormat"></param>
+    /// <param name="bConsole"></param>
+    public void Initialize(
         ILoggerFactory? loggerFactory
         , string? sPathFormat
         , bool bConsole)
@@ -333,3 +341,4 @@ public class DotNetLogging
             .LogCritical(sMessage);
     }
 }
+
