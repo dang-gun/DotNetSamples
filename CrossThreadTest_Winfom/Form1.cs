@@ -51,7 +51,7 @@ public partial class Form1 : Form
         this
         , () =>
         {
-            this.labCrossThread_TestText.Text = "공통화 함수 1 - 자기 스레드";
+            this.labCrossThread_TestText.Text = "공통화 함수 - 자기 스레드";
         });
     }
 }

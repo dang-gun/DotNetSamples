@@ -1,5 +1,8 @@
 ﻿
-namespace CrossThreadTest_Winfom;
+using System.Windows.Controls;
+using System.Windows.Threading;
+
+namespace CrossThreadTest_WPF;
 
 /// <summary>
 /// 프로그램 전역 변수
@@ -11,13 +14,13 @@ public static class GlobalStatic
     /// </summary>
     /// <param name="controlThis"></param>
     /// <param name="action"></param>
-    public static void CrossThread_Winfom(
+    public static void CrossThread_WPF(
         Control controlThis
         , Action action)
     {
-        if (true == controlThis.InvokeRequired)
+        if (false == controlThis.Dispatcher.CheckAccess())
         {//다른 쓰래드다.
-            controlThis.Invoke(new Action(
+            controlThis.Dispatcher.Invoke(new Action(
                 delegate ()
                 {
                     action();
