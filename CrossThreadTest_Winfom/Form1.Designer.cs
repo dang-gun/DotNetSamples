@@ -80,7 +80,7 @@
             btnGlobal_This.Name = "btnGlobal_This";
             btnGlobal_This.Size = new Size(184, 23);
             btnGlobal_This.TabIndex = 0;
-            btnGlobal_This.Text = "공통화 함수 1 - 자기 스레드";
+            btnGlobal_This.Text = "공통화 함수 - 자기 스레드";
             btnGlobal_This.UseVisualStyleBackColor = true;
             btnGlobal_This.Click += btnGlobal_This_Click;
             // 
