@@ -97,6 +97,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossThreadTest_Winfom", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossThreadTest_WPF", "CrossThreadTest_WPF\CrossThreadTest_WPF.csproj", "{B5989FED-B597-4D8C-A5E5-1251CCECFDE3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenCvSharp4_WebCamCapture", "OpenCvSharp4_WebCamCapture\OpenCvSharp4_WebCamCapture.csproj", "{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_Sqlite|Any CPU = Debug_Sqlite|Any CPU
@@ -848,6 +850,24 @@ Global
 		{B5989FED-B597-4D8C-A5E5-1251CCECFDE3}.Release|ARM.Build.0 = Release|Any CPU
 		{B5989FED-B597-4D8C-A5E5-1251CCECFDE3}.Release|ARM64.ActiveCfg = Release|Any CPU
 		{B5989FED-B597-4D8C-A5E5-1251CCECFDE3}.Release|ARM64.Build.0 = Release|Any CPU
+		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Debug_Sqlite|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Debug_Sqlite|Any CPU.Build.0 = Debug|Any CPU
+		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Debug_Sqlite|ARM.ActiveCfg = Debug|Any CPU
+		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Debug_Sqlite|ARM.Build.0 = Debug|Any CPU
+		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Debug_Sqlite|ARM64.ActiveCfg = Debug|Any CPU
+		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Debug_Sqlite|ARM64.Build.0 = Debug|Any CPU
+		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Debug|ARM.Build.0 = Debug|Any CPU
+		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Release|ARM.ActiveCfg = Release|Any CPU
+		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Release|ARM.Build.0 = Release|Any CPU
+		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Release|ARM64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
