@@ -56,7 +56,7 @@ namespace OpenCvSharp4_WebCamCapture
 
                 //지정된 장비에서 캡쳐
                 cam.Read(matTemp);
-                //원본 저장
+                //화면에 출력
                 this.pictureOutput.Image = matTemp.ToBitmap();
             }
         }
@@ -103,7 +103,7 @@ namespace OpenCvSharp4_WebCamCapture
 
                 //지정된 장비에서 캡쳐
                 this.Cam.Read(matTemp);
-                //원본 저장
+                //화면에 출력
                 this.pictureOutput.Image = matTemp.ToBitmap();
 
             }
