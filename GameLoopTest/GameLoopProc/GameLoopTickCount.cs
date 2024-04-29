@@ -54,12 +54,12 @@ namespace GameLoopProc
 		/// </summary>
 		public GameLoopInterface TargetObject { get; protected set; }
 
-		/// <summary>
-		/// GameLoop의 동작에 사용될 개체<br />
-		/// GameLoopInterface를 가지고 있어야 한다.
-		/// </summary>
-		/// <param name="objTarget"></param>
-		public GameLoopTickCount (GameLoopInterface objTarget)
+        /// <summary>
+        /// Environment.TickCount 기반 게임 루프
+        /// </summary>
+        /// <param name="objTarget">GameLoop의 동작에 사용될 개체<br />
+        /// GameLoopInterface를 가지고 있어야 한다.</param>
+        public GameLoopTickCount (GameLoopInterface objTarget)
 		{
 			this.TargetObject = objTarget;
 		}

@@ -55,12 +55,13 @@ namespace GameLoopProc
 		/// </summary>
 		public GameLoopInterface TargetObject { get; protected set; }
 
-		/// <summary>
-		/// GameLoop의 동작에 사용될 개체<br />
-		/// GameLoopInterface를 가지고 있어야 한다.
-		/// </summary>
-		/// <param name="objTarget"></param>
-		public GameLoopStopwatch(GameLoopInterface objTarget)
+        /// <summary>
+		/// Stopwatch 기반 게임루프
+        /// </summary>
+        /// <param name="objTarget">
+        /// GameLoop의 동작에 사용될 개체<br />
+        /// GameLoopInterface를 가지고 있어야 한다.</param>
+        public GameLoopStopwatch(GameLoopInterface objTarget)
 		{
 			this.TargetObject = objTarget;
 		}

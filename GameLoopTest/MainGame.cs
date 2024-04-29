@@ -21,12 +21,27 @@ namespace GameLoopTest
 		/// </summary>
 		private int FpsCount = 0;
 			
-
-		public MainGame()
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="typeLoop"></param>
+		public MainGame(int typeLoop)
 		{
-			//this.GameLoop = new GameLoopTickCount (this);
-			//this.GameLoop = new GameLoopTimeSpan(this);
-			this.GameLoop = new GameLoopStopwatch(this);
+			switch(typeLoop)
+			{
+				case 1://Environment.TickCount 기반
+                    this.GameLoop = new GameLoopTickCount(this);
+                    break;
+
+				case 2://TimeSpan 기반
+                    this.GameLoop = new GameLoopTimeSpan(this);
+                    break;
+
+				default://Stopwatch기반 
+                    this.GameLoop = new GameLoopStopwatch(this);
+                    break;
+			}
+			
 			this.GameLoop.FPS = 60;
 
 			this.timerFps = new System.Timers.Timer();

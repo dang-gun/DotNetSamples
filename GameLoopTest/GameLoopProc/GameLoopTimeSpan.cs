@@ -59,12 +59,14 @@ namespace GameLoopProc
 
 
 
-		/// <summary>
-		/// GameLoop의 동작에 사용될 개체<br />
-		/// GameLoopInterface를 가지고 있어야 한다.
-		/// </summary>
-		/// <param name="objTarget"></param>
-		public GameLoopTimeSpan(GameLoopInterface objTarget)
+        /// <summary>
+        /// TimeSpan기반 타임 루프
+        /// </summary>
+        /// <param name="objTarget">
+        /// GameLoop의 동작에 사용될 개체<br />
+        /// GameLoopInterface를 가지고 있어야 한다.
+        /// </param>
+        public GameLoopTimeSpan(GameLoopInterface objTarget)
 		{
 			this.TargetObject = objTarget;
 
