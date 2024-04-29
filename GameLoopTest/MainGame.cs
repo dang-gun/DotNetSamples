@@ -41,10 +41,11 @@ namespace GameLoopTest
                     this.GameLoop = new GameLoopStopwatch(this);
                     break;
 			}
-			
-			this.GameLoop.FPS = 60;
 
-			this.timerFps = new System.Timers.Timer();
+            this.GameLoop.FPS = 60;
+            //this.GameLoop.FPS = 30;
+
+            this.timerFps = new System.Timers.Timer();
 			this.timerFps.Interval = 1000;
 			this.timerFps.Elapsed += TimerFps_Elapsed;
 		}
