@@ -64,7 +64,7 @@ namespace GameLoopTest
             newCA.ShowKeyWait(false);
 
 
-
+            Console.WriteLine(" ");
             //메인 게임 개체를 만들고
             MainGame = new MainGame(nSelectMenu);
 
