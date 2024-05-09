@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="DGU_ConsoleAssist">
+      <HintPath>..\OutLibrary\DGU_ConsoleAssist\LibRelease\DGU_ConsoleAssist.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

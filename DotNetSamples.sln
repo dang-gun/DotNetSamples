@@ -93,6 +93,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossThreadTest_WPF", "Cros
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCvSharp4_WebCamCapture", "OpenCvSharp4_WebCamCapture\OpenCvSharp4_WebCamCapture.csproj", "{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingletonTest", "SingletonTest\SingletonTest.csproj", "{473C70A4-960B-42FA-B62B-C235978473D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_Sqlite|Any CPU = Debug_Sqlite|Any CPU
@@ -826,6 +828,24 @@ Global
 		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Release|ARM.Build.0 = Release|Any CPU
 		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Release|ARM64.ActiveCfg = Release|Any CPU
 		{4AB0C9E4-76EC-4D17-8BE5-F2C6FA43F92F}.Release|ARM64.Build.0 = Release|Any CPU
+		{473C70A4-960B-42FA-B62B-C235978473D9}.Debug_Sqlite|Any CPU.ActiveCfg = Debug|Any CPU
+		{473C70A4-960B-42FA-B62B-C235978473D9}.Debug_Sqlite|Any CPU.Build.0 = Debug|Any CPU
+		{473C70A4-960B-42FA-B62B-C235978473D9}.Debug_Sqlite|ARM.ActiveCfg = Debug|Any CPU
+		{473C70A4-960B-42FA-B62B-C235978473D9}.Debug_Sqlite|ARM.Build.0 = Debug|Any CPU
+		{473C70A4-960B-42FA-B62B-C235978473D9}.Debug_Sqlite|ARM64.ActiveCfg = Debug|Any CPU
+		{473C70A4-960B-42FA-B62B-C235978473D9}.Debug_Sqlite|ARM64.Build.0 = Debug|Any CPU
+		{473C70A4-960B-42FA-B62B-C235978473D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{473C70A4-960B-42FA-B62B-C235978473D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{473C70A4-960B-42FA-B62B-C235978473D9}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{473C70A4-960B-42FA-B62B-C235978473D9}.Debug|ARM.Build.0 = Debug|Any CPU
+		{473C70A4-960B-42FA-B62B-C235978473D9}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{473C70A4-960B-42FA-B62B-C235978473D9}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{473C70A4-960B-42FA-B62B-C235978473D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{473C70A4-960B-42FA-B62B-C235978473D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{473C70A4-960B-42FA-B62B-C235978473D9}.Release|ARM.ActiveCfg = Release|Any CPU
+		{473C70A4-960B-42FA-B62B-C235978473D9}.Release|ARM.Build.0 = Release|Any CPU
+		{473C70A4-960B-42FA-B62B-C235978473D9}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{473C70A4-960B-42FA-B62B-C235978473D9}.Release|ARM64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
