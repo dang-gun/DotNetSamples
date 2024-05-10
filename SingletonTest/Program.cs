@@ -32,7 +32,6 @@ internal class Program
                 Console.WriteLine($"◇◇◇◇◇◇◇◇◇◇");
                 Console.WriteLine($" ");
 
-                //true이면 메뉴를 다시 표시한다.
                 return true;
             }
         });
@@ -51,7 +50,6 @@ internal class Program
                 Console.WriteLine($"◇◇◇◇◇◇◇◇◇◇");
                 Console.WriteLine($" ");
 
-                //true이면 메뉴를 다시 표시한다.
                 return true;
             }
         });
@@ -74,7 +72,25 @@ internal class Program
                 Console.WriteLine($"◇◇◇◇◇◇◇◇◇◇");
                 Console.WriteLine($" ");
 
-                //true이면 메뉴를 다시 표시한다.
+                return true;
+            }
+        });
+
+        newCA.MenuList.Add(new MenuModel()
+        {
+            Index = 4,
+            TextFormat = "{0}. Lazy<T>를 이용한 싱글톤",
+            Action = (MenuModel menuThis) =>
+            {
+                
+                Console.WriteLine($" ");
+                Console.WriteLine($" ");
+                Console.WriteLine($"◇◇◇◇◇ Lazy<T> ◇◇◇◇◇");
+                Console.WriteLine($"{GlobalStatic.LogTime()} 호출됨");
+                Console.WriteLine($"index = {LazyT.Instance.Index}");
+                Console.WriteLine($"◇◇◇◇◇◇◇◇◇◇");
+                Console.WriteLine($" ");
+
                 return true;
             }
         });
@@ -93,7 +109,6 @@ internal class Program
                 Console.WriteLine($"◇◇◇◇◇◇◇◇◇◇");
                 Console.WriteLine($" ");
 
-                //true이면 메뉴를 다시 표시한다.
                 return true;
             }
         });
