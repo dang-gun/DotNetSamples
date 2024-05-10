@@ -15,5 +15,8 @@ public class StaticNoSingleton
     {
         //생성확인을 위한 인덱스
         this.Index = ++GlobalStatic.IndexCount;
+
+        //개체가 생성된 시간
+        Console.WriteLine($"{GlobalStatic.LogTime()} StaticNoSingleton 생성됨 : {this.Index}");
     }
 }

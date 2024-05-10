@@ -26,8 +26,9 @@ internal class Program
             Action = (MenuModel menuThis) =>
             {
                 Console.WriteLine($" ");
-                Console.WriteLine($"◇◇◇◇◇◇◇◇◇◇");
-                Console.WriteLine($"Gamma95 index = {Gamma95.Instance.Index}");
+                Console.WriteLine($"◇◇◇◇◇ Gamma95 ◇◇◇◇◇");
+                Console.WriteLine($"{GlobalStatic.LogTime()} 호출됨");
+                Console.WriteLine($"index = {Gamma95.Instance.Index}");
                 Console.WriteLine($"◇◇◇◇◇◇◇◇◇◇");
                 Console.WriteLine($" ");
 
@@ -44,8 +45,9 @@ internal class Program
             {
                 Console.WriteLine($" ");
                 Console.WriteLine($" ");
-                Console.WriteLine($"◇◇◇◇◇◇◇◇◇◇");
-                Console.WriteLine($"Static Initialization index = {StaticInitialization.Instance.Index}");
+                Console.WriteLine($"◇◇◇◇◇ Static Initialization  ◇◇◇◇◇");
+                Console.WriteLine($"{GlobalStatic.LogTime()} 호출됨");
+                Console.WriteLine($"index = {StaticInitialization.Instance.Index}");
                 Console.WriteLine($"◇◇◇◇◇◇◇◇◇◇");
                 Console.WriteLine($" ");
 
@@ -66,8 +68,9 @@ internal class Program
 
                 Console.WriteLine($" ");
                 Console.WriteLine($" ");
-                Console.WriteLine($"◇◇◇◇◇◇◇◇◇◇");
-                Console.WriteLine($"Multithreaded Singleton index = {MultithreadedSingleton.Instance.Index}");
+                Console.WriteLine($"◇◇◇◇◇ Multithreaded Singleton ◇◇◇◇◇");
+                Console.WriteLine($"{GlobalStatic.LogTime()} 호출됨");
+                Console.WriteLine($"index = {MultithreadedSingleton.Instance.Index}");
                 Console.WriteLine($"◇◇◇◇◇◇◇◇◇◇");
                 Console.WriteLine($" ");
 
@@ -84,8 +87,9 @@ internal class Program
             {
                 Console.WriteLine($" ");
                 Console.WriteLine($" ");
-                Console.WriteLine($"◇◇◇◇◇◇◇◇◇◇");
-                Console.WriteLine($"No Singleton index = {NoSingleton.Instance.Index}");
+                Console.WriteLine($"◇◇◇◇◇ No Singleton ◇◇◇◇◇");
+                Console.WriteLine($"{GlobalStatic.LogTime()} 호출됨");
+                Console.WriteLine($"index = {NoSingleton.Instance.Index}");
                 Console.WriteLine($"◇◇◇◇◇◇◇◇◇◇");
                 Console.WriteLine($" ");
 
@@ -97,14 +101,15 @@ internal class Program
         newCA.MenuList.Add(new MenuModel()
         {
             Index = 12,
-            TextFormat = "{0}. 일반 정적 클래스(프로그램 시작과 동시에 메모리에 생성됨)",
+            TextFormat = "{0}. 일반 정적 클래스(프로그램 전역 개체)",
             Action = (MenuModel menuThis) =>
             {
 
                 Console.WriteLine($" ");
                 Console.WriteLine($" ");
-                Console.WriteLine($"◇◇◇◇◇◇◇◇◇◇");
-                Console.WriteLine($"Static No Singleton index = {GlobalStatic.NoSingleton.Index}");
+                Console.WriteLine($"◇◇◇◇◇ Static No Singleton ◇◇◇◇◇");
+                Console.WriteLine($"{GlobalStatic.LogTime()} 호출됨");
+                Console.WriteLine($"index = {GlobalStatic.NoSingleton.Index}");
                 Console.WriteLine($"◇◇◇◇◇◇◇◇◇◇");
                 Console.WriteLine($" ");
 

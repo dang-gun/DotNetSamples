@@ -1,4 +1,6 @@
 ﻿
+using System.Diagnostics;
+
 namespace SingletonTest.Singletons;
 
 /// <summary>
@@ -7,7 +9,7 @@ namespace SingletonTest.Singletons;
 /// </summary>
 /// <remarks>
 /// https://learn.microsoft.com/ko-kr/previous-versions/msp-n-p/ff650316(v=pandp.10)?redirectedfrom=MSDN#static-initialization
-/// <para>《디자인 패턴》[Gamma95]방식은 C++에서 정적변수 초기화 순서로 인한 회피코드가 포함되어 있다.<br />
+/// <para>《디자인 패턴》[Gamma95]방식은 C++에서 정적변수 초기화 순서로 인한 오류 회피코드가 포함되어 있다.<br />
 /// .NET에서는 이 문제가 없으므로 회피코드를 제거하고 바로 정적 초기화를 해도된다.</para>
 /// <para>싱글톤 클래스를 상속받으면 디자인 위반 가능성이 있으므로 sealed로 상속을 막는다.</para>
 /// </remarks>
@@ -31,6 +33,9 @@ public sealed class StaticInitialization
     {
         //생성확인을 위한 인덱스
         this.Index = ++GlobalStatic.IndexCount;
+
+        //개체가 생성된 시간
+        Console.WriteLine($"{GlobalStatic.LogTime()} StaticInitialization 생성됨 : {this.Index}");
     }
 
     /// <summary>
