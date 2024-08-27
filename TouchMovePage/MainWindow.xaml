@@ -6,10 +6,12 @@
         xmlns:local="clr-namespace:TouchMovePage"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        TouchDown="gridMain_TouchDown"
-        TouchUp="gridMain_TouchUp"
-        MouseDown="gridMain_MouseDown"
-        MouseUp="gridMain_MouseUp">
+        TouchDown="main_TouchDown"
+        TouchMove="main_TouchMove"
+        TouchUp="main_TouchUp"
+        MouseDown="main_MouseDown"
+        MouseMove="main_MouseMove"
+        MouseUp="main_MouseUp">
     <Grid x:Name="gridMain" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -17,13 +19,21 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Grid x:Name="PageContainer" Grid.Column="1">
-            <Frame x:Name="CurrentFrame" NavigationUIVisibility="Hidden" />
-            <Frame x:Name="NextFrame" NavigationUIVisibility="Hidden" Visibility="Collapsed" />
-        </Grid>
+        <Border Grid.Column="1" Grid.Row="0"
+                BorderBrush="Bisque" BorderThickness="2,2,2,2">
+            <Grid x:Name="PageContainer" Grid.Column="1">
+                <Frame x:Name="CurrentFrame" NavigationUIVisibility="Hidden" />
+                <Frame x:Name="NextFrame" NavigationUIVisibility="Hidden" Visibility="Collapsed" />
+            </Grid>
+        </Border>
+        
 
-        <Button Content="Left" Click="btnLeft_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
-        <Button Content="Right" Click="btnRight_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0"/>
+        <Button Content="Left" Grid.Column="0" 
+                Margin="100,50,100,50" 
+                Click="btnLeft_Click" />
+        <Button Content="Right" Grid.Column="2" 
+                Margin="100,50,100,50" 
+                Click="btnRight_Click" />
 
     </Grid>
 </Window>

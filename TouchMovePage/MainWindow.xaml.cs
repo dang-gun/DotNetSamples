@@ -23,6 +23,11 @@ public partial class MainWindow : Window
     /// </summary>
     private bool MouseDownIs = false;
     /// <summary>
+    /// 마우스나 터치가 눌린 상태로 이동했는지 여부
+    /// </summary>
+    private bool MouseMoveIs = false;
+
+    /// <summary>
     /// 마우스나 터치가 눌렸을때 위치
     /// </summary>
     private Point MouseDownPosition = new Point(0, 0);
@@ -89,25 +94,43 @@ public partial class MainWindow : Window
 
 
 
-    private void gridMain_TouchDown(object sender, TouchEventArgs e)
+    private void main_TouchDown(object sender, TouchEventArgs e)
     {
         this.MouseDownIs = true;
         this.MouseDownPosition = e.GetTouchPoint(this).Position;
+        this.MouseMoveIs = false;
     }
 
-    private void gridMain_TouchUp(object sender, TouchEventArgs e)
+    private void main_TouchMove(object sender, TouchEventArgs e)
+    {
+        if(true == this.MouseDownIs)
+        {
+            this.MouseDownIs = true;
+        }
+    }
+
+    private void main_TouchUp(object sender, TouchEventArgs e)
     {
         this.Grid_TouchMoveCheck(e.GetTouchPoint(this).Position);
+        this.MouseMoveIs = false;
     }
 
-    private void gridMain_MouseDown(object sender, MouseButtonEventArgs e)
+    private void main_MouseDown(object sender, MouseButtonEventArgs e)
     {
         this.MouseDownIs = true;
         this.MouseDownPosition = e.GetPosition(this);
         Debug.WriteLine($" MouseDown : {this.MouseDownPosition}");
     }
 
-    private void gridMain_MouseUp(object sender, MouseButtonEventArgs e)
+    private void main_MouseMove(object sender, MouseEventArgs e)
+    {
+        if (true == this.MouseDownIs)
+        {
+            this.MouseDownIs = true;
+        }
+    }
+
+    private void main_MouseUp(object sender, MouseButtonEventArgs e)
     {
         this.Grid_TouchMoveCheck(e.GetPosition(this));
     }
