@@ -13,23 +13,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AnimationPage;
+namespace DragPageMove;
 
 /// <summary>
-/// UcNewPage.xaml에 대한 상호 작용 논리
+/// PageUC.xaml에 대한 상호 작용 논리
 /// </summary>
-public partial class UcNewPage : Page
+public partial class PageUC : UserControl
 {
-    public UcNewPage()
+    public PageUC()
     {
         InitializeComponent();
     }
-    public UcNewPage(string sName)
+
+    public PageUC(string sName)
     {
         InitializeComponent();
 
-        //this.PageUc = new PageUC(sName);
-        this.PageUc.labName.Content = sName;
+        this.labName.Content = sName;
     }
-
 }
