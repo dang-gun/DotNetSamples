@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -17,6 +18,15 @@ namespace TouchMovePage;
 /// </summary>
 public partial class MainWindow : Window
 {
+    /// <summary>
+    /// 마우스나 터치가 눌린 상태 여부
+    /// </summary>
+    private bool MouseDownIs = false;
+    /// <summary>
+    /// 마우스나 터치가 눌렸을때 위치
+    /// </summary>
+    private Point MouseDownPosition = new Point(0, 0);
+
     public MainWindow()
     {
         InitializeComponent();
@@ -24,12 +34,12 @@ public partial class MainWindow : Window
         CurrentFrame.Navigate(new UcNewPage("1")); // 초기 페이지 설정
     }
 
-    private void Button_Click(object sender, RoutedEventArgs e)
+    private void btnLeft_Click(object sender, RoutedEventArgs e)
     {
         NavigateToPage(new UcNewPage("1"), new UcNewPage("2"), true);
     }
 
-    private void Button_Click_1(object sender, RoutedEventArgs e)
+    private void btnRight_Click(object sender, RoutedEventArgs e)
     {
         NavigateToPage(new UcNewPage("2"), new UcNewPage("1"), false);
     }
@@ -76,4 +86,47 @@ public partial class MainWindow : Window
         oldPageTransform.BeginAnimation(TranslateTransform.XProperty, oldPageAnimation);
         newPageTransform.BeginAnimation(TranslateTransform.XProperty, newPageAnimation);
     }
+
+
+
+    private void gridMain_TouchDown(object sender, TouchEventArgs e)
+    {
+        this.MouseDownIs = true;
+        this.MouseDownPosition = e.GetTouchPoint(this).Position;
+    }
+
+    private void gridMain_TouchUp(object sender, TouchEventArgs e)
+    {
+        this.Grid_TouchMoveCheck(e.GetTouchPoint(this).Position);
+    }
+
+    private void gridMain_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        this.MouseDownIs = true;
+        this.MouseDownPosition = e.GetPosition(this);
+        Debug.WriteLine($" MouseDown : {this.MouseDownPosition}");
+    }
+
+    private void gridMain_MouseUp(object sender, MouseButtonEventArgs e)
+    {
+        this.Grid_TouchMoveCheck(e.GetPosition(this));
+    }
+
+
+    private void Grid_TouchMoveCheck(Point pointNew)
+    {
+        Debug.WriteLine($" Grid_TouchMoveCheck : {pointNew}");
+        if (pointNew.X < this.MouseDownPosition.X)
+        {
+            // 왼쪽으로 스크롤
+            NavigateToPage(new UcNewPage("1"), new UcNewPage("2"), true);
+        }
+        else if (pointNew.X > this.MouseDownPosition.X)
+        {
+
+            // 오른쪽으로 스크롤
+            NavigateToPage(new UcNewPage("2"), new UcNewPage("1"), false);
+        }
+    }
+
 }

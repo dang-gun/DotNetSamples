@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouchMovePage"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="450" Width="800"
+        TouchDown="gridMain_TouchDown"
+        TouchUp="gridMain_TouchUp"
+        MouseDown="gridMain_MouseDown"
+        MouseUp="gridMain_MouseUp">
+    <Grid x:Name="gridMain" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
@@ -18,8 +22,8 @@
             <Frame x:Name="NextFrame" NavigationUIVisibility="Hidden" Visibility="Collapsed" />
         </Grid>
 
-        <Button Content="Go to Page 1" Click="Button_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
-        <Button Content="Go to Page 2" Click="Button_Click_1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0"/>
+        <Button Content="Left" Click="btnLeft_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
+        <Button Content="Right" Click="btnRight_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0"/>
 
     </Grid>
 </Window>
