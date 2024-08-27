@@ -107,6 +107,9 @@ public partial class PageMoveUC : UserControl
     /// 왼쪽으로 이동하는 애니메이션
     /// <para>pageNew개체가 오른쪽 생성되어 왼쪽으로 이동한다.</para>
     /// </summary>
+    /// <remarks>
+    /// 호출전에 NavigateToCheck로도 체크할 수 있다.
+    /// </remarks>
     /// <param name="pageNew">이동 목표 페이지</param>
     /// <returns>애니메이션이 실행되었는지 여부</returns>
     public bool PageMove_Left(Page pageNew)
@@ -117,6 +120,9 @@ public partial class PageMoveUC : UserControl
     /// 오른쪽으로 이동하는 애니메이션
     /// <para>pageNew개체가 왼쪽에서 생성되어 오른쪽으로 이동한다.</para>
     /// </summary>
+    /// <remarks>
+    /// 호출전에 NavigateToCheck로도 체크할 수 있다.
+    /// </remarks>
     /// <param name="pageNew">이동 목표 페이지</param>
     /// <returns>애니메이션이 실행되었는지 여부</returns>
     public bool PageMove_Right(Page pageNew)
@@ -136,7 +142,7 @@ public partial class PageMoveUC : UserControl
     /// <returns></returns>
     private bool NavigateToPage(Page pageNew, Page? pageOld, bool bRight)
     {
-        if(true == this.Ani_Playing)
+        if (false == this.NavigateToCheck())
         {//재생중이다.
 
             //이동하지 않음
@@ -176,25 +182,37 @@ public partial class PageMoveUC : UserControl
         // 애니메이션 완료 후 페이지 전환
         oldPageAnimation.Completed += (s, a) =>
         {
-            // 기존 페이지를 숨기지 않고 위치만 변경
-            // 변환 초기화
-            CurrentFrame.RenderTransform = null;
-            // 이전 페이지로 전환
-            CurrentFrame.Navigate(pageNew);
-            // 페이지 보이기
-            CurrentFrame.Visibility = Visibility.Visible;
-            // NextFrame 숨기기
-            NextFrame.Visibility = Visibility.Collapsed; 
+            //지연 후 페이지 전환
+            //시스템이 느리면 애니메이션이 끝나는 시점에 페이지 전환을 하면 깜박거리는 현상이 생긴다.
+            //전환하는데 약간의 딜레이를 주면 이 현상이 없어진다.
+            //내가 테스트한 시스템보다 더 느린경우 딜레이를 조절하면 해결하자.
+            var timer = new System.Windows.Threading.DispatcherTimer
+                            { Interval = TimeSpan.FromMilliseconds(20) };
+            timer.Tick += (s1, e1) =>
+            {
+                timer.Stop();
 
-            //이동 페이지를 지금 페이지로 저장
-            this.NowPage = pageNew;
-            //Debug.WriteLine("저장 : " + this.NowPage.labName.Content);
-            //Debug.WriteLine($"저장 : {((ItemPage)newPage).labName.Content}, {((ItemPage)oldPage).labName.Content}");
+                // 이전 페이지 숨기기
+                CurrentFrame.Visibility = Visibility.Collapsed;
+                // 변환 초기화
+                CurrentFrame.RenderTransform = null;
+                // 이전 페이지로 전환
+                CurrentFrame.Navigate(pageNew);
+                // 페이지 보이기
+                CurrentFrame.Visibility = Visibility.Visible;
+                // NextFrame 숨기기
+                NextFrame.Visibility = Visibility.Collapsed;
+
+                //이동 페이지를 지금 페이지로 저장
+                this.NowPage = pageNew;
+                //Debug.WriteLine("저장 : " + this.NowPage.labName.Content);
+                //Debug.WriteLine($"저장 : {((ItemPage)newPage).labName.Content}, {((ItemPage)oldPage).labName.Content}");
 
 
-            //애니메이션 끝남을 알림
-            this.Ani_Playing = false;
-            this.OnAniEndCall();
+                //애니메이션 끝남을 알림
+                this.Ani_Playing = false;
+                this.OnAniEndCall();
+            };
         };
 
         // 애니메이션 시작
@@ -202,6 +220,24 @@ public partial class PageMoveUC : UserControl
         newPageTransform.BeginAnimation(TranslateTransform.XProperty, newPageAnimation);
 
         return true;
+    }
+
+    /// <summary>
+    /// 페이지 이동이 가능한 상태인지 체크한다.
+    /// </summary>
+    /// <returns></returns>
+    public bool NavigateToCheck()
+    {
+        bool bReturn = false;
+
+        if (false == this.Ani_Playing)
+        {//재생중이 아니다.
+
+            //이동하지 않음
+            bReturn = true;
+        }
+
+        return bReturn;
     }
 
     /// <summary>
