@@ -9,8 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="FadeInOut\" />
-    <Folder Include="PageMove\" />
+    <Compile Update="DG_Pagination\PaginationUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="TestPage\ItemPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="TestPage\PaginationItemUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

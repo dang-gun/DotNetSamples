@@ -43,7 +43,7 @@ public partial class PageMoveUC : UserControl
 
 
     /// <summary>
-    /// 현제 보고 있는 페이지 개체
+    /// 현재 보고 있는 페이지 개체
     /// </summary>
     public Page? NowPage { get; private set; }
 
@@ -213,6 +213,7 @@ public partial class PageMoveUC : UserControl
                 this.Ani_Playing = false;
                 this.OnAniEndCall();
             };
+            timer.Start();
         };
 
         // 애니메이션 시작

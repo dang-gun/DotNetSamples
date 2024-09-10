@@ -31,27 +31,32 @@ public partial class MainWindow : Window
     {
         // 새 페이지로 전환할 때 애니메이션 효과 적용
         var newPage = new UcNewPage("1"); // 이동할 페이지
-        Fade_AniPageTransition(newPage);
+        this.Fade_AniPageTransition(newPage);
     }
     private void Fade_NextPage_Click(object sender, RoutedEventArgs e)
     {
         // 새 페이지로 전환할 때 애니메이션 효과 적용
         var newPage = new UcNewPage("2"); // 이동할 페이지
-        Fade_AniPageTransition(newPage);
+        this.Fade_AniPageTransition(newPage);
     }
 
     private void Fade_AniPageTransition(Page newPage)
     {
-        // 애니메이션 정의
+        // 페이드 아웃 애니메이션
         var fadeOutAnimation = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.5));
-        fadeOutAnimation.Completed += (s, a) =>
+        fadeOutAnimation.Completed += (s, e) =>
         {
-            FadeAniFrame.Navigate(newPage);
+            MainFrame.Navigate(newPage);
+            // 페이드 인 애니메이션
             var fadeInAnimation = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.5));
-            fadeInAnimation.Completed += (s2, a2) => FadeAniFrame.Opacity = 1; // 최종 상태 설정
-            FadeAniFrame.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+            fadeInAnimation.Completed += (s, e) =>
+            {
+                // 애니메이션 완료 후 추가 작업
+            };
+            MainFrame.Opacity = 0;
+            MainFrame.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
         };
-        FadeAniFrame.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
+        MainFrame.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
     }
     #endregion
 

@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Paging_MoveAnimation1;
+namespace TestPage;
 
 /// <summary>
 /// PaginationItemUC.xaml에 대한 상호 작용 논리

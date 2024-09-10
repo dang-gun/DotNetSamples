@@ -1,18 +1,18 @@
-﻿using DG_PageMove;
-using System.Text;
+﻿using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
 using TestPage;
 
-namespace Paging_MoveAnimation1;
+
+namespace Paging_FadeAnimation1;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
@@ -23,10 +23,10 @@ public partial class MainWindow : Window
 
     public int PageNowNumber = 0;
 
-
     public MainWindow()
     {
         InitializeComponent();
+
 
         //테스트 데이터
         this.ListItem.Add(new ItemPage("0", 0));
@@ -61,26 +61,12 @@ public partial class MainWindow : Window
         //첫 페이지 세팅
         //ItemPage pageFirst = this.ListItem[0];
         ItemPage pageFirst = this.ListItem[2];
-        this.ucPageMove.WithoutAnimation(pageFirst);
+        this.ucPageFade.WithoutAnimation(pageFirst);
         this.PageNowNumber = pageFirst.PageNumber;
         this.ucPagination.PageNow = this.PageNowNumber;
     }
 
     private void btnPrevious_Click(object sender, RoutedEventArgs e)
-    {
-
-        if (this.PageNowNumber >= this.ListItem.Count - 1)
-        {//뒤로 이동불가
-
-            return;
-        }
-
-        //여기에서 애니메이션이 확정이라 직접 호출 해도되지만
-        //일관성 유지를 위해 PageMove를 호출한다.
-        this.PageMove(this.PageNowNumber + 1);        
-    }
-
-    private void btnNext_Click(object sender, RoutedEventArgs e)
     {
         if (0 >= this.PageNowNumber)
         {//앞으로 이동불가
@@ -93,9 +79,17 @@ public partial class MainWindow : Window
         this.PageMove(this.PageNowNumber - 1);
     }
 
-    private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+    private void btnNext_Click(object sender, RoutedEventArgs e)
     {
-        ucPageMove.AniMoveWidthSet();
+        if (this.PageNowNumber >= this.ListItem.Count - 1)
+        {//뒤로 이동불가
+
+            return;
+        }
+
+        //여기에서 애니메이션이 확정이라 직접 호출 해도되지만
+        //일관성 유지를 위해 PageMove를 호출한다.
+        this.PageMove(this.PageNowNumber + 1);
     }
 
     public void PageMove(int nPageNumber)
@@ -107,11 +101,11 @@ public partial class MainWindow : Window
 
             //이동안함
         }
-        else if (nPageNumber < this.ucPagination.PageNow)
-        {//현재 페이지보다 작다
+        else
+        {
 
-            //앞으로 애니메이션 동작
-            if (true == ucPageMove.PageMove_Left(this.ListItem[nPageNumber]))
+            //애니메이션 동작
+            if (true == this.ucPageFade.NavigateToPage(this.ListItem[nPageNumber]))
             {//성공
 
                 //ucPageMove.PageMove_Next(this.ListItem[this.PageNowNumber]);
@@ -122,19 +116,6 @@ public partial class MainWindow : Window
                 this.ucPagination.PageNow = this.PageNowNumber;
             }
         }
-        else if (nPageNumber > this.ucPagination.PageNow)
-        {
-            //뒤로 애니메이션 동작
-            if (true == ucPageMove.PageMove_Right(this.ListItem[nPageNumber]))
-            {//성공
-
-                //ucPageMove.PageMove_Previous(this.ListItem[this.PageNowNumber]);
-
-                //한칸 뒤로 값 저장
-                this.PageNowNumber = nPageNumber;
-                //페이지네이션에 알림
-                this.ucPagination.PageNow = this.PageNowNumber;
-            }
-        }
     }//end PageMove
+
 }
