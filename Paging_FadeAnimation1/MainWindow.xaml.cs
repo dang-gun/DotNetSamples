@@ -41,8 +41,8 @@ public partial class MainWindow : Window
     {
         //페이지네이션 데이터 세팅
         this.ucPagination.DataSettting(
-             this.btnNextPage
-            , this.btnPreviousPage
+             this.btnNextPage1
+            , this.btnPreviousPage1
             , typeof(PaginationItemUC));
 
         //페이지네이션에 페이지 세팅
@@ -54,7 +54,7 @@ public partial class MainWindow : Window
         this.ucPagination.OnPageClick
             += (sender, nPageNumber) =>
             {
-                this.PageMove(nPageNumber);
+                this.PageMove1(nPageNumber);
             };
 
 
@@ -66,7 +66,9 @@ public partial class MainWindow : Window
         this.ucPagination.PageNow = this.PageNowNumber;
     }
 
-    private void btnPrevious_Click(object sender, RoutedEventArgs e)
+
+    #region 페이지네이션 1
+    private void btnPrevious1_Click(object sender, RoutedEventArgs e)
     {
         if (0 >= this.PageNowNumber)
         {//앞으로 이동불가
@@ -76,10 +78,10 @@ public partial class MainWindow : Window
 
         //여기에서 애니메이션이 확정이라 직접 호출 해도되지만
         //일관성 유지를 위해 PageMove를 호출한다.
-        this.PageMove(this.PageNowNumber - 1);
+        this.PageMove1(this.PageNowNumber - 1);
     }
 
-    private void btnNext_Click(object sender, RoutedEventArgs e)
+    private void btnNext1_Click(object sender, RoutedEventArgs e)
     {
         if (this.PageNowNumber >= this.ListItem.Count - 1)
         {//뒤로 이동불가
@@ -89,10 +91,10 @@ public partial class MainWindow : Window
 
         //여기에서 애니메이션이 확정이라 직접 호출 해도되지만
         //일관성 유지를 위해 PageMove를 호출한다.
-        this.PageMove(this.PageNowNumber + 1);
+        this.PageMove1(this.PageNowNumber + 1);
     }
 
-    public void PageMove(int nPageNumber)
+    public void PageMove1(int nPageNumber)
     {
         if (this.PageNowNumber == nPageNumber
             || null == this.ListItem.Where(w => w.PageNumber == nPageNumber).FirstOrDefault())
@@ -105,7 +107,7 @@ public partial class MainWindow : Window
         {
 
             //애니메이션 동작
-            if (true == this.ucPageFade.NavigateToPage(this.ListItem[nPageNumber]))
+            if (true == this.ucPageFade.NavigateToPage1(this.ListItem[nPageNumber]))
             {//성공
 
                 //ucPageMove.PageMove_Next(this.ListItem[this.PageNowNumber]);
@@ -117,5 +119,60 @@ public partial class MainWindow : Window
             }
         }
     }//end PageMove
+    #endregion
 
+
+    #region 페이지네이션 2
+    private void btnPrevious2_Click(object sender, RoutedEventArgs e)
+    {
+        if (0 >= this.PageNowNumber)
+        {//앞으로 이동불가
+
+            return;
+        }
+
+        //여기에서 애니메이션이 확정이라 직접 호출 해도되지만
+        //일관성 유지를 위해 PageMove를 호출한다.
+        this.PageMove2(this.PageNowNumber - 1);
+    }
+
+    private void btnNext2_Click(object sender, RoutedEventArgs e)
+    {
+        if (this.PageNowNumber >= this.ListItem.Count - 1)
+        {//뒤로 이동불가
+
+            return;
+        }
+
+        //여기에서 애니메이션이 확정이라 직접 호출 해도되지만
+        //일관성 유지를 위해 PageMove를 호출한다.
+        this.PageMove2(this.PageNowNumber + 1);
+    }
+
+    public void PageMove2(int nPageNumber)
+    {
+        if (this.PageNowNumber == nPageNumber
+            || null == this.ListItem.Where(w => w.PageNumber == nPageNumber).FirstOrDefault())
+        {//이동할 위치가 같다.
+            //이동할 위치에 데이터가 없다.
+
+            //이동안함
+        }
+        else
+        {
+
+            //애니메이션 동작
+            if (true == this.ucPageFade.NavigateToPage2(this.ListItem[nPageNumber]))
+            {//성공
+
+                //ucPageMove.PageMove_Next(this.ListItem[this.PageNowNumber]);
+
+                //한칸 앞으로 값 저장
+                this.PageNowNumber = nPageNumber;
+                //페이지네이션에 알림
+                this.ucPagination.PageNow = this.PageNowNumber;
+            }
+        }
+    }//end PageMove
+    #endregion
 }

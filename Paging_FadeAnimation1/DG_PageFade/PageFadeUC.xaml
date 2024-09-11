@@ -9,6 +9,7 @@
     <Grid>
         <Grid x:Name="PageContainer">
             <Frame x:Name="CurrentFrame" NavigationUIVisibility="Hidden" />
+            <Frame x:Name="OverlayFrame" NavigationUIVisibility="Hidden" IsHitTestVisible="False" />
         </Grid>
     </Grid>
 </UserControl>

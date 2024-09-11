@@ -61,7 +61,12 @@ public partial class PageFadeUC : UserControl
         InitializeComponent();
     }
 
-    public bool NavigateToPage(Page pageNew)
+    /// <summary>
+    /// 기존 페이지가 페이드아웃이 되고 다음페이지가 페이드인 된다.
+    /// </summary>
+    /// <param name="pageNew"></param>
+    /// <returns></returns>
+    public bool NavigateToPage1(Page pageNew)
     {
         if (false == this.NavigateToCheck())
         {//재생중이다.
@@ -88,6 +93,38 @@ public partial class PageFadeUC : UserControl
 
         return true;
     }
+
+    public bool NavigateToPage2(Page pageNew)
+    {
+        if (false == this.NavigateToCheck())
+        {//재생중이다.
+
+            //이동하지 않음
+            return false;
+        }
+        
+
+        // 신규 페이지를 OverlayFrame에 로드하고 투명 상태로 설정
+        OverlayFrame.Navigate(pageNew);
+        OverlayFrame.Opacity = 0;
+        OverlayFrame.IsHitTestVisible = true; // 클릭 가능하게 설정
+
+        // 페이드 인 애니메이션
+        var fadeInAnimation = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.5));
+        fadeInAnimation.Completed += (s, e) =>
+        {
+            // 애니메이션이 끝난 후 OverlayFrame의 페이지를 MainFrame으로 옮기기
+            CurrentFrame.Navigate(pageNew);
+            OverlayFrame.IsHitTestVisible = false; // OverlayFrame 클릭 불가능하게 설정
+        };
+
+        // 페이드 인 애니메이션 시작
+        OverlayFrame.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+
+
+        return true;
+    }
+
 
     /// <summary>
     /// 페이지 이동이 가능한 상태인지 체크한다.
